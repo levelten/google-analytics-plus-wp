@@ -421,7 +421,19 @@ final class GAPWP_Settings {
 									<td class="gapwp-settings-title"></td>
 									<td>
 										<?php $profile_info = GAPWP_Tools::get_selected_profile($gapwp->config->options['ga_profiles_list'], $gapwp->config->options['tableid_jail']); ?>
-										<?php echo '<pre>' . __("View Name:", 'google-analytics-plus-wp') . "\t" . esc_html($profile_info[0]) . "<br />" . __("Tracking ID:", 'google-analytics-plus-wp') . "\t" . esc_html($profile_info[2]) . "<br />" . __("Default URL:", 'google-analytics-plus-wp') . "\t" . esc_html($profile_info[3]) . "<br />" . __("Time Zone:", 'google-analytics-plus-wp') . "\t" . esc_html($profile_info[5]) . '</pre>';?>
+										<?php if (!empty($profile_info[2])) : ?>
+										  <?php echo '<pre>' . __("View Name:", 'google-analytics-plus-wp') . "\t" . esc_html($profile_info[0]) . "<br />" . __("Tracking ID:", 'google-analytics-plus-wp') . "\t" . esc_html($profile_info[2]) . "<br />" . __("Default URL:", 'google-analytics-plus-wp') . "\t" . esc_html($profile_info[3]) . "<br />" . __("Time Zone:", 'google-analytics-plus-wp') . "\t" . esc_html($profile_info[5]) . '</pre>';?>
+									  <?php else : ?>
+									  <tr>
+                      <td class="gapwp-settings-title">
+                        <label for="tracking_id"><?php _e("Tracking ID:", 'google-analytics-plus-wp' ); ?>
+                        </label>
+                      </td>
+                      <td>
+                        <input type="text" name="options[tracking_id]" value="<?php echo esc_attr($options['tracking_id']); ?>" size="15">
+                      </td>
+                    </tr>
+									  <?php endif ?>
 									</td>
 								</tr>
 								<tr>
@@ -1209,11 +1221,12 @@ final class GAPWP_Settings {
 		}
 
 		$options = self::update_options( 'general' );
-		printf( '<div id="gapi-warning" class="updated"><p>%1$s <a href="https://deconf.com/open-google-analytics-dashboard-wordpress/?utm_source=gapwp_config&utm_medium=link&utm_content=general_screen&utm_campaign=gapwp">%2$s</a></p></div>', __( 'Loading the required libraries. If this results in a blank screen or a fatal error, try this solution:', 'google-analytics-plus-wp' ), __( 'Library conflicts between WordPress plugins', 'google-analytics-plus-wp' ) );
+		printf( '<div id="gapi-warning" class="updated"><p>%1$s <a href="https://deconf.com/google-analytics-dashboard-wordpress/?utm_source=gapwp_config&utm_medium=link&utm_content=general_screen&utm_campaign=gapwp">%2$s</a></p></div>', __( 'Loading the required libraries. If this results in a blank screen or a fatal error, try this solution:', 'google-analytics-plus-wp' ), __( 'Library conflicts between WordPress plugins', 'google-analytics-plus-wp' ) );
 		if ( null === $gapwp->gapi_controller ) {
 			$gapwp->gapi_controller = new GAPWP_GAPI_Controller();
 		}
 		echo '<script type="text/javascript">jQuery("#gapi-warning").hide()</script>';
+
 		if ( isset( $_POST['gapwp_access_code'] ) ) {
 			if ( 1 == ! stripos( 'x' . $_POST['gapwp_access_code'], 'UA-', 1 ) && $_POST['gapwp_access_code'] != get_option( 'gapwp_redeemed_code' ) ) {
 				try {
@@ -1221,7 +1234,7 @@ final class GAPWP_Settings {
 					update_option( 'gapwp_redeemed_code', $gapwp_access_code );
 					GAPWP_Tools::delete_cache( 'gapi_errors' );
 					GAPWP_Tools::delete_cache( 'last_error' );
-//Intel_Df::watchdog('GAPWP_Settings::general_settings $_POST', print_r($_POST, 1));
+
 					$gapwp->gapi_controller->client->authenticate( $_POST['gapwp_access_code'] );
 					$gapwp->config->options['token'] = $gapwp->gapi_controller->client->getAccessToken();
 					$gapwp->config->options['automatic_updates_minorversion'] = 1;
@@ -1362,12 +1375,12 @@ final class GAPWP_Settings {
 											<table class="gapwp-settings-options">
 												<tr>
 													<td colspan="2">
-														<?php echo "<h2>" . __( "Plugin Authorization", 'google-analytics-plus-wp' ) . "</h2>";?>
+														<?php echo "<h2>" . __( "Google Analytics API Authorization", 'google-analytics-plus-wp' ) . "</h2>";?>
 													</td>
 												</tr>
 												<tr>
 													<td colspan="2" class="gapwp-settings-info">
-														<?php printf(__('You need to create a %1$s and watch this %2$s before proceeding to authorization.', 'google-analytics-plus-wp'), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/creating-a-google-analytics-account/?utm_source=gapwp_config&utm_medium=link&utm_content=top_tutorial&utm_campaign=gapwp', __("free analytics account", 'google-analytics-plus-wp')), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/open-google-analytics-dashboard-wordpress/?utm_source=gapwp_config&utm_medium=link&utm_content=top_video&utm_campaign=gapwp', __("video tutorial", 'google-analytics-plus-wp')));?>
+														<?php printf(__('You need to create a %1$s and watch this %2$s before proceeding to authorization.', 'google-analytics-plus-wp'), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/creating-a-google-analytics-account/?utm_source=gapwp_config&utm_medium=link&utm_content=top_tutorial&utm_campaign=gapwp', __("free analytics account", 'google-analytics-plus-wp')), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/google-analytics-dashboard-wordpress/?utm_source=gapwp_config&utm_medium=link&utm_content=top_video&utm_campaign=gapwp', __("video tutorial", 'google-analytics-plus-wp')));?>
 													</td>
 												</tr>
 												  <?php if (! $options['token'] || ($options['user_api']  && ! $options['network_mode'])) : ?>
@@ -1526,7 +1539,7 @@ final class GAPWP_Settings {
 		/*
 		 * Include GAPI
 		 */
-		echo '<div id="gapi-warning" class="updated"><p>' . __( 'Loading the required libraries. If this results in a blank screen or a fatal error, try this solution:', 'google-analytics-plus-wp' ) . ' <a href="https://deconf.com/open-google-analytics-dashboard-wordpress/?utm_source=gapwp_config&utm_medium=link&utm_content=general_screen&utm_campaign=gapwp">Library conflicts between WordPress plugins</a></p></div>';
+		echo '<div id="gapi-warning" class="updated"><p>' . __( 'Loading the required libraries. If this results in a blank screen or a fatal error, try this solution:', 'google-analytics-plus-wp' ) . ' <a href="https://deconf.com/google-analytics-dashboard-wordpress/?utm_source=gapwp_config&utm_medium=link&utm_content=general_screen&utm_campaign=gapwp">Library conflicts between WordPress plugins</a></p></div>';
 
 		if ( null === $gapwp->gapi_controller ) {
 			$gapwp->gapi_controller = new GAPWP_GAPI_Controller();
@@ -1700,7 +1713,7 @@ final class GAPWP_Settings {
 																	</tr>
 																	<tr>
 																		<td colspan="2" class="gapwp-settings-info">
-								<?php printf(__('You need to create a %1$s and watch this %2$s before proceeding to authorization.', 'google-analytics-plus-wp'), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/creating-a-google-analytics-account/?utm_source=gapwp_config&utm_medium=link&utm_content=top_tutorial&utm_campaign=gapwp', __("free analytics account", 'google-analytics-plus-wp')), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/open-google-analytics-dashboard-wordpress/?utm_source=gapwp_config&utm_medium=link&utm_content=top_video&utm_campaign=gapwp', __("video tutorial", 'google-analytics-plus-wp')));?>
+								<?php printf(__('You need to create a %1$s and watch this %2$s before proceeding to authorization.', 'google-analytics-plus-wp'), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/creating-a-google-analytics-account/?utm_source=gapwp_config&utm_medium=link&utm_content=top_tutorial&utm_campaign=gapwp', __("free analytics account", 'google-analytics-plus-wp')), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/google-analytics-dashboard-wordpress/?utm_source=gapwp_config&utm_medium=link&utm_content=top_video&utm_campaign=gapwp', __("video tutorial", 'google-analytics-plus-wp')));?>
 								</td>
 																	</tr>
 								<?php if ( ! $options['token'] || $options['user_api'] ) : ?>
@@ -1868,7 +1881,7 @@ final class GAPWP_Settings {
 																<span><?php _e("Setup Tutorial & Demo",'google-analytics-plus-wp') ?></span>
 															</h3>
 															<div class="inside">
-																<a href="https://deconf.com/open-google-analytics-dashboard-wordpress/?utm_source=gapwp_config&utm_medium=link&utm_content=video&utm_campaign=gapwp" target="_blank"><img src="<?php echo plugins_url( 'images/open-google-analytics-dashboard.png' , __FILE__ );?>" width="100%" alt="" /></a>
+																<a href="https://deconf.com/google-analytics-dashboard-wordpress/?utm_source=gapwp_config&utm_medium=link&utm_content=video&utm_campaign=gapwp" target="_blank"><img src="<?php echo plugins_url( 'images/google-analytics-plus.png' , __FILE__ );?>" width="100%" alt="" /></a>
 															</div>
 														</div>
 														<div class="postbox">

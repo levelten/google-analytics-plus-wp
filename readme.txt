@@ -115,7 +115,7 @@ This plugin is fully compatible with multisite network installs, allowing three 
 
 = Further reading =
 
-* Homepage of [Google Analytics+ for WP](https://deconf.com/open-google-analytics-dashboard-wordpress/)
+* Homepage of [Google Analytics+ for WP](https://deconf.com/google-analytics-dashboard-wordpress/)
 * Other [WordPress Plugins](https://deconf.com/wordpress/) by same author
 * [Google Analytics | Partners](https://www.google.com/analytics/partners/company/5127525902581760/gadp/5629499534213120/app/5707702298738688/listing/5639274879778816) Gallery
 
@@ -144,7 +144,7 @@ You can submit pull requests, feature requests and bug reports on [our GitHub re
 
 = Documentation, Tutorials and FAQ =
 
-For documentation, tutorials, FAQ and videos check out: [Google Analytics+ for WP documentation](https://deconf.com/open-google-analytics-dashboard-wordpress/).
+For documentation, tutorials, FAQ and videos check out: [Google Analytics+ for WP documentation](https://deconf.com/google-analytics-dashboard-wordpress/).
 
 == Screenshots ==
 

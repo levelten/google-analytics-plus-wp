@@ -50,7 +50,7 @@ if ( ! class_exists( 'GAPWP_Tracking' ) ) {
 				return;
 			}
 
-			if ( 'universal' == $this->gapwp->config->options['tracking_type'] && $this->gapwp->config->options['tableid_jail'] ) {
+			if ( 'universal' == $this->gapwp->config->options['tracking_type'] && ($this->gapwp->config->options['tableid_jail'] || $this->gapwp->config->options['tracking_id']) ) {
 
 				// Analytics
 				require_once 'tracking-analytics.php';

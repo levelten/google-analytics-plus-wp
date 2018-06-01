@@ -21,6 +21,7 @@ class GAPWP_Install {
 			$options['access_front'][] = 'administrator';
 			$options['access_back'][] = 'administrator';
 			$options['tableid_jail'] = '';
+			$options['tracking_id'] = '';
 			$options['theme_color'] = '#1e73be';
 			$options['switch_profile'] = 0;
 			$options['tracking_type'] = 'universal';

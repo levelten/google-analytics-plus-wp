@@ -368,7 +368,7 @@ if ( ! class_exists( 'GAPWP_Backend_Setup' ) ) {
 			if ( get_option( 'gapwp_got_updated' ) ) :
 				?>
 <div id="gapwp-notice" class="notice is-dismissible">
-	<p><?php echo sprintf( __('Google Analytics+ for WP has been updated to version %s.', 'google-analytics-plus-wp' ), GAPWP_CURRENT_VERSION).' '.sprintf( __('For details, check out %1$s.', 'google-analytics-plus-wp' ), sprintf(' <a href="https://deconf.com/open-google-analytics-dashboard-wordpress/?utm_source=gapwp_notice&utm_medium=link&utm_content=release_notice&utm_campaign=gapwp">%s</a>', __('the plugin documentation', 'google-analytics-plus-wp') ) ); ?></p>
+	<p><?php echo sprintf( __('Google Analytics+ for WP has been updated to version %s.', 'google-analytics-plus-wp' ), GAPWP_CURRENT_VERSION).' '.sprintf( __('For details, check out %1$s.', 'google-analytics-plus-wp' ), sprintf(' <a href="https://deconf.com/google-analytics-dashboard-wordpress/?utm_source=gapwp_notice&utm_medium=link&utm_content=release_notice&utm_campaign=gapwp">%s</a>', __('the plugin documentation', 'google-analytics-plus-wp') ) ); ?></p>
 </div>
 
 			<?php

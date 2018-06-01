@@ -24,7 +24,16 @@ if ( ! class_exists( 'GAPWP_Tracking_Analytics_Base' ) ) {
 
 			$profile = GAPWP_Tools::get_selected_profile( $this->gapwp->config->options['ga_profiles_list'], $this->gapwp->config->options['tableid_jail'] );
 
-			$this->uaid = esc_html( $profile[2] );
+			$this->uaid = '';
+
+			if (!empty($profile[2])) {
+				$this->uaid = esc_html( $profile[2] );
+			}
+			else if (!empty($this->gapwp->config->options['tracking_id'])) {
+				$this->uaid = esc_html( $this->gapwp->config->options['tracking_id'] );
+			}
+
+
 		}
 
 		protected function build_custom_dimensions() {

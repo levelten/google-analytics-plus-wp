@@ -7,7 +7,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
 ?>
-<!-- BEGIN GAPWP v<?php echo GAPWP_CURRENT_VERSION; ?> Tag Manager - https://deconf.com/open-google-analytics-dashboard-wordpress/ -->
+<!-- BEGIN GAPWP v<?php echo GAPWP_CURRENT_VERSION; ?> Tag Manager - https://deconf.com/google-analytics-dashboard-wordpress/ -->
 <script>
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push(<?php echo $data['vars']; ?>);
