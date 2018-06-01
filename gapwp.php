@@ -6,7 +6,7 @@
  * Author: Alin Marcu
  * Version: 5.4.0.0-dev
  * Author URI: https://deconf.com
- * Text Domain: open-google-analytics-dashboard-for-wp
+ * Text Domain: google-analytics-plus-wp
  * Domain Path: /languages
  */
 
@@ -20,7 +20,7 @@ if ( ! defined( 'OGADWP_CURRENT_VERSION' ) ) {
 }
 
 if ( ! defined( 'OGADWP_ENDPOINT_URL' ) ) {
-	define( 'OGADWP_ENDPOINT_URL', 'https://ogadwp.deconf.com/' );
+	define( 'OGADWP_ENDPOINT_URL', '' );
 }
 
 
@@ -57,7 +57,7 @@ if ( ! class_exists( 'OGADWP_Manager' ) ) {
 		 */
 		private function __construct() {
 			if ( null !== self::$instance ) {
-				_doing_it_wrong( __FUNCTION__, __( "This is not allowed, read the documentation!", 'open-google-analytics-dashboard-for-wp' ), '4.6' );
+				_doing_it_wrong( __FUNCTION__, __( "This is not allowed, read the documentation!", 'google-analytics-plus-wp' ), '4.6' );
 			}
 		}
 
@@ -65,14 +65,14 @@ if ( ! class_exists( 'OGADWP_Manager' ) ) {
 		 * Clone warning
 		 */
 		private function __clone() {
-			_doing_it_wrong( __FUNCTION__, __( "This is not allowed, read the documentation!", 'open-google-analytics-dashboard-for-wp' ), '4.6' );
+			_doing_it_wrong( __FUNCTION__, __( "This is not allowed, read the documentation!", 'google-analytics-plus-wp' ), '4.6' );
 		}
 
 		/**
 		 * Wakeup warning
 		 */
 		private function __wakeup() {
-			_doing_it_wrong( __FUNCTION__, __( "This is not allowed, read the documentation!", 'open-google-analytics-dashboard-for-wp' ), '4.6' );
+			_doing_it_wrong( __FUNCTION__, __( "This is not allowed, read the documentation!", 'google-analytics-plus-wp' ), '4.6' );
 		}
 
 		/**
@@ -163,7 +163,7 @@ if ( ! class_exists( 'OGADWP_Manager' ) ) {
 		 * Load i18n
 		 */
 		public function load_i18n() {
-			load_plugin_textdomain( 'open-google-analytics-dashboard-for-wp', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+			load_plugin_textdomain( 'google-analytics-plus-wp', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 		}
 
 		/**

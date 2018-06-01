@@ -47,7 +47,7 @@ if ( ! class_exists( 'OGADWP_Config' ) ) {
 			if ( ! isset( $item['new_version'] ) || ! isset( $item['plugin'] ) || ! $this->options['automatic_updates_minorversion'] ) {
 				return $update;
 			}
-			if ( isset( $item['slug'] ) && 'open-google-analytics-dashboard-for-wp' == $item['slug'] ) {
+			if ( isset( $item['slug'] ) && 'google-analytics-plus-wp' == $item['slug'] ) {
 				// Only when a minor update is available
 				if ( $this->get_major_version( OGADWP_CURRENT_VERSION ) == $this->get_major_version( $item['new_version'] ) ) {
 					return ( $this->get_major_version( OGADWP_CURRENT_VERSION ) == $this->get_major_version( $item['new_version'] ) );

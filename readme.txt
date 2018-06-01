@@ -122,7 +122,7 @@ This plugin is fully compatible with multisite network installs, allowing three 
 
 == Installation ==
 
-1. Upload the full open-google-analytics-dashboard-for-wp directory into your wp-content/plugins directory.
+1. Upload the full google-analytics-plus-wp directory into your wp-content/plugins directory.
 2. In WordPress select Plugins from your sidebar menu and activate the Open Google Analytics Dashboard for WP plugin.
 3. Open the plugin configuration page, which is located under Google Analytics menu.
 4. Authorize the plugin to connect to Google Analytics using the Authorize Plugin button.
@@ -161,7 +161,7 @@ For documentation, tutorials, FAQ and videos check out: [Open Google Analytics D
 
 == Localization ==
 
-You can translate Open Google Analytics Dashboard for WP on [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/open-google-analytics-dashboard-for-wp).
+You can translate Open Google Analytics Dashboard for WP on [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/google-analytics-plus-wp).
 
 == License ==
 
@@ -245,4 +245,4 @@ Open Google Analytics Dashboard for WP it's released under the GPLv2, you can us
 	* fix for inline SVG links, props by [Andrew Minion](https://github.com/macbookandrew)
 	* fixes a bug on affiliate events tracking
 
-The full changelog is [available here](https://deconf.com/changelog-open-google-analytics-dashboard-for-wp/).
+The full changelog is [available here](https://deconf.com/changelog-google-analytics-plus-wp/).

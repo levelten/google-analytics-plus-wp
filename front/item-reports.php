@@ -27,7 +27,7 @@ if ( ! class_exists( 'OGADWP_Frontend_Item_Reports' ) ) {
 			if ( OGADWP_Tools::check_roles( $this->ogadwp->config->options['access_front'] ) && $this->ogadwp->config->options['frontend_item_reports'] ) {
 				/* @formatter:off */
 				$args = array( 	'id' => 'ogadwp-1',
-								'title' => '<span class="ab-icon"></span><span class="">' . __( "Analytics", 'open-google-analytics-dashboard-for-wp' ) . '</span>',
+								'title' => '<span class="ab-icon"></span><span class="">' . __( "Analytics", 'google-analytics-plus-wp' ) . '</span>',
 								'href' => '#1',
 								);
 				/* @formatter:on */

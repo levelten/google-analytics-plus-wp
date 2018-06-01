@@ -99,18 +99,18 @@ final class OGADWP_Settings {
 		}
 		$options = self::update_options( 'frontend' );
 		if ( isset( $_POST['options']['ogadwp_hidden'] ) ) {
-			$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Settings saved.", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+			$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Settings saved.", 'google-analytics-plus-wp' ) . "</p></div>";
 			if ( ! ( isset( $_POST['ogadwp_security'] ) && wp_verify_nonce( $_POST['ogadwp_security'], 'ogadwp_form' ) ) ) {
-				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-plus-wp' ) . "</p></div>";
 			}
 		}
 		if ( ! $ogadwp->config->options['tableid_jail'] || ! $ogadwp->config->options['token'] ) {
-			$message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'open-google-analytics-dashboard-for-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_errors_debugging', false ), __( 'Errors & Debug', 'open-google-analytics-dashboard-for-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_settings', false ), __( 'authorize the plugin', 'open-google-analytics-dashboard-for-wp' ) ) ) );
+			$message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'google-analytics-plus-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_errors_debugging', false ), __( 'Errors & Debug', 'google-analytics-plus-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_settings', false ), __( 'authorize the plugin', 'google-analytics-plus-wp' ) ) ) );
 		}
 		?>
 <form name="ogadwp_form" method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
 	<div class="wrap">
-	<?php echo "<h2>" . __( "Google Analytics Frontend Settings", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?><hr>
+	<?php echo "<h2>" . __( "Google Analytics Frontend Settings", 'google-analytics-plus-wp' ) . "</h2>"; ?><hr>
 	</div>
 	<div id="poststuff" class="ogadwp">
 		<div id="post-body" class="metabox-holder columns-2">
@@ -120,11 +120,11 @@ final class OGADWP_Settings {
 					<?php if (isset($message)) echo $message; ?>
 						<table class="ogadwp-settings-options">
 							<tr>
-								<td colspan="2"><?php echo "<h2>" . __( "Permissions", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+								<td colspan="2"><?php echo "<h2>" . __( "Permissions", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 							</tr>
 							<tr>
 								<td class="roles ogadwp-settings-title">
-									<label for="access_front"><?php _e("Show stats to:", 'open-google-analytics-dashboard-for-wp' ); ?>
+									<label for="access_front"><?php _e("Show stats to:", 'google-analytics-plus-wp' ); ?>
 									</label>
 								</td>
 								<td class="ogadwp-settings-roles">
@@ -160,7 +160,7 @@ final class OGADWP_Settings {
 											<div class="ogadwp-settings-switchoo-switch"></div>
 										</label>
 									</div>
-									<div class="switch-desc"><?php echo " ".__("enable web page reports on frontend", 'open-google-analytics-dashboard-for-wp' );?></div>
+									<div class="switch-desc"><?php echo " ".__("enable web page reports on frontend", 'google-analytics-plus-wp' );?></div>
 								</td>
 							</tr>
 							<tr>
@@ -170,7 +170,7 @@ final class OGADWP_Settings {
 							</tr>
 							<tr>
 								<td colspan="2" class="submit">
-									<input type="submit" name="Submit" class="button button-primary" value="<?php _e('Save Changes', 'open-google-analytics-dashboard-for-wp' ) ?>" />
+									<input type="submit" name="Submit" class="button button-primary" value="<?php _e('Save Changes', 'google-analytics-plus-wp' ) ?>" />
 								</td>
 							</tr>
 						</table>
@@ -194,18 +194,18 @@ final class OGADWP_Settings {
 		}
 		$options = self::update_options( 'backend' );
 		if ( isset( $_POST['options']['ogadwp_hidden'] ) ) {
-			$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Settings saved.", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+			$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Settings saved.", 'google-analytics-plus-wp' ) . "</p></div>";
 			if ( ! ( isset( $_POST['ogadwp_security'] ) && wp_verify_nonce( $_POST['ogadwp_security'], 'ogadwp_form' ) ) ) {
-				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-plus-wp' ) . "</p></div>";
 			}
 		}
 		if ( ! $ogadwp->config->options['tableid_jail'] || ! $ogadwp->config->options['token'] ) {
-			$message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'open-google-analytics-dashboard-for-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_errors_debugging', false ), __( 'Errors & Debug', 'open-google-analytics-dashboard-for-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_settings', false ), __( 'authorize the plugin', 'open-google-analytics-dashboard-for-wp' ) ) ) );
+			$message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'google-analytics-plus-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_errors_debugging', false ), __( 'Errors & Debug', 'google-analytics-plus-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_settings', false ), __( 'authorize the plugin', 'google-analytics-plus-wp' ) ) ) );
 		}
 		?>
 <form name="ogadwp_form" method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
 	<div class="wrap">
-			<?php echo "<h2>" . __( "Google Analytics Backend Settings", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?><hr>
+			<?php echo "<h2>" . __( "Google Analytics Backend Settings", 'google-analytics-plus-wp' ) . "</h2>"; ?><hr>
 	</div>
 	<div id="poststuff" class="ogadwp">
 		<div id="post-body" class="metabox-holder columns-2">
@@ -215,11 +215,11 @@ final class OGADWP_Settings {
 					<?php if (isset($message)) echo $message; ?>
 						<table class="ogadwp-settings-options">
 							<tr>
-								<td colspan="2"><?php echo "<h2>" . __( "Permissions", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+								<td colspan="2"><?php echo "<h2>" . __( "Permissions", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 							</tr>
 							<tr>
 								<td class="roles ogadwp-settings-title">
-									<label for="access_back"><?php _e("Show stats to:", 'open-google-analytics-dashboard-for-wp' ); ?>
+									<label for="access_back"><?php _e("Show stats to:", 'google-analytics-plus-wp' ); ?>
 									</label>
 								</td>
 								<td class="ogadwp-settings-roles">
@@ -261,7 +261,7 @@ final class OGADWP_Settings {
 											<div class="ogadwp-settings-switchoo-switch"></div>
 										</label>
 									</div>
-									<div class="switch-desc"><?php _e ( "enable Switch View functionality", 'open-google-analytics-dashboard-for-wp' );?></div>
+									<div class="switch-desc"><?php _e ( "enable Switch View functionality", 'google-analytics-plus-wp' );?></div>
 								</td>
 							</tr>
 							<tr>
@@ -273,7 +273,7 @@ final class OGADWP_Settings {
 											<div class="ogadwp-settings-switchoo-switch"></div>
 										</label>
 									</div>
-									<div class="switch-desc"><?php _e ( "enable reports on Posts List and Pages List", 'open-google-analytics-dashboard-for-wp' );?></div>
+									<div class="switch-desc"><?php _e ( "enable reports on Posts List and Pages List", 'google-analytics-plus-wp' );?></div>
 								</td>
 							</tr>
 							<tr>
@@ -285,12 +285,12 @@ final class OGADWP_Settings {
 											<div class="ogadwp-settings-switchoo-switch"></div>
 										</label>
 									</div>
-									<div class="switch-desc"><?php _e ( "enable the main Dashboard Widget", 'open-google-analytics-dashboard-for-wp' );?></div>
+									<div class="switch-desc"><?php _e ( "enable the main Dashboard Widget", 'google-analytics-plus-wp' );?></div>
 								</td>
 							</tr>
 							<tr>
 								<td colspan="2">
-									<hr><?php echo "<h2>" . __( "Real-Time Settings", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+									<hr><?php echo "<h2>" . __( "Real-Time Settings", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 							</tr>
 							<?php if ( $options['user_api'] ) : ?>
 							<tr>
@@ -302,38 +302,38 @@ final class OGADWP_Settings {
 											<div class="ogadwp-settings-switchoo-switch"></div>
 										</label>
 									</div>
-									<div class="switch-desc"><?php _e ( "enable Real-Time report (requires access to Real-Time Reporting API)", 'open-google-analytics-dashboard-for-wp' );?></div>
+									<div class="switch-desc"><?php _e ( "enable Real-Time report (requires access to Real-Time Reporting API)", 'google-analytics-plus-wp' );?></div>
 								</td>
 							</tr>
 							<?php endif; ?>
 							<tr>
-								<td colspan="2" class="ogadwp-settings-title"> <?php _e("Maximum number of pages to display on real-time tab:", 'open-google-analytics-dashboard-for-wp'); ?>
+								<td colspan="2" class="ogadwp-settings-title"> <?php _e("Maximum number of pages to display on real-time tab:", 'google-analytics-plus-wp'); ?>
 									<input type="number" name="options[ga_realtime_pages]" id="ga_realtime_pages" value="<?php echo (int)$options['ga_realtime_pages']; ?>" size="3">
 								</td>
 							</tr>
 							<tr>
 								<td colspan="2">
-									<hr><?php echo "<h2>" . __( "Location Settings", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+									<hr><?php echo "<h2>" . __( "Location Settings", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 							</tr>
 							<tr>
 								<td colspan="2" class="ogadwp-settings-title">
-									<?php echo __("Target Geo Map to country:", 'open-google-analytics-dashboard-for-wp'); ?>
+									<?php echo __("Target Geo Map to country:", 'google-analytics-plus-wp'); ?>
 									<input type="text" style="text-align: center;" name="options[ga_target_geomap]" value="<?php echo esc_attr($options['ga_target_geomap']); ?>" size="3">
 								</td>
 							</tr>
 							<tr>
 								<td colspan="2" class="ogadwp-settings-title">
-									<?php echo __("Maps API Key:", 'open-google-analytics-dashboard-for-wp'); ?>
+									<?php echo __("Maps API Key:", 'google-analytics-plus-wp'); ?>
 									<input type="text" style="text-align: center;" name="options[maps_api_key]" value="<?php echo esc_attr($options['maps_api_key']); ?>" size="50">
 								</td>
 							</tr>
 							<tr>
 								<td colspan="2">
-									<hr><?php echo "<h2>" . __( "404 Errors Report", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+									<hr><?php echo "<h2>" . __( "404 Errors Report", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 							</tr>
 							<tr>
 								<td colspan="2" class="ogadwp-settings-title">
-									<?php echo __("404 Page Title contains:", 'open-google-analytics-dashboard-for-wp'); ?>
+									<?php echo __("404 Page Title contains:", 'google-analytics-plus-wp'); ?>
 									<input type="text" style="text-align: center;" name="options[pagetitle_404]" value="<?php echo esc_attr($options['pagetitle_404']); ?>" size="20">
 								</td>
 							</tr>
@@ -344,7 +344,7 @@ final class OGADWP_Settings {
 							</tr>
 							<tr>
 								<td colspan="2" class="submit">
-									<input type="submit" name="Submit" class="button button-primary" value="<?php _e('Save Changes', 'open-google-analytics-dashboard-for-wp' ) ?>" />
+									<input type="submit" name="Submit" class="button button-primary" value="<?php _e('Save Changes', 'google-analytics-plus-wp' ) ?>" />
 								</td>
 							</tr>
 						</table>
@@ -369,18 +369,18 @@ final class OGADWP_Settings {
 		}
 		$options = self::update_options( 'tracking' );
 		if ( isset( $_POST['options']['ogadwp_hidden'] ) ) {
-			$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Settings saved.", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+			$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Settings saved.", 'google-analytics-plus-wp' ) . "</p></div>";
 			if ( ! ( isset( $_POST['ogadwp_security'] ) && wp_verify_nonce( $_POST['ogadwp_security'], 'ogadwp_form' ) ) ) {
-				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-plus-wp' ) . "</p></div>";
 			}
 		}
 		if ( ! $ogadwp->config->options['tableid_jail'] ) {
-			$message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'open-google-analytics-dashboard-for-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_errors_debugging', false ), __( 'Errors & Debug', 'open-google-analytics-dashboard-for-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_settings', false ), __( 'authorize the plugin', 'open-google-analytics-dashboard-for-wp' ) ) ) );
+			$message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'google-analytics-plus-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_errors_debugging', false ), __( 'Errors & Debug', 'google-analytics-plus-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_settings', false ), __( 'authorize the plugin', 'google-analytics-plus-wp' ) ) ) );
 		}
 		?>
 <form name="ogadwp_form" method="post" action="<?php  esc_url($_SERVER['REQUEST_URI']); ?>">
 	<div class="wrap">
-			<?php echo "<h2>" . __( "Google Analytics Tracking Code", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?>
+			<?php echo "<h2>" . __( "Google Analytics Tracking Code", 'google-analytics-plus-wp' ) . "</h2>"; ?>
 	</div>
 	<div id="poststuff" class="ogadwp">
 		<div id="post-body" class="metabox-holder columns-2">
@@ -388,11 +388,11 @@ final class OGADWP_Settings {
 				<div class="settings-wrapper">
 					<div class="inside">
 						<?php if ( 'universal' == $options['tracking_type'] ) :?>
-						<?php $tabs = array( 'basic' => __( "Basic Settings", 'open-google-analytics-dashboard-for-wp' ), 'events' => __( "Events Tracking", 'open-google-analytics-dashboard-for-wp' ), 'custom' => __( "Custom Definitions", 'open-google-analytics-dashboard-for-wp' ), 'exclude' => __( "Exclude Tracking", 'open-google-analytics-dashboard-for-wp' ), 'advanced' => __( "Advanced Settings", 'open-google-analytics-dashboard-for-wp' ), 'integration' => __( "Integration", 'open-google-analytics-dashboard-for-wp' ) );?>
+						<?php $tabs = array( 'basic' => __( "Basic Settings", 'google-analytics-plus-wp' ), 'events' => __( "Events Tracking", 'google-analytics-plus-wp' ), 'custom' => __( "Custom Definitions", 'google-analytics-plus-wp' ), 'exclude' => __( "Exclude Tracking", 'google-analytics-plus-wp' ), 'advanced' => __( "Advanced Settings", 'google-analytics-plus-wp' ), 'integration' => __( "Integration", 'google-analytics-plus-wp' ) );?>
 						<?php elseif ( 'tagmanager' == $options['tracking_type'] ) :?>
-						<?php $tabs = array( 'basic' => __( "Basic Settings", 'open-google-analytics-dashboard-for-wp' ), 'tmdatalayervars' => __( "DataLayer Variables", 'open-google-analytics-dashboard-for-wp' ), 'exclude' => __( "Exclude Tracking", 'open-google-analytics-dashboard-for-wp' ), 'tmadvanced' =>  __( "Advanced Settings", 'open-google-analytics-dashboard-for-wp' ), 'tmintegration' => __( "Integration", 'open-google-analytics-dashboard-for-wp' ) );?>
+						<?php $tabs = array( 'basic' => __( "Basic Settings", 'google-analytics-plus-wp' ), 'tmdatalayervars' => __( "DataLayer Variables", 'google-analytics-plus-wp' ), 'exclude' => __( "Exclude Tracking", 'google-analytics-plus-wp' ), 'tmadvanced' =>  __( "Advanced Settings", 'google-analytics-plus-wp' ), 'tmintegration' => __( "Integration", 'google-analytics-plus-wp' ) );?>
 						<?php else :?>
-						<?php $tabs = array( 'basic' => __( "Basic Settings", 'open-google-analytics-dashboard-for-wp' ) );?>
+						<?php $tabs = array( 'basic' => __( "Basic Settings", 'google-analytics-plus-wp' ) );?>
 						<?php endif; ?>
 						<?php self::navigation_tabs( $tabs ); ?>
 						<?php if ( isset( $message ) ) : ?>
@@ -401,18 +401,18 @@ final class OGADWP_Settings {
 						<div id="ogadwp-basic">
 							<table class="ogadwp-settings-options">
 								<tr>
-									<td colspan="2"><?php echo "<h2>" . __( "Tracking Settings", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+									<td colspan="2"><?php echo "<h2>" . __( "Tracking Settings", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="tracking_type"><?php _e("Tracking Type:", 'open-google-analytics-dashboard-for-wp' ); ?>
+										<label for="tracking_type"><?php _e("Tracking Type:", 'google-analytics-plus-wp' ); ?>
 										</label>
 									</td>
 									<td>
 										<select id="tracking_type" name="options[tracking_type]" onchange="this.form.submit()">
-											<option value="universal" <?php selected( $options['tracking_type'], 'universal' ); ?>><?php _e("Analytics", 'open-google-analytics-dashboard-for-wp');?></option>
-											<option value="tagmanager" <?php selected( $options['tracking_type'], 'tagmanager' ); ?>><?php _e("Tag Manager", 'open-google-analytics-dashboard-for-wp');?></option>
-											<option value="disabled" <?php selected( $options['tracking_type'], 'disabled' ); ?>><?php _e("Disabled", 'open-google-analytics-dashboard-for-wp');?></option>
+											<option value="universal" <?php selected( $options['tracking_type'], 'universal' ); ?>><?php _e("Analytics", 'google-analytics-plus-wp');?></option>
+											<option value="tagmanager" <?php selected( $options['tracking_type'], 'tagmanager' ); ?>><?php _e("Tag Manager", 'google-analytics-plus-wp');?></option>
+											<option value="disabled" <?php selected( $options['tracking_type'], 'disabled' ); ?>><?php _e("Disabled", 'google-analytics-plus-wp');?></option>
 										</select>
 									</td>
 								</tr>
@@ -421,7 +421,7 @@ final class OGADWP_Settings {
 									<td class="ogadwp-settings-title"></td>
 									<td>
 										<?php $profile_info = OGADWP_Tools::get_selected_profile($ogadwp->config->options['ga_profiles_list'], $ogadwp->config->options['tableid_jail']); ?>
-										<?php echo '<pre>' . __("View Name:", 'open-google-analytics-dashboard-for-wp') . "\t" . esc_html($profile_info[0]) . "<br />" . __("Tracking ID:", 'open-google-analytics-dashboard-for-wp') . "\t" . esc_html($profile_info[2]) . "<br />" . __("Default URL:", 'open-google-analytics-dashboard-for-wp') . "\t" . esc_html($profile_info[3]) . "<br />" . __("Time Zone:", 'open-google-analytics-dashboard-for-wp') . "\t" . esc_html($profile_info[5]) . '</pre>';?>
+										<?php echo '<pre>' . __("View Name:", 'google-analytics-plus-wp') . "\t" . esc_html($profile_info[0]) . "<br />" . __("Tracking ID:", 'google-analytics-plus-wp') . "\t" . esc_html($profile_info[2]) . "<br />" . __("Default URL:", 'google-analytics-plus-wp') . "\t" . esc_html($profile_info[3]) . "<br />" . __("Time Zone:", 'google-analytics-plus-wp') . "\t" . esc_html($profile_info[5]) . '</pre>';?>
 									</td>
 								</tr>
 								<tr>
@@ -433,13 +433,13 @@ final class OGADWP_Settings {
 												<div class="ogadwp-settings-switchoo-switch"></div>
 											</label>
 										</div>
-										<div class="switch-desc"><?php echo " ".__("use global site tag gtag.js (not recommended)", 'open-google-analytics-dashboard-for-wp' );?></div>
+										<div class="switch-desc"><?php echo " ".__("use global site tag gtag.js (not recommended)", 'google-analytics-plus-wp' );?></div>
 									</td>
 								</tr>
 								<?php elseif ( 'tagmanager' == $options['tracking_type'] ) : ?>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="tracking_type"><?php _e("Web Container ID:", 'open-google-analytics-dashboard-for-wp' ); ?>
+										<label for="tracking_type"><?php _e("Web Container ID:", 'google-analytics-plus-wp' ); ?>
 										</label>
 									</td>
 									<td>
@@ -449,13 +449,13 @@ final class OGADWP_Settings {
 								<?php endif; ?>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="trackingcode_infooter"><?php _e("Code Placement:", 'open-google-analytics-dashboard-for-wp' ); ?>
+										<label for="trackingcode_infooter"><?php _e("Code Placement:", 'google-analytics-plus-wp' ); ?>
 										</label>
 									</td>
 									<td>
 										<select id="trackingcode_infooter" name="options[trackingcode_infooter]">
-											<option value="0" <?php selected( $options['trackingcode_infooter'], 0 ); ?>><?php _e("HTML Head", 'open-google-analytics-dashboard-for-wp');?></option>
-											<option value="1" <?php selected( $options['trackingcode_infooter'], 1 ); ?>><?php _e("HTML Body", 'open-google-analytics-dashboard-for-wp');?></option>
+											<option value="0" <?php selected( $options['trackingcode_infooter'], 0 ); ?>><?php _e("HTML Head", 'google-analytics-plus-wp');?></option>
+											<option value="1" <?php selected( $options['trackingcode_infooter'], 1 ); ?>><?php _e("HTML Body", 'google-analytics-plus-wp');?></option>
 										</select>
 									</td>
 								</tr>
@@ -464,7 +464,7 @@ final class OGADWP_Settings {
 						<div id="ogadwp-events">
 							<table class="ogadwp-settings-options">
 								<tr>
-									<td colspan="2"><?php echo "<h2>" . __( "Events Tracking", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+									<td colspan="2"><?php echo "<h2>" . __( "Events Tracking", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 								</tr>
 								<tr>
 									<td colspan="2" class="ogadwp-settings-title">
@@ -475,7 +475,7 @@ final class OGADWP_Settings {
 												<div class="ogadwp-settings-switchoo-switch"></div>
 											</label>
 										</div>
-										<div class="switch-desc"><?php echo " ".__("track downloads, mailto, telephone and outbound links", 'open-google-analytics-dashboard-for-wp' ); ?></div>
+										<div class="switch-desc"><?php echo " ".__("track downloads, mailto, telephone and outbound links", 'google-analytics-plus-wp' ); ?></div>
 									</td>
 								</tr>
 								<tr>
@@ -487,7 +487,7 @@ final class OGADWP_Settings {
 												<div class="ogadwp-settings-switchoo-switch"></div>
 											</label>
 										</div>
-										<div class="switch-desc"><?php echo " ".__("track affiliate links", 'open-google-analytics-dashboard-for-wp' ); ?></div>
+										<div class="switch-desc"><?php echo " ".__("track affiliate links", 'google-analytics-plus-wp' ); ?></div>
 									</td>
 								</tr>
 								<tr>
@@ -499,7 +499,7 @@ final class OGADWP_Settings {
 												<div class="ogadwp-settings-switchoo-switch"></div>
 											</label>
 										</div>
-										<div class="switch-desc"><?php echo " ".__("track fragment identifiers, hashmarks (#) in URI links", 'open-google-analytics-dashboard-for-wp' ); ?></div>
+										<div class="switch-desc"><?php echo " ".__("track fragment identifiers, hashmarks (#) in URI links", 'google-analytics-plus-wp' ); ?></div>
 									</td>
 								</tr>
 								<tr>
@@ -511,7 +511,7 @@ final class OGADWP_Settings {
 												<div class="ogadwp-settings-switchoo-switch"></div>
 											</label>
 										</div>
-										<div class="switch-desc"><?php echo " ".__("track form submit actions", 'open-google-analytics-dashboard-for-wp' ); ?></div>
+										<div class="switch-desc"><?php echo " ".__("track form submit actions", 'google-analytics-plus-wp' ); ?></div>
 									</td>
 								</tr>
 								<tr>
@@ -523,12 +523,12 @@ final class OGADWP_Settings {
 												<div class="ogadwp-settings-switchoo-switch"></div>
 											</label>
 										</div>
-										<div class="switch-desc"><?php echo " ".__("track page scrolling depth", 'open-google-analytics-dashboard-for-wp' ); ?></div>
+										<div class="switch-desc"><?php echo " ".__("track page scrolling depth", 'google-analytics-plus-wp' ); ?></div>
 									</td>
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="ga_event_downloads"><?php _e("Downloads Regex:", 'open-google-analytics-dashboard-for-wp'); ?>
+										<label for="ga_event_downloads"><?php _e("Downloads Regex:", 'google-analytics-plus-wp'); ?>
 										</label>
 									</td>
 									<td>
@@ -537,7 +537,7 @@ final class OGADWP_Settings {
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="ga_event_affiliates"><?php _e("Affiliates Regex:", 'open-google-analytics-dashboard-for-wp'); ?>
+										<label for="ga_event_affiliates"><?php _e("Affiliates Regex:", 'google-analytics-plus-wp'); ?>
 										</label>
 									</td>
 									<td>
@@ -546,13 +546,13 @@ final class OGADWP_Settings {
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="trackingevents_infooter"><?php _e("Code Placement:", 'open-google-analytics-dashboard-for-wp' ); ?>
+										<label for="trackingevents_infooter"><?php _e("Code Placement:", 'google-analytics-plus-wp' ); ?>
 										</label>
 									</td>
 									<td>
 										<select id="trackingevents_infooter" name="options[trackingevents_infooter]">
-											<option value="0" <?php selected( $options['trackingevents_infooter'], 0 ); ?>><?php _e("HTML Head", 'open-google-analytics-dashboard-for-wp');?></option>
-											<option value="1" <?php selected( $options['trackingevents_infooter'], 1 ); ?>><?php _e("HTML Body", 'open-google-analytics-dashboard-for-wp');?></option>
+											<option value="0" <?php selected( $options['trackingevents_infooter'], 0 ); ?>><?php _e("HTML Head", 'google-analytics-plus-wp');?></option>
+											<option value="1" <?php selected( $options['trackingevents_infooter'], 1 ); ?>><?php _e("HTML Body", 'google-analytics-plus-wp');?></option>
 										</select>
 									</td>
 								</tr>
@@ -561,11 +561,11 @@ final class OGADWP_Settings {
 						<div id="ogadwp-custom">
 							<table class="ogadwp-settings-options">
 								<tr>
-									<td colspan="2"><?php echo "<h2>" . __( "Custom Dimensions", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+									<td colspan="2"><?php echo "<h2>" . __( "Custom Dimensions", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="ga_author_dimindex"><?php _e("Authors:", 'open-google-analytics-dashboard-for-wp' ); ?>
+										<label for="ga_author_dimindex"><?php _e("Authors:", 'google-analytics-plus-wp' ); ?>
 										</label>
 									</td>
 									<td>
@@ -578,7 +578,7 @@ final class OGADWP_Settings {
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="ga_pubyear_dimindex"><?php _e("Publication Year:", 'open-google-analytics-dashboard-for-wp' ); ?>
+										<label for="ga_pubyear_dimindex"><?php _e("Publication Year:", 'google-analytics-plus-wp' ); ?>
 										</label>
 									</td>
 									<td>
@@ -591,7 +591,7 @@ final class OGADWP_Settings {
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="ga_pubyearmonth_dimindex"><?php _e("Publication Month:", 'open-google-analytics-dashboard-for-wp' ); ?>
+										<label for="ga_pubyearmonth_dimindex"><?php _e("Publication Month:", 'google-analytics-plus-wp' ); ?>
 										</label>
 									</td>
 									<td>
@@ -604,7 +604,7 @@ final class OGADWP_Settings {
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="ga_category_dimindex"><?php _e("Categories:", 'open-google-analytics-dashboard-for-wp' ); ?>
+										<label for="ga_category_dimindex"><?php _e("Categories:", 'google-analytics-plus-wp' ); ?>
 										</label>
 									</td>
 									<td>
@@ -617,7 +617,7 @@ final class OGADWP_Settings {
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="ga_user_dimindex"><?php _e("User Type:", 'open-google-analytics-dashboard-for-wp' ); ?>
+										<label for="ga_user_dimindex"><?php _e("User Type:", 'google-analytics-plus-wp' ); ?>
 										</label>
 									</td>
 									<td>
@@ -630,7 +630,7 @@ final class OGADWP_Settings {
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="ga_tag_dimindex"><?php _e("Tags:", 'open-google-analytics-dashboard-for-wp' ); ?>
+										<label for="ga_tag_dimindex"><?php _e("Tags:", 'google-analytics-plus-wp' ); ?>
 										</label>
 									</td>
 									<td>
@@ -646,77 +646,77 @@ final class OGADWP_Settings {
 						<div id="ogadwp-tmdatalayervars">
 							<table class="ogadwp-settings-options">
 								<tr>
-									<td colspan="2"><?php echo "<h2>" . __( "Main Variables", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+									<td colspan="2"><?php echo "<h2>" . __( "Main Variables", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="tm_author_var"><?php _e("Authors:", 'open-google-analytics-dashboard-for-wp' ); ?>
+										<label for="tm_author_var"><?php _e("Authors:", 'google-analytics-plus-wp' ); ?>
 										</label>
 									</td>
 									<td>
 										<select id="tm_author_var" name="options[tm_author_var]">
 											<option value="1" <?php selected( $options['tm_author_var'], 1 ); ?>>ogadwpAuthor</option>
-											<option value="0" <?php selected( $options['tm_author_var'], 0 ); ?>><?php _e( "Disabled", 'open-google-analytics-dashboard-for-wp' ); ?></option>
+											<option value="0" <?php selected( $options['tm_author_var'], 0 ); ?>><?php _e( "Disabled", 'google-analytics-plus-wp' ); ?></option>
 										</select>
 									</td>
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="tm_pubyear_var"><?php _e("Publication Year:", 'open-google-analytics-dashboard-for-wp' ); ?>
+										<label for="tm_pubyear_var"><?php _e("Publication Year:", 'google-analytics-plus-wp' ); ?>
 										</label>
 									</td>
 									<td>
 										<select id="tm_pubyear_var" name="options[tm_pubyear_var]">
 											<option value="1" <?php selected( $options['tm_pubyear_var'], 1 ); ?>>ogadwpPublicationYear</option>
-											<option value="0" <?php selected( $options['tm_pubyear_var'], 0 ); ?>><?php _e( "Disabled", 'open-google-analytics-dashboard-for-wp' ); ?></option>
+											<option value="0" <?php selected( $options['tm_pubyear_var'], 0 ); ?>><?php _e( "Disabled", 'google-analytics-plus-wp' ); ?></option>
 										</select>
 									</td>
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="tm_pubyearmonth_var"><?php _e("Publication Month:", 'open-google-analytics-dashboard-for-wp' ); ?>
+										<label for="tm_pubyearmonth_var"><?php _e("Publication Month:", 'google-analytics-plus-wp' ); ?>
 										</label>
 									</td>
 									<td>
 										<select id="tm_pubyearmonth_var" name="options[tm_pubyearmonth_var]">
 											<option value="1" <?php selected( $options['tm_pubyearmonth_var'], 1 ); ?>>ogadwpPublicationYearMonth</option>
-											<option value="0" <?php selected( $options['tm_pubyearmonth_var'], 0 ); ?>><?php _e( "Disabled", 'open-google-analytics-dashboard-for-wp' ); ?></option>
+											<option value="0" <?php selected( $options['tm_pubyearmonth_var'], 0 ); ?>><?php _e( "Disabled", 'google-analytics-plus-wp' ); ?></option>
 										</select>
 									</td>
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="tm_category_var"><?php _e("Categories:", 'open-google-analytics-dashboard-for-wp' ); ?>
+										<label for="tm_category_var"><?php _e("Categories:", 'google-analytics-plus-wp' ); ?>
 										</label>
 									</td>
 									<td>
 										<select id="tm_category_var" name="options[tm_category_var]">
 											<option value="1" <?php selected( $options['tm_category_var'], 1 ); ?>>ogadwpCategory</option>
-											<option value="0" <?php selected( $options['tm_category_var'], 0 ); ?>><?php _e( "Disabled", 'open-google-analytics-dashboard-for-wp' ); ?></option>
+											<option value="0" <?php selected( $options['tm_category_var'], 0 ); ?>><?php _e( "Disabled", 'google-analytics-plus-wp' ); ?></option>
 										</select>
 									</td>
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="tm_user_var"><?php _e("User Type:", 'open-google-analytics-dashboard-for-wp' ); ?>
+										<label for="tm_user_var"><?php _e("User Type:", 'google-analytics-plus-wp' ); ?>
 										</label>
 									</td>
 									<td>
 										<select id="tm_user_var" name="options[tm_user_var]">
 											<option value="1" <?php selected( $options['tm_user_var'], 1 ); ?>>ogadwpUser</option>
-											<option value="0" <?php selected( $options['tm_user_var'], 0 ); ?>><?php _e( "Disabled", 'open-google-analytics-dashboard-for-wp' ); ?></option>
+											<option value="0" <?php selected( $options['tm_user_var'], 0 ); ?>><?php _e( "Disabled", 'google-analytics-plus-wp' ); ?></option>
 										</select>
 									</td>
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="tm_tag_var"><?php _e("Tags:", 'open-google-analytics-dashboard-for-wp' ); ?>
+										<label for="tm_tag_var"><?php _e("Tags:", 'google-analytics-plus-wp' ); ?>
 										</label>
 									</td>
 									<td>
 										<select id="tm_tag_var" name="options[tm_tag_var]">
 											<option value="1" <?php selected( $options['tm_tag_var'], 1 ); ?>>ogadwpTag</option>
-											<option value="0" <?php selected( $options['tm_tag_var'], 0 ); ?>><?php _e( "Disabled", 'open-google-analytics-dashboard-for-wp' ); ?></option>
+											<option value="0" <?php selected( $options['tm_tag_var'], 0 ); ?>><?php _e( "Disabled", 'google-analytics-plus-wp' ); ?></option>
 										</select>
 									</td>
 								</tr>
@@ -725,11 +725,11 @@ final class OGADWP_Settings {
 						<div id="ogadwp-advanced">
 							<table class="ogadwp-settings-options">
 								<tr>
-									<td colspan="2"><?php echo "<h2>" . __( "Advanced Tracking", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+									<td colspan="2"><?php echo "<h2>" . __( "Advanced Tracking", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="ga_speed_samplerate"><?php _e("Speed Sample Rate:", 'open-google-analytics-dashboard-for-wp'); ?>
+										<label for="ga_speed_samplerate"><?php _e("Speed Sample Rate:", 'google-analytics-plus-wp'); ?>
 										</label>
 									</td>
 									<td>
@@ -739,7 +739,7 @@ final class OGADWP_Settings {
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="ga_user_samplerate"><?php _e("User Sample Rate:", 'open-google-analytics-dashboard-for-wp'); ?>
+										<label for="ga_user_samplerate"><?php _e("User Sample Rate:", 'google-analytics-plus-wp'); ?>
 										</label>
 									</td>
 									<td>
@@ -756,7 +756,7 @@ final class OGADWP_Settings {
 												<div class="ogadwp-settings-switchoo-switch"></div>
 											</label>
 										</div>
-										<div class="switch-desc"><?php echo " ".__("anonymize IPs while tracking", 'open-google-analytics-dashboard-for-wp' );?></div>
+										<div class="switch-desc"><?php echo " ".__("anonymize IPs while tracking", 'google-analytics-plus-wp' );?></div>
 									</td>
 								</tr>
 								<tr>
@@ -768,7 +768,7 @@ final class OGADWP_Settings {
 												<div class="ogadwp-settings-switchoo-switch"></div>
 											</label>
 										</div>
-										<div class="switch-desc"><?php echo " ".__("enable support for user opt-out", 'open-google-analytics-dashboard-for-wp' );?></div>
+										<div class="switch-desc"><?php echo " ".__("enable support for user opt-out", 'google-analytics-plus-wp' );?></div>
 									</td>
 								</tr>
 								<tr>
@@ -780,7 +780,7 @@ final class OGADWP_Settings {
 												<div class="ogadwp-settings-switchoo-switch"></div>
 											</label>
 										</div>
-										<div class="switch-desc"> <?php _e( 'exclude tracking for users sending Do Not Track header', 'open-google-analytics-dashboard-for-wp' ); ?></div>
+										<div class="switch-desc"> <?php _e( 'exclude tracking for users sending Do Not Track header', 'google-analytics-plus-wp' ); ?></div>
 									</td>
 								</tr>
 								<tr>
@@ -792,7 +792,7 @@ final class OGADWP_Settings {
 												<div class="ogadwp-settings-switchoo-switch"></div>
 											</label>
 										</div>
-										<div class="switch-desc"><?php echo " ".__("enable remarketing, demographics and interests reports", 'open-google-analytics-dashboard-for-wp' );?></div>
+										<div class="switch-desc"><?php echo " ".__("enable remarketing, demographics and interests reports", 'google-analytics-plus-wp' );?></div>
 									</td>
 								</tr>
 								<tr>
@@ -804,7 +804,7 @@ final class OGADWP_Settings {
 												<div class="ogadwp-settings-switchoo-switch"></div>
 											</label>
 										</div>
-										<div class="switch-desc"><?php echo " ".__("exclude events from bounce-rate and time on page calculation", 'open-google-analytics-dashboard-for-wp' );?></div>
+										<div class="switch-desc"><?php echo " ".__("exclude events from bounce-rate and time on page calculation", 'google-analytics-plus-wp' );?></div>
 									</td>
 								</tr>
 								<tr>
@@ -816,7 +816,7 @@ final class OGADWP_Settings {
 												<div class="ogadwp-settings-switchoo-switch"></div>
 											</label>
 										</div>
-										<div class="switch-desc"><?php echo " ".__("enable enhanced link attribution", 'open-google-analytics-dashboard-for-wp' );?></div>
+										<div class="switch-desc"><?php echo " ".__("enable enhanced link attribution", 'google-analytics-plus-wp' );?></div>
 									</td>
 								</tr>
 								<tr>
@@ -828,7 +828,7 @@ final class OGADWP_Settings {
 												<div class="ogadwp-settings-switchoo-switch"></div>
 											</label>
 										</div>
-										<div class="switch-desc"><?php echo " ".__("use hitCallback to increase event tracking accuracy", 'open-google-analytics-dashboard-for-wp' );?></div>
+										<div class="switch-desc"><?php echo " ".__("use hitCallback to increase event tracking accuracy", 'google-analytics-plus-wp' );?></div>
 									</td>
 								</tr>
 								<tr>
@@ -840,11 +840,11 @@ final class OGADWP_Settings {
 												<div class="ogadwp-settings-switchoo-switch"></div>
 											</label>
 										</div>
-										<div class="switch-desc"><?php echo " ".__("enable Force SSL", 'open-google-analytics-dashboard-for-wp' );?></div>
+										<div class="switch-desc"><?php echo " ".__("enable Force SSL", 'google-analytics-plus-wp' );?></div>
 									</td>
 								</tr>
 								<tr>
-									<td colspan="2"><?php echo "<h2>" . __( "Cross-domain Tracking", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+									<td colspan="2"><?php echo "<h2>" . __( "Cross-domain Tracking", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 								</tr>
 								<tr>
 									<td colspan="2" class="ogadwp-settings-title">
@@ -855,12 +855,12 @@ final class OGADWP_Settings {
 												<div class="ogadwp-settings-switchoo-switch"></div>
 											</label>
 										</div>
-										<div class="switch-desc"><?php echo " ".__("enable cross domain tracking", 'open-google-analytics-dashboard-for-wp' ); ?></div>
+										<div class="switch-desc"><?php echo " ".__("enable cross domain tracking", 'google-analytics-plus-wp' ); ?></div>
 									</td>
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="ga_crossdomain_list"><?php _e("Cross Domains:", 'open-google-analytics-dashboard-for-wp'); ?>
+										<label for="ga_crossdomain_list"><?php _e("Cross Domains:", 'google-analytics-plus-wp'); ?>
 										</label>
 									</td>
 									<td>
@@ -868,11 +868,11 @@ final class OGADWP_Settings {
 									</td>
 								</tr>
 								<tr>
-									<td colspan="2"><?php echo "<h2>" . __( "Cookie Customization", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+									<td colspan="2"><?php echo "<h2>" . __( "Cookie Customization", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="ga_cookiedomain"><?php _e("Cookie Domain:", 'open-google-analytics-dashboard-for-wp'); ?>
+										<label for="ga_cookiedomain"><?php _e("Cookie Domain:", 'google-analytics-plus-wp'); ?>
 										</label>
 									</td>
 									<td>
@@ -881,7 +881,7 @@ final class OGADWP_Settings {
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="ga_cookiename"><?php _e("Cookie Name:", 'open-google-analytics-dashboard-for-wp'); ?>
+										<label for="ga_cookiename"><?php _e("Cookie Name:", 'google-analytics-plus-wp'); ?>
 										</label>
 									</td>
 									<td>
@@ -890,12 +890,12 @@ final class OGADWP_Settings {
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="ga_cookieexpires"><?php _e("Cookie Expires:", 'open-google-analytics-dashboard-for-wp'); ?>
+										<label for="ga_cookieexpires"><?php _e("Cookie Expires:", 'google-analytics-plus-wp'); ?>
 										</label>
 									</td>
 									<td>
 										<input type="text" id="ga_cookieexpires" name="options[ga_cookieexpires]" value="<?php echo esc_attr($options['ga_cookieexpires']); ?>" size="10">
-										<?php _e("seconds", 'open-google-analytics-dashboard-for-wp' ); ?>
+										<?php _e("seconds", 'google-analytics-plus-wp' ); ?>
 									</td>
 								</tr>
 							</table>
@@ -903,7 +903,7 @@ final class OGADWP_Settings {
 						<div id="ogadwp-integration">
 							<table class="ogadwp-settings-options">
 								<tr>
-									<td colspan="2"><?php echo "<h2>" . __( "Accelerated Mobile Pages (AMP)", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+									<td colspan="2"><?php echo "<h2>" . __( "Accelerated Mobile Pages (AMP)", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 								</tr>
 								<tr>
 									<td colspan="2" class="ogadwp-settings-title">
@@ -914,7 +914,7 @@ final class OGADWP_Settings {
 												<div class="ogadwp-settings-switchoo-switch"></div>
 											</label>
 										</div>
-										<div class="switch-desc"><?php echo " ".__("enable tracking for Accelerated Mobile Pages (AMP)", 'open-google-analytics-dashboard-for-wp' );?></div>
+										<div class="switch-desc"><?php echo " ".__("enable tracking for Accelerated Mobile Pages (AMP)", 'google-analytics-plus-wp' );?></div>
 									</td>
 								</tr>
 								<tr>
@@ -926,27 +926,27 @@ final class OGADWP_Settings {
 												<div class="ogadwp-settings-switchoo-switch"></div>
 											</label>
 										</div>
-										<div class="switch-desc"><?php echo " ".__("enable Google AMP Client Id API", 'open-google-analytics-dashboard-for-wp' );?></div>
+										<div class="switch-desc"><?php echo " ".__("enable Google AMP Client Id API", 'google-analytics-plus-wp' );?></div>
 									</td>
 								</tr>
 								<tr>
-									<td colspan="2"><?php echo "<h2>" . __( "Ecommerce", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+									<td colspan="2"><?php echo "<h2>" . __( "Ecommerce", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="tracking_type"><?php _e("Ecommerce Tracking:", 'open-google-analytics-dashboard-for-wp' ); ?>
+										<label for="tracking_type"><?php _e("Ecommerce Tracking:", 'google-analytics-plus-wp' ); ?>
 										</label>
 									</td>
 									<td>
 										<select id="ecommerce_mode" name="options[ecommerce_mode]" <?php disabled( $options['ga_with_gtag'], true );?>>
-											<option value="disabled" <?php selected( $options['ecommerce_mode'], 'disabled' ); ?>><?php _e("Disabled", 'open-google-analytics-dashboard-for-wp');?></option>
-											<option value="standard" <?php selected( $options['ecommerce_mode'], 'standard' ); ?>><?php _e("Ecommerce Plugin", 'open-google-analytics-dashboard-for-wp');?></option>
-											<option value="enhanced" <?php selected( $options['ecommerce_mode'], 'enhanced' ); selected( $options['ga_with_gtag'], true );?>><?php _e("Enhanced Ecommerce Plugin", 'open-google-analytics-dashboard-for-wp');?></option>
+											<option value="disabled" <?php selected( $options['ecommerce_mode'], 'disabled' ); ?>><?php _e("Disabled", 'google-analytics-plus-wp');?></option>
+											<option value="standard" <?php selected( $options['ecommerce_mode'], 'standard' ); ?>><?php _e("Ecommerce Plugin", 'google-analytics-plus-wp');?></option>
+											<option value="enhanced" <?php selected( $options['ecommerce_mode'], 'enhanced' ); selected( $options['ga_with_gtag'], true );?>><?php _e("Enhanced Ecommerce Plugin", 'google-analytics-plus-wp');?></option>
 										</select>
 									</td>
 								</tr>
 								<tr>
-									<td colspan="2"><?php echo "<h2>" . __( "Optimize", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+									<td colspan="2"><?php echo "<h2>" . __( "Optimize", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 								</tr>
 								<tr>
 									<td colspan="2" class="ogadwp-settings-title">
@@ -957,7 +957,7 @@ final class OGADWP_Settings {
 												<div class="ogadwp-settings-switchoo-switch"></div>
 											</label>
 										</div>
-										<div class="switch-desc"><?php echo " ".__("enable Optimize tracking", 'open-google-analytics-dashboard-for-wp' );?></div>
+										<div class="switch-desc"><?php echo " ".__("enable Optimize tracking", 'google-analytics-plus-wp' );?></div>
 									</td>
 								</tr>
 								<tr>
@@ -969,12 +969,12 @@ final class OGADWP_Settings {
 												<div class="ogadwp-settings-switchoo-switch"></div>
 											</label>
 										</div>
-										<div class="switch-desc"><?php echo " ".__("enable Page Hiding support", 'open-google-analytics-dashboard-for-wp' );?></div>
+										<div class="switch-desc"><?php echo " ".__("enable Page Hiding support", 'google-analytics-plus-wp' );?></div>
 									</td>
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="tracking_type"><?php _e("Container ID:", 'open-google-analytics-dashboard-for-wp' ); ?>
+										<label for="tracking_type"><?php _e("Container ID:", 'google-analytics-plus-wp' ); ?>
 										</label>
 									</td>
 									<td>
@@ -986,7 +986,7 @@ final class OGADWP_Settings {
 						<div id="ogadwp-tmadvanced">
 							<table class="ogadwp-settings-options">
 								<tr>
-									<td colspan="2"><?php echo "<h2>" . __( "Advanced Tracking", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+									<td colspan="2"><?php echo "<h2>" . __( "Advanced Tracking", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 								</tr>
 								<tr>
 									<td colspan="2" class="ogadwp-settings-title">
@@ -997,7 +997,7 @@ final class OGADWP_Settings {
 												<div class="ogadwp-settings-switchoo-switch"></div>
 											</label>
 										</div>
-										<div class="switch-desc"><?php echo " ".__("enable support for user opt-out", 'open-google-analytics-dashboard-for-wp' );?></div>
+										<div class="switch-desc"><?php echo " ".__("enable support for user opt-out", 'google-analytics-plus-wp' );?></div>
 									</td>
 								</tr>
 								<tr>
@@ -1009,7 +1009,7 @@ final class OGADWP_Settings {
 												<div class="ogadwp-settings-switchoo-switch"></div>
 											</label>
 										</div>
-										<div class="switch-desc"> <?php _e( 'exclude tracking for users sending Do Not Track header', 'open-google-analytics-dashboard-for-wp' ); ?></div>
+										<div class="switch-desc"> <?php _e( 'exclude tracking for users sending Do Not Track header', 'google-analytics-plus-wp' ); ?></div>
 									</td>
 								</tr>
 							</table>
@@ -1017,7 +1017,7 @@ final class OGADWP_Settings {
 						<div id="ogadwp-tmintegration">
 							<table class="ogadwp-settings-options">
 								<tr>
-									<td colspan="2"><?php echo "<h2>" . __( "Accelerated Mobile Pages (AMP)", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+									<td colspan="2"><?php echo "<h2>" . __( "Accelerated Mobile Pages (AMP)", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 								</tr>
 								<tr>
 									<td colspan="2" class="ogadwp-settings-title">
@@ -1028,12 +1028,12 @@ final class OGADWP_Settings {
 												<div class="ogadwp-settings-switchoo-switch"></div>
 											</label>
 										</div>
-										<div class="switch-desc"><?php echo " ".__("enable tracking for Accelerated Mobile Pages (AMP)", 'open-google-analytics-dashboard-for-wp' );?></div>
+										<div class="switch-desc"><?php echo " ".__("enable tracking for Accelerated Mobile Pages (AMP)", 'google-analytics-plus-wp' );?></div>
 									</td>
 								</tr>
 								<tr>
 									<td class="ogadwp-settings-title">
-										<label for="tracking_type"><?php _e("AMP Container ID:", 'open-google-analytics-dashboard-for-wp' ); ?>
+										<label for="tracking_type"><?php _e("AMP Container ID:", 'google-analytics-plus-wp' ); ?>
 										</label>
 									</td>
 									<td>
@@ -1045,11 +1045,11 @@ final class OGADWP_Settings {
 						<div id="ogadwp-exclude">
 							<table class="ogadwp-settings-options">
 								<tr>
-									<td colspan="2"><?php echo "<h2>" . __( "Exclude Tracking", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+									<td colspan="2"><?php echo "<h2>" . __( "Exclude Tracking", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 								</tr>
 								<tr>
 									<td class="roles ogadwp-settings-title">
-										<label for="track_exclude"><?php _e("Exclude tracking for:", 'open-google-analytics-dashboard-for-wp' ); ?></label>
+										<label for="track_exclude"><?php _e("Exclude tracking for:", 'google-analytics-plus-wp' ); ?></label>
 									</td>
 									<td class="ogadwp-settings-roles">
 										<table>
@@ -1085,7 +1085,7 @@ final class OGADWP_Settings {
 							</tr>
 							<tr>
 								<td colspan="2" class="submit">
-									<input type="submit" name="Submit" class="button button-primary" value="<?php _e('Save Changes', 'open-google-analytics-dashboard-for-wp' ) ?>" />
+									<input type="submit" name="Submit" class="button button-primary" value="<?php _e('Save Changes', 'google-analytics-plus-wp' ) ?>" />
 								</td>
 							</tr>
 						</table>
@@ -1114,11 +1114,11 @@ final class OGADWP_Settings {
 
 		$options = self::update_options( 'frontend' );
 		if ( ! $ogadwp->config->options['tableid_jail'] || ! $ogadwp->config->options['token'] ) {
-			$message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'open-google-analytics-dashboard-for-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_errors_debugging', false ), __( 'Errors & Debug', 'open-google-analytics-dashboard-for-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_settings', false ), __( 'authorize the plugin', 'open-google-analytics-dashboard-for-wp' ) ) ) );
+			$message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'google-analytics-plus-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_errors_debugging', false ), __( 'Errors & Debug', 'google-analytics-plus-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_settings', false ), __( 'authorize the plugin', 'google-analytics-plus-wp' ) ) ) );
 		}
 		?>
 <div class="wrap">
-		<?php echo "<h2>" . __( "Google Analytics Errors & Debugging", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?>
+		<?php echo "<h2>" . __( "Google Analytics Errors & Debugging", 'google-analytics-plus-wp' ) . "</h2>"; ?>
 </div>
 <div id="poststuff" class="ogadwp">
 	<div id="post-body" class="metabox-holder columns-2">
@@ -1126,43 +1126,43 @@ final class OGADWP_Settings {
 			<div class="settings-wrapper">
 				<div class="inside">
 						<?php if (isset($message)) echo $message; ?>
-						<?php $tabs = array( 'errors' => __( "Errors & Details", 'open-google-analytics-dashboard-for-wp' ), 'config' => __( "Plugin Settings", 'open-google-analytics-dashboard-for-wp' ), 'sysinfo' => __( "System", 'open-google-analytics-dashboard-for-wp' ) ); ?>
+						<?php $tabs = array( 'errors' => __( "Errors & Details", 'google-analytics-plus-wp' ), 'config' => __( "Plugin Settings", 'google-analytics-plus-wp' ), 'sysinfo' => __( "System", 'google-analytics-plus-wp' ) ); ?>
 						<?php self::navigation_tabs( $tabs ); ?>
 						<div id="ogadwp-errors">
 						<table class="ogadwp-settings-logdata">
 							<tr>
 								<td>
-									<?php echo "<h2>" . __( "Error Details", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?>
+									<?php echo "<h2>" . __( "Error Details", 'google-analytics-plus-wp' ) . "</h2>"; ?>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<?php $errors_count = OGADWP_Tools::get_cache( 'errors_count' ); ?>
-									<pre class="ogadwp-settings-logdata"><?php echo '<span>' . __("Count: ", 'open-google-analytics-dashboard-for-wp') . '</span>' . (int)$errors_count;?></pre>
+									<pre class="ogadwp-settings-logdata"><?php echo '<span>' . __("Count: ", 'google-analytics-plus-wp') . '</span>' . (int)$errors_count;?></pre>
 									<?php $errors = print_r( OGADWP_Tools::get_cache( 'last_error' ), true ) ? esc_html( print_r( OGADWP_Tools::get_cache( 'last_error' ), true ) ) : ''; ?>
 									<?php $errors = str_replace( 'Deconf_', 'Google_', $errors); ?>
-									<pre class="ogadwp-settings-logdata"><?php echo '<span>' . __("Last Error: ", 'open-google-analytics-dashboard-for-wp') . '</span>' . "\n" . $errors;?></pre>
-									<pre class="ogadwp-settings-logdata"><?php echo '<span>' . __("GAPI Error: ", 'open-google-analytics-dashboard-for-wp') . '</span>'; echo "\n" . esc_html( print_r( OGADWP_Tools::get_cache( 'gapi_errors' ), true ) ) ?></pre>
+									<pre class="ogadwp-settings-logdata"><?php echo '<span>' . __("Last Error: ", 'google-analytics-plus-wp') . '</span>' . "\n" . $errors;?></pre>
+									<pre class="ogadwp-settings-logdata"><?php echo '<span>' . __("GAPI Error: ", 'google-analytics-plus-wp') . '</span>'; echo "\n" . esc_html( print_r( OGADWP_Tools::get_cache( 'gapi_errors' ), true ) ) ?></pre>
 									<br />
 									<hr>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<?php echo "<h2>" . __( "Sampled Data", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?>
+									<?php echo "<h2>" . __( "Sampled Data", 'google-analytics-plus-wp' ) . "</h2>"; ?>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<?php $sampling = OGADWP_TOOLS::get_cache( 'sampleddata' ); ?>
 									<?php if ( $sampling ) :?>
-									<?php printf( __( "Last Detected on %s.", 'open-google-analytics-dashboard-for-wp' ), '<strong>'. $sampling['date'] . '</strong>' );?>
+									<?php printf( __( "Last Detected on %s.", 'google-analytics-plus-wp' ), '<strong>'. $sampling['date'] . '</strong>' );?>
 									<br />
-									<?php printf( __( "The report was based on %s of sessions.", 'open-google-analytics-dashboard-for-wp' ), '<strong>'. $sampling['percent'] . '</strong>' );?>
+									<?php printf( __( "The report was based on %s of sessions.", 'google-analytics-plus-wp' ), '<strong>'. $sampling['percent'] . '</strong>' );?>
 									<br />
-									<?php printf( __( "Sessions ratio: %s.", 'open-google-analytics-dashboard-for-wp' ), '<strong>'. $sampling['sessions'] . '</strong>' ); ?>
+									<?php printf( __( "Sessions ratio: %s.", 'google-analytics-plus-wp' ), '<strong>'. $sampling['sessions'] . '</strong>' ); ?>
 									<?php else :?>
-									<?php _e( "None", 'open-google-analytics-dashboard-for-wp' ); ?>
+									<?php _e( "None", 'google-analytics-plus-wp' ); ?>
 									<?php endif;?>
 								</td>
 							</tr>
@@ -1171,7 +1171,7 @@ final class OGADWP_Settings {
 					<div id="ogadwp-config">
 						<table class="ogadwp-settings-options">
 							<tr>
-								<td><?php echo "<h2>" . __( "Plugin Configuration", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+								<td><?php echo "<h2>" . __( "Plugin Configuration", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 							</tr>
 							<tr>
 								<td>
@@ -1185,7 +1185,7 @@ final class OGADWP_Settings {
 					<div id="ogadwp-sysinfo">
 						<table class="ogadwp-settings-options">
 							<tr>
-								<td><?php echo "<h2>" . __( "System Information", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+								<td><?php echo "<h2>" . __( "System Information", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 							</tr>
 							<tr>
 								<td>
@@ -1209,7 +1209,7 @@ final class OGADWP_Settings {
 		}
 
 		$options = self::update_options( 'general' );
-		printf( '<div id="gapi-warning" class="updated"><p>%1$s <a href="https://deconf.com/open-google-analytics-dashboard-wordpress/?utm_source=ogadwp_config&utm_medium=link&utm_content=general_screen&utm_campaign=ogadwp">%2$s</a></p></div>', __( 'Loading the required libraries. If this results in a blank screen or a fatal error, try this solution:', 'open-google-analytics-dashboard-for-wp' ), __( 'Library conflicts between WordPress plugins', 'open-google-analytics-dashboard-for-wp' ) );
+		printf( '<div id="gapi-warning" class="updated"><p>%1$s <a href="https://deconf.com/open-google-analytics-dashboard-wordpress/?utm_source=ogadwp_config&utm_medium=link&utm_content=general_screen&utm_campaign=ogadwp">%2$s</a></p></div>', __( 'Loading the required libraries. If this results in a blank screen or a fatal error, try this solution:', 'google-analytics-plus-wp' ), __( 'Library conflicts between WordPress plugins', 'google-analytics-plus-wp' ) );
 		if ( null === $ogadwp->gapi_controller ) {
 			$ogadwp->gapi_controller = new OGADWP_GAPI_Controller();
 		}
@@ -1227,7 +1227,7 @@ final class OGADWP_Settings {
 					$ogadwp->config->options['automatic_updates_minorversion'] = 1;
 					$ogadwp->config->set_plugin_options();
 					$options = self::update_options( 'general' );
-					$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Plugin authorization succeeded.", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+					$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Plugin authorization succeeded.", 'google-analytics-plus-wp' ) . "</p></div>";
 					if ( $ogadwp->config->options['token'] && $ogadwp->gapi_controller->client->getAccessToken() ) {
 						$profiles = $ogadwp->gapi_controller->refresh_profiles();
 						if ( is_array ( $profiles ) && ! empty( $profiles ) ) {
@@ -1253,28 +1253,28 @@ final class OGADWP_Settings {
 				}
 			} else {
 				if ( 1 == stripos( 'x' . $_POST['ogadwp_access_code'], 'UA-', 1 ) ) {
-					$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "The access code is <strong>not</strong> your <strong>Tracking ID</strong> (UA-XXXXX-X) <strong>nor</strong> your <strong>email address</strong>!", 'open-google-analytics-dashboard-for-wp' ) . ".</p></div>";
+					$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "The access code is <strong>not</strong> your <strong>Tracking ID</strong> (UA-XXXXX-X) <strong>nor</strong> your <strong>email address</strong>!", 'google-analytics-plus-wp' ) . ".</p></div>";
 				} else {
-					$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "You can only use the access code <strong>once</strong>, please generate a <strong>new access</strong> code following the instructions!", 'open-google-analytics-dashboard-for-wp' ) . ".</p></div>";
+					$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "You can only use the access code <strong>once</strong>, please generate a <strong>new access</strong> code following the instructions!", 'google-analytics-plus-wp' ) . ".</p></div>";
 				}
 			}
 		}
 		if ( isset( $_POST['Clear'] ) ) {
 			if ( isset( $_POST['ogadwp_security'] ) && wp_verify_nonce( $_POST['ogadwp_security'], 'ogadwp_form' ) ) {
 				OGADWP_Tools::clear_cache();
-				$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Cleared Cache.", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Cleared Cache.", 'google-analytics-plus-wp' ) . "</p></div>";
 			} else {
-				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-plus-wp' ) . "</p></div>";
 			}
 		}
 		if ( isset( $_POST['Reset'] ) ) {
 			if ( isset( $_POST['ogadwp_security'] ) && wp_verify_nonce( $_POST['ogadwp_security'], 'ogadwp_form' ) ) {
 				$ogadwp->gapi_controller->reset_token();
 				OGADWP_Tools::clear_cache();
-				$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Token Reseted and Revoked.", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Token Reseted and Revoked.", 'google-analytics-plus-wp' ) . "</p></div>";
 				$options = self::update_options( 'Reset' );
 			} else {
-				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-plus-wp' ) . "</p></div>";
 			}
 		}
 		if ( isset( $_POST['Reset_Err'] ) ) {
@@ -1312,30 +1312,30 @@ final class OGADWP_Settings {
 				OGADWP_Tools::delete_cache( 'last_error' );
 				OGADWP_Tools::delete_cache( 'gapi_errors' );
 				delete_option( 'ogadwp_got_updated' );
-				$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "All errors reseted.", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "All errors reseted.", 'google-analytics-plus-wp' ) . "</p></div>";
 			} else {
-				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-plus-wp' ) . "</p></div>";
 			}
 		}
 		if ( isset( $_POST['options']['ogadwp_hidden'] ) && ! isset( $_POST['Clear'] ) && ! isset( $_POST['Reset'] ) && ! isset( $_POST['Reset_Err'] ) ) {
-			$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Settings saved.", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+			$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Settings saved.", 'google-analytics-plus-wp' ) . "</p></div>";
 			if ( ! ( isset( $_POST['ogadwp_security'] ) && wp_verify_nonce( $_POST['ogadwp_security'], 'ogadwp_form' ) ) ) {
-				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-plus-wp' ) . "</p></div>";
 			}
 		}
 		if ( isset( $_POST['Hide'] ) ) {
 			if ( isset( $_POST['ogadwp_security'] ) && wp_verify_nonce( $_POST['ogadwp_security'], 'ogadwp_form' ) ) {
-				$message = "<div class='updated' id='ogadwp-action'><p>" . __( "All other domains/properties were removed.", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='updated' id='ogadwp-action'><p>" . __( "All other domains/properties were removed.", 'google-analytics-plus-wp' ) . "</p></div>";
 				$lock_profile = OGADWP_Tools::get_selected_profile( $ogadwp->config->options['ga_profiles_list'], $ogadwp->config->options['tableid_jail'] );
 				$ogadwp->config->options['ga_profiles_list'] = array( $lock_profile );
 				$options = self::update_options( 'general' );
 			} else {
-				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-plus-wp' ) . "</p></div>";
 			}
 		}
 		?>
 	<div class="wrap">
-	<?php echo "<h2>" . __( "Google Analytics Settings", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?>
+	<?php echo "<h2>" . __( "Google Analytics Settings", 'google-analytics-plus-wp' ) . "</h2>"; ?>
 					<hr>
 					</div>
 					<div id="poststuff" class="ogadwp">
@@ -1344,13 +1344,13 @@ final class OGADWP_Settings {
 								<div class="settings-wrapper">
 									<div class="inside">
 										<?php if ( $ogadwp->gapi_controller->gapi_errors_handler() || OGADWP_Tools::get_cache( 'last_error' ) ) : ?>
-													<?php $message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'open-google-analytics-dashboard-for-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_errors_debugging', false ), __( 'Errors & Debug', 'open-google-analytics-dashboard-for-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_settings', false ), __( 'authorize the plugin', 'open-google-analytics-dashboard-for-wp' ) ) ) );?>
+													<?php $message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'google-analytics-plus-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_errors_debugging', false ), __( 'Errors & Debug', 'google-analytics-plus-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_settings', false ), __( 'authorize the plugin', 'google-analytics-plus-wp' ) ) ) );?>
 										<?php endif;?>
 										<?php if ( isset( $_POST['Authorize'] ) ) : ?>
 											<?php OGADWP_Tools::clear_cache(); ?>
 											<?php $ogadwp->gapi_controller->token_request(); ?>
 											<div class="updated">
-											<p><?php _e( "Use the red link (see below) to generate and get your access code! You need to generate a new code each time you authorize!", 'open-google-analytics-dashboard-for-wp' )?></p>
+											<p><?php _e( "Use the red link (see below) to generate and get your access code! You need to generate a new code each time you authorize!", 'google-analytics-plus-wp' )?></p>
 										</div>
 										<?php else : ?>
 										<?php if ( isset( $message ) ) :?>
@@ -1362,25 +1362,25 @@ final class OGADWP_Settings {
 											<table class="ogadwp-settings-options">
 												<tr>
 													<td colspan="2">
-														<?php echo "<h2>" . __( "Plugin Authorization", 'open-google-analytics-dashboard-for-wp' ) . "</h2>";?>
+														<?php echo "<h2>" . __( "Plugin Authorization", 'google-analytics-plus-wp' ) . "</h2>";?>
 													</td>
 												</tr>
 												<tr>
 													<td colspan="2" class="ogadwp-settings-info">
-														<?php printf(__('You need to create a %1$s and watch this %2$s before proceeding to authorization.', 'open-google-analytics-dashboard-for-wp'), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/creating-a-google-analytics-account/?utm_source=ogadwp_config&utm_medium=link&utm_content=top_tutorial&utm_campaign=ogadwp', __("free analytics account", 'open-google-analytics-dashboard-for-wp')), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/open-google-analytics-dashboard-wordpress/?utm_source=ogadwp_config&utm_medium=link&utm_content=top_video&utm_campaign=ogadwp', __("video tutorial", 'open-google-analytics-dashboard-for-wp')));?>
+														<?php printf(__('You need to create a %1$s and watch this %2$s before proceeding to authorization.', 'google-analytics-plus-wp'), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/creating-a-google-analytics-account/?utm_source=ogadwp_config&utm_medium=link&utm_content=top_tutorial&utm_campaign=ogadwp', __("free analytics account", 'google-analytics-plus-wp')), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/open-google-analytics-dashboard-wordpress/?utm_source=ogadwp_config&utm_medium=link&utm_content=top_video&utm_campaign=ogadwp', __("video tutorial", 'google-analytics-plus-wp')));?>
 													</td>
 												</tr>
 												  <?php if (! $options['token'] || ($options['user_api']  && ! $options['network_mode'])) : ?>
 												<tr>
 													<td colspan="2" class="ogadwp-settings-info">
-														<input name="options[user_api]" type="checkbox" id="user_api" value="1" <?php checked( $options['user_api'], 1 ); ?> onchange="this.form.submit()" <?php echo ($options['network_mode'])?'disabled="disabled"':''; ?> /><?php echo " ".__("developer mode (requires advanced API knowledge)", 'open-google-analytics-dashboard-for-wp' );?>
+														<input name="options[user_api]" type="checkbox" id="user_api" value="1" <?php checked( $options['user_api'], 1 ); ?> onchange="this.form.submit()" <?php echo ($options['network_mode'])?'disabled="disabled"':''; ?> /><?php echo " ".__("developer mode (requires advanced API knowledge)", 'google-analytics-plus-wp' );?>
 													</td>
 												</tr>
 												  <?php endif; ?>
 												  <?php if ($options['user_api']  && ! $options['network_mode']) : ?>
 												<tr>
 													<td class="ogadwp-settings-title">
-														<label for="options[client_id]"><?php _e("Client ID:", 'open-google-analytics-dashboard-for-wp'); ?></label>
+														<label for="options[client_id]"><?php _e("Client ID:", 'google-analytics-plus-wp'); ?></label>
 													</td>
 													<td>
 														<input type="text" name="options[client_id]" value="<?php echo esc_attr($options['client_id']); ?>" size="40" required="required">
@@ -1388,7 +1388,7 @@ final class OGADWP_Settings {
 												</tr>
 												<tr>
 													<td class="ogadwp-settings-title">
-														<label for="options[client_secret]"><?php _e("Client Secret:", 'open-google-analytics-dashboard-for-wp'); ?></label>
+														<label for="options[client_secret]"><?php _e("Client Secret:", 'google-analytics-plus-wp'); ?></label>
 													</td>
 													<td>
 														<input type="text" name="options[client_secret]" value="<?php echo esc_attr($options['client_secret']); ?>" size="40" required="required">
@@ -1400,9 +1400,9 @@ final class OGADWP_Settings {
 												  <?php if ( $options['token'] ) : ?>
 												<tr>
 													<td colspan="2">
-														<input type="submit" name="Reset" class="button button-secondary" value="<?php _e( "Clear Authorization", 'open-google-analytics-dashboard-for-wp' ); ?>" <?php echo $options['network_mode']?'disabled="disabled"':''; ?> />
-														<input type="submit" name="Clear" class="button button-secondary" value="<?php _e( "Clear Cache", 'open-google-analytics-dashboard-for-wp' ); ?>" />
-														<input type="submit" name="Reset_Err" class="button button-secondary" value="<?php _e( "Report & Reset Errors", 'open-google-analytics-dashboard-for-wp' ); ?>" />
+														<input type="submit" name="Reset" class="button button-secondary" value="<?php _e( "Clear Authorization", 'google-analytics-plus-wp' ); ?>" <?php echo $options['network_mode']?'disabled="disabled"':''; ?> />
+														<input type="submit" name="Clear" class="button button-secondary" value="<?php _e( "Clear Cache", 'google-analytics-plus-wp' ); ?>" />
+														<input type="submit" name="Reset_Err" class="button button-secondary" value="<?php _e( "Report & Reset Errors", 'google-analytics-plus-wp' ); ?>" />
 													</td>
 												</tr>
 												<tr>
@@ -1411,28 +1411,28 @@ final class OGADWP_Settings {
 													</td>
 												</tr>
 												<tr>
-													<td colspan="2"><?php echo "<h2>" . __( "General Settings", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+													<td colspan="2"><?php echo "<h2>" . __( "General Settings", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 												</tr>
 												<tr>
 													<td class="ogadwp-settings-title">
-														<label for="tableid_jail"><?php _e("Select View:", 'open-google-analytics-dashboard-for-wp' ); ?></label>
+														<label for="tableid_jail"><?php _e("Select View:", 'google-analytics-plus-wp' ); ?></label>
 													</td>
 													<td>
 														<select id="tableid_jail" <?php disabled(empty($options['ga_profiles_list']) || 1 == count($options['ga_profiles_list']), true); ?> name="options[tableid_jail]">
 															<?php if ( ! empty( $options['ga_profiles_list'] ) ) : ?>
 																	<?php foreach ( $options['ga_profiles_list'] as $items ) : ?>
 																		<?php if ( $items[3] ) : ?>
-																			<option value="<?php echo esc_attr( $items[1] ); ?>" <?php selected( $items[1], $options['tableid_jail'] ); ?> title="<?php _e( "View Name:", 'open-google-analytics-dashboard-for-wp' ); ?> <?php echo esc_attr( $items[0] ); ?>">
+																			<option value="<?php echo esc_attr( $items[1] ); ?>" <?php selected( $items[1], $options['tableid_jail'] ); ?> title="<?php _e( "View Name:", 'google-analytics-plus-wp' ); ?> <?php echo esc_attr( $items[0] ); ?>">
 																				<?php echo esc_html( OGADWP_Tools::strip_protocol( $items[3] ) )?> &#8658; <?php echo esc_attr( $items[0] ); ?>
 																			</option>
 																		<?php endif; ?>
 																	<?php endforeach; ?>
 															<?php else : ?>
-																	<option value=""><?php _e( "Property not found", 'open-google-analytics-dashboard-for-wp' ); ?></option>
+																	<option value=""><?php _e( "Property not found", 'google-analytics-plus-wp' ); ?></option>
 															<?php endif; ?>
 														</select>
 														<?php if ( count( $options['ga_profiles_list'] ) > 1 ) : ?>
-														&nbsp;<input type="submit" name="Hide" class="button button-secondary" value="<?php _e( "Lock Selection", 'open-google-analytics-dashboard-for-wp' ); ?>" />
+														&nbsp;<input type="submit" name="Hide" class="button button-secondary" value="<?php _e( "Lock Selection", 'google-analytics-plus-wp' ); ?>" />
 														<?php endif; ?>
 													 </td>
 												</tr>
@@ -1441,13 +1441,13 @@ final class OGADWP_Settings {
 													<td class="ogadwp-settings-title"></td>
 													<td>
 													<?php $profile_info = OGADWP_Tools::get_selected_profile( $ogadwp->config->options['ga_profiles_list'], $ogadwp->config->options['tableid_jail'] ); ?>
-														<pre><?php echo __( "View Name:", 'open-google-analytics-dashboard-for-wp' ) . "\t" . esc_html( $profile_info[0] ) . "<br />" . __( "Tracking ID:", 'open-google-analytics-dashboard-for-wp' ) . "\t" . esc_html( $profile_info[2] ) . "<br />" . __( "Default URL:", 'open-google-analytics-dashboard-for-wp' ) . "\t" . esc_html( $profile_info[3] ) . "<br />" . __( "Time Zone:", 'open-google-analytics-dashboard-for-wp' ) . "\t" . esc_html( $profile_info[5] );?></pre>
+														<pre><?php echo __( "View Name:", 'google-analytics-plus-wp' ) . "\t" . esc_html( $profile_info[0] ) . "<br />" . __( "Tracking ID:", 'google-analytics-plus-wp' ) . "\t" . esc_html( $profile_info[2] ) . "<br />" . __( "Default URL:", 'google-analytics-plus-wp' ) . "\t" . esc_html( $profile_info[3] ) . "<br />" . __( "Time Zone:", 'google-analytics-plus-wp' ) . "\t" . esc_html( $profile_info[5] );?></pre>
 													</td>
 												</tr>
 												<?php endif; ?>
 												 <tr>
 													<td class="ogadwp-settings-title">
-														<label for="theme_color"><?php _e("Theme Color:", 'open-google-analytics-dashboard-for-wp' ); ?></label>
+														<label for="theme_color"><?php _e("Theme Color:", 'google-analytics-plus-wp' ); ?></label>
 													</td>
 													<td>
 														<input type="text" id="theme_color" class="theme_color" name="options[theme_color]" value="<?php echo esc_attr($options['theme_color']); ?>" size="10">
@@ -1460,7 +1460,7 @@ final class OGADWP_Settings {
 												</tr>
 												<?php if ( !is_multisite()) :?>
 												<tr>
-													<td colspan="2"><?php echo "<h2>" . __( "Automatic Updates", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+													<td colspan="2"><?php echo "<h2>" . __( "Automatic Updates", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 												</tr>
 												<tr>
 													<td colspan="2" class="ogadwp-settings-title">
@@ -1471,7 +1471,7 @@ final class OGADWP_Settings {
 																<div class="ogadwp-settings-switchoo-switch"></div>
 															</label>
 														</div>
-														<div class="switch-desc"><?php echo " ".__( "automatic updates for minor versions (security and maintenance releases only)", 'open-google-analytics-dashboard-for-wp' );?></div>
+														<div class="switch-desc"><?php echo " ".__( "automatic updates for minor versions (security and maintenance releases only)", 'google-analytics-plus-wp' );?></div>
 													</td>
 												</tr>
 												<tr>
@@ -1482,7 +1482,7 @@ final class OGADWP_Settings {
 												<?php endif; ?>
 												<tr>
 													<td colspan="2" class="submit">
-														<input type="submit" name="Submit" class="button button-primary" value="<?php _e('Save Changes', 'open-google-analytics-dashboard-for-wp' ) ?>" />
+														<input type="submit" name="Submit" class="button button-primary" value="<?php _e('Save Changes', 'google-analytics-plus-wp' ) ?>" />
 													</td>
 												</tr>
 												<?php else : ?>
@@ -1493,8 +1493,8 @@ final class OGADWP_Settings {
 												</tr>
 												<tr>
 													<td colspan="2">
-														<input type="submit" name="Authorize" class="button button-secondary" id="authorize" value="<?php _e( "Authorize Plugin", 'open-google-analytics-dashboard-for-wp' ); ?>" <?php echo $options['network_mode']?'disabled="disabled"':''; ?> />
-														<input type="submit" name="Clear" class="button button-secondary" value="<?php _e( "Clear Cache", 'open-google-analytics-dashboard-for-wp' ); ?>" />
+														<input type="submit" name="Authorize" class="button button-secondary" id="authorize" value="<?php _e( "Authorize Plugin", 'google-analytics-plus-wp' ); ?>" <?php echo $options['network_mode']?'disabled="disabled"':''; ?> />
+														<input type="submit" name="Clear" class="button button-secondary" value="<?php _e( "Clear Cache", 'google-analytics-plus-wp' ); ?>" />
 													</td>
 												</tr>
 												<tr>
@@ -1526,7 +1526,7 @@ final class OGADWP_Settings {
 		/*
 		 * Include GAPI
 		 */
-		echo '<div id="gapi-warning" class="updated"><p>' . __( 'Loading the required libraries. If this results in a blank screen or a fatal error, try this solution:', 'open-google-analytics-dashboard-for-wp' ) . ' <a href="https://deconf.com/open-google-analytics-dashboard-wordpress/?utm_source=ogadwp_config&utm_medium=link&utm_content=general_screen&utm_campaign=ogadwp">Library conflicts between WordPress plugins</a></p></div>';
+		echo '<div id="gapi-warning" class="updated"><p>' . __( 'Loading the required libraries. If this results in a blank screen or a fatal error, try this solution:', 'google-analytics-plus-wp' ) . ' <a href="https://deconf.com/open-google-analytics-dashboard-wordpress/?utm_source=ogadwp_config&utm_medium=link&utm_content=general_screen&utm_campaign=ogadwp">Library conflicts between WordPress plugins</a></p></div>';
 
 		if ( null === $ogadwp->gapi_controller ) {
 			$ogadwp->gapi_controller = new OGADWP_GAPI_Controller();
@@ -1543,7 +1543,7 @@ final class OGADWP_Settings {
 					$ogadwp->config->options['automatic_updates_minorversion'] = 1;
 					$ogadwp->config->set_plugin_options( true );
 					$options = self::update_options( 'network' );
-					$message = "<div class='updated' id='ogadwp-action'><p>" . __( "Plugin authorization succeeded.", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+					$message = "<div class='updated' id='ogadwp-action'><p>" . __( "Plugin authorization succeeded.", 'google-analytics-plus-wp' ) . "</p></div>";
 					if ( is_multisite() ) { // Cleanup errors on the entire network
 						foreach ( OGADWP_Tools::get_sites( array( 'number' => apply_filters( 'ogadwp_sites_limit', 100 ) ) ) as $blog ) {
 							switch_to_blog( $blog['blog_id'] );
@@ -1580,16 +1580,16 @@ final class OGADWP_Settings {
 				}
 			} else {
 				if ( 1 == stripos( 'x' . $_POST['ogadwp_access_code'], 'UA-', 1 ) ) {
-					$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "The access code is <strong>not</strong> your <strong>Tracking ID</strong> (UA-XXXXX-X) <strong>nor</strong> your <strong>email address</strong>!", 'open-google-analytics-dashboard-for-wp' ) . ".</p></div>";
+					$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "The access code is <strong>not</strong> your <strong>Tracking ID</strong> (UA-XXXXX-X) <strong>nor</strong> your <strong>email address</strong>!", 'google-analytics-plus-wp' ) . ".</p></div>";
 				} else {
-					$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "You can only use the access code <strong>once</strong>, please generate a <strong>new access code</strong> using the red link", 'open-google-analytics-dashboard-for-wp' ) . "!</p></div>";
+					$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "You can only use the access code <strong>once</strong>, please generate a <strong>new access code</strong> using the red link", 'google-analytics-plus-wp' ) . "!</p></div>";
 				}
 			}
 		}
 		if ( isset( $_POST['Refresh'] ) ) {
 			if ( isset( $_POST['ogadwp_security'] ) && wp_verify_nonce( $_POST['ogadwp_security'], 'ogadwp_form' ) ) {
 				$ogadwp->config->options['ga_profiles_list'] = array();
-				$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Properties refreshed.", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Properties refreshed.", 'google-analytics-plus-wp' ) . "</p></div>";
 				$options = self::update_options( 'network' );
 				if ( $ogadwp->config->options['token'] && $ogadwp->gapi_controller->client->getAccessToken() ) {
 					if ( ! empty( $ogadwp->config->options['ga_profiles_list'] ) ) {
@@ -1608,46 +1608,46 @@ final class OGADWP_Settings {
 					}
 				}
 			} else {
-				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-plus-wp' ) . "</p></div>";
 			}
 		}
 		if ( isset( $_POST['Clear'] ) ) {
 			if ( isset( $_POST['ogadwp_security'] ) && wp_verify_nonce( $_POST['ogadwp_security'], 'ogadwp_form' ) ) {
 				OGADWP_Tools::clear_cache();
-				$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Cleared Cache.", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Cleared Cache.", 'google-analytics-plus-wp' ) . "</p></div>";
 			} else {
-				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-plus-wp' ) . "</p></div>";
 			}
 		}
 		if ( isset( $_POST['Reset'] ) ) {
 			if ( isset( $_POST['ogadwp_security'] ) && wp_verify_nonce( $_POST['ogadwp_security'], 'ogadwp_form' ) ) {
 				$ogadwp->gapi_controller->reset_token();
 				OGADWP_Tools::clear_cache();
-				$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Token Reseted and Revoked.", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Token Reseted and Revoked.", 'google-analytics-plus-wp' ) . "</p></div>";
 				$options = self::update_options( 'Reset' );
 			} else {
-				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-plus-wp' ) . "</p></div>";
 			}
 		}
 		if ( isset( $_POST['options']['ogadwp_hidden'] ) && ! isset( $_POST['Clear'] ) && ! isset( $_POST['Reset'] ) && ! isset( $_POST['Refresh'] ) ) {
-			$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Settings saved.", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+			$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Settings saved.", 'google-analytics-plus-wp' ) . "</p></div>";
 			if ( ! ( isset( $_POST['ogadwp_security'] ) && wp_verify_nonce( $_POST['ogadwp_security'], 'ogadwp_form' ) ) ) {
-				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-plus-wp' ) . "</p></div>";
 			}
 		}
 		if ( isset( $_POST['Hide'] ) ) {
 			if ( isset( $_POST['ogadwp_security'] ) && wp_verify_nonce( $_POST['ogadwp_security'], 'ogadwp_form' ) ) {
-				$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "All other domains/properties were removed.", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "All other domains/properties were removed.", 'google-analytics-plus-wp' ) . "</p></div>";
 				$lock_profile = OGADWP_Tools::get_selected_profile( $ogadwp->config->options['ga_profiles_list'], $ogadwp->config->options['tableid_jail'] );
 				$ogadwp->config->options['ga_profiles_list'] = array( $lock_profile );
 				$options = self::update_options( 'network' );
 			} else {
-				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'open-google-analytics-dashboard-for-wp' ) . "</p></div>";
+				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-plus-wp' ) . "</p></div>";
 			}
 		}
 		?>
 <div class="wrap">
-											<h2><?php _e( "Google Analytics Settings", 'open-google-analytics-dashboard-for-wp' );?></h2>
+											<h2><?php _e( "Google Analytics Settings", 'google-analytics-plus-wp' );?></h2>
 											<hr>
 										</div>
 										<div id="poststuff" class="ogadwp">
@@ -1656,13 +1656,13 @@ final class OGADWP_Settings {
 													<div class="settings-wrapper">
 														<div class="inside">
 					<?php if ( $ogadwp->gapi_controller->gapi_errors_handler() || OGADWP_Tools::get_cache( 'last_error' ) ) : ?>
-						<?php $message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'open-google-analytics-dashboard-for-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_errors_debugging', false ), __( 'Errors & Debug', 'open-google-analytics-dashboard-for-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_settings', false ), __( 'authorize the plugin', 'open-google-analytics-dashboard-for-wp' ) ) ) );?>
+						<?php $message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'google-analytics-plus-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_errors_debugging', false ), __( 'Errors & Debug', 'google-analytics-plus-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_settings', false ), __( 'authorize the plugin', 'google-analytics-plus-wp' ) ) ) );?>
 					<?php endif; ?>
 					<?php if ( isset( $_POST['Authorize'] ) ) : ?>
 						<?php OGADWP_Tools::clear_cache();?>
 						<?php $ogadwp->gapi_controller->token_request();?>
 					<div class="updated">
-																<p><?php _e( "Use the red link (see below) to generate and get your access code! You need to generate a new code each time you authorize!", 'open-google-analytics-dashboard-for-wp' );?></p>
+																<p><?php _e( "Use the red link (see below) to generate and get your access code! You need to generate a new code each time you authorize!", 'google-analytics-plus-wp' );?></p>
 															</div>
 					<?php else : ?>
 						<?php if ( isset( $message ) ) : ?>
@@ -1674,7 +1674,7 @@ final class OGADWP_Settings {
 						<table class="ogadwp-settings-options">
 																	<tr>
 																		<td colspan="2">
-								<?php echo "<h2>" . __( "Network Setup", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?>
+								<?php echo "<h2>" . __( "Network Setup", 'google-analytics-plus-wp' ) . "</h2>"; ?>
 								</td>
 																	</tr>
 																	<tr>
@@ -1686,7 +1686,7 @@ final class OGADWP_Settings {
 																					<div class="ogadwp-settings-switchoo-switch"></div>
 																				</label>
 																			</div>
-																			<div class="switch-desc"><?php echo " ".__("use a single Google Analytics account for the entire network", 'open-google-analytics-dashboard-for-wp' );?></div>
+																			<div class="switch-desc"><?php echo " ".__("use a single Google Analytics account for the entire network", 'google-analytics-plus-wp' );?></div>
 																		</td>
 																	</tr>
 							<?php if ($options['network_mode']) : ?>
@@ -1696,24 +1696,24 @@ final class OGADWP_Settings {
 																		</td>
 																	</tr>
 																	<tr>
-																		<td colspan="2"><?php echo "<h2>" . __( "Plugin Authorization", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+																		<td colspan="2"><?php echo "<h2>" . __( "Plugin Authorization", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 																	</tr>
 																	<tr>
 																		<td colspan="2" class="ogadwp-settings-info">
-								<?php printf(__('You need to create a %1$s and watch this %2$s before proceeding to authorization.', 'open-google-analytics-dashboard-for-wp'), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/creating-a-google-analytics-account/?utm_source=ogadwp_config&utm_medium=link&utm_content=top_tutorial&utm_campaign=ogadwp', __("free analytics account", 'open-google-analytics-dashboard-for-wp')), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/open-google-analytics-dashboard-wordpress/?utm_source=ogadwp_config&utm_medium=link&utm_content=top_video&utm_campaign=ogadwp', __("video tutorial", 'open-google-analytics-dashboard-for-wp')));?>
+								<?php printf(__('You need to create a %1$s and watch this %2$s before proceeding to authorization.', 'google-analytics-plus-wp'), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/creating-a-google-analytics-account/?utm_source=ogadwp_config&utm_medium=link&utm_content=top_tutorial&utm_campaign=ogadwp', __("free analytics account", 'google-analytics-plus-wp')), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/open-google-analytics-dashboard-wordpress/?utm_source=ogadwp_config&utm_medium=link&utm_content=top_video&utm_campaign=ogadwp', __("video tutorial", 'google-analytics-plus-wp')));?>
 								</td>
 																	</tr>
 								<?php if ( ! $options['token'] || $options['user_api'] ) : ?>
 								<tr>
 																		<td colspan="2" class="ogadwp-settings-info">
-																			<input name="options[user_api]" type="checkbox" id="user_api" value="1" <?php checked( $options['user_api'], 1 ); ?> onchange="this.form.submit()" /><?php echo " ".__("developer mode (requires advanced API knowledge)", 'open-google-analytics-dashboard-for-wp' );?>
+																			<input name="options[user_api]" type="checkbox" id="user_api" value="1" <?php checked( $options['user_api'], 1 ); ?> onchange="this.form.submit()" /><?php echo " ".__("developer mode (requires advanced API knowledge)", 'google-analytics-plus-wp' );?>
 								</td>
 																	</tr>
 								<?php endif; ?>
 							<?php if ( $options['user_api'] ) : ?>
 							<tr>
 																		<td class="ogadwp-settings-title">
-																			<label for="options[client_id]"><?php _e("Client ID:", 'open-google-analytics-dashboard-for-wp'); ?>
+																			<label for="options[client_id]"><?php _e("Client ID:", 'google-analytics-plus-wp'); ?>
 									</label>
 																		</td>
 																		<td>
@@ -1722,7 +1722,7 @@ final class OGADWP_Settings {
 																	</tr>
 																	<tr>
 																		<td class="ogadwp-settings-title">
-																			<label for="options[client_secret]"><?php _e("Client Secret:", 'open-google-analytics-dashboard-for-wp'); ?>
+																			<label for="options[client_secret]"><?php _e("Client Secret:", 'google-analytics-plus-wp'); ?>
 									</label>
 																		</td>
 																		<td>
@@ -1735,9 +1735,9 @@ final class OGADWP_Settings {
 							<?php if ( $options['token'] ) : ?>
 							<tr>
 																		<td colspan="2">
-																			<input type="submit" name="Reset" class="button button-secondary" value="<?php _e( "Clear Authorization", 'open-google-analytics-dashboard-for-wp' ); ?>" />
-																			<input type="submit" name="Clear" class="button button-secondary" value="<?php _e( "Clear Cache", 'open-google-analytics-dashboard-for-wp' ); ?>" />
-																			<input type="submit" name="Refresh" class="button button-secondary" value="<?php _e( "Refresh Properties", 'open-google-analytics-dashboard-for-wp' ); ?>" />
+																			<input type="submit" name="Reset" class="button button-secondary" value="<?php _e( "Clear Authorization", 'google-analytics-plus-wp' ); ?>" />
+																			<input type="submit" name="Clear" class="button button-secondary" value="<?php _e( "Clear Cache", 'google-analytics-plus-wp' ); ?>" />
+																			<input type="submit" name="Refresh" class="button button-secondary" value="<?php _e( "Refresh Properties", 'google-analytics-plus-wp' ); ?>" />
 																		</td>
 																	</tr>
 																	<tr>
@@ -1747,7 +1747,7 @@ final class OGADWP_Settings {
 																	</tr>
 																	<tr>
 																		<td colspan="2">
-								<?php echo "<h2>" . __( "Properties/Views Settings", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?>
+								<?php echo "<h2>" . __( "Properties/Views Settings", 'google-analytics-plus-wp' ) . "</h2>"; ?>
 								</td>
 																	</tr>
 							<?php if ( isset( $options['network_tableid'] ) ) : ?>
@@ -1764,14 +1764,14 @@ final class OGADWP_Settings {
 										<?php foreach ( $options['ga_profiles_list'] as $items ) : ?>
 											<?php if ( $items[3] ) : ?>
 												<?php $temp_id = $blog['blog_id']; ?>
-												<option value="<?php echo esc_attr( $items[1] );?>" <?php selected( $items[1], isset( $options['network_tableid']->$temp_id ) ? $options['network_tableid']->$temp_id : '');?> title="<?php echo __( "View Name:", 'open-google-analytics-dashboard-for-wp' ) . ' ' . esc_attr( $items[0] );?>">
+												<option value="<?php echo esc_attr( $items[1] );?>" <?php selected( $items[1], isset( $options['network_tableid']->$temp_id ) ? $options['network_tableid']->$temp_id : '');?> title="<?php echo __( "View Name:", 'google-analytics-plus-wp' ) . ' ' . esc_attr( $items[0] );?>">
 													 <?php echo esc_html( OGADWP_Tools::strip_protocol( $items[3] ) );?> &#8658; <?php echo esc_attr( $items[0] );?>
 												</option>
 											<?php endif; ?>
 										<?php endforeach; ?>
 									<?php else : ?>
 												<option value="">
-													<?php _e( "Property not found", 'open-google-analytics-dashboard-for-wp' );?>
+													<?php _e( "Property not found", 'google-analytics-plus-wp' );?>
 												</option>
 									<?php endif; ?>
 									</select>
@@ -1781,7 +1781,7 @@ final class OGADWP_Settings {
 							<?php endforeach; ?>
 							<tr>
 																		<td colspan="2">
-																			<h2><?php echo _e( "Automatic Updates", 'open-google-analytics-dashboard-for-wp' );?></h2>
+																			<h2><?php echo _e( "Automatic Updates", 'google-analytics-plus-wp' );?></h2>
 																		</td>
 																	</tr>
 																	<tr>
@@ -1793,12 +1793,12 @@ final class OGADWP_Settings {
 																					<div class="ogadwp-settings-switchoo-switch"></div>
 																				</label>
 																			</div>
-																			<div class="switch-desc"><?php echo " ".__( "automatic updates for minor versions (security and maintenance releases only)", 'open-google-analytics-dashboard-for-wp' );?></div>
+																			<div class="switch-desc"><?php echo " ".__( "automatic updates for minor versions (security and maintenance releases only)", 'google-analytics-plus-wp' );?></div>
 																		</td>
 																	</tr>
 																	<tr>
 																		<td colspan="2">
-																			<hr><?php echo "<h2>" . __( "Exclude Tracking", 'open-google-analytics-dashboard-for-wp' ) . "</h2>"; ?></td>
+																			<hr><?php echo "<h2>" . __( "Exclude Tracking", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
 																	</tr>
 																	<tr>
 																		<td colspan="2" class="ogadwp-settings-title">
@@ -1809,7 +1809,7 @@ final class OGADWP_Settings {
 																					<div class="ogadwp-settings-switchoo-switch"></div>
 																				</label>
 																			</div>
-																			<div class="switch-desc"><?php echo " ".__("exclude Super Admin tracking for the entire network", 'open-google-analytics-dashboard-for-wp' );?></div>
+																			<div class="switch-desc"><?php echo " ".__("exclude Super Admin tracking for the entire network", 'google-analytics-plus-wp' );?></div>
 																		</td>
 																	</tr>
 																	<tr>
@@ -1819,7 +1819,7 @@ final class OGADWP_Settings {
 																	</tr>
 																	<tr>
 																		<td colspan="2" class="submit">
-																			<input type="submit" name="Submit" class="button button-primary" value="<?php _e('Save Changes', 'open-google-analytics-dashboard-for-wp' ) ?>" />
+																			<input type="submit" name="Submit" class="button button-primary" value="<?php _e('Save Changes', 'google-analytics-plus-wp' ) ?>" />
 																		</td>
 																	</tr>
 							<?php else : ?>
@@ -1830,8 +1830,8 @@ final class OGADWP_Settings {
 																	</tr>
 																	<tr>
 																		<td colspan="2">
-																			<input type="submit" name="Authorize" class="button button-secondary" id="authorize" value="<?php _e( "Authorize Plugin", 'open-google-analytics-dashboard-for-wp' ); ?>" />
-																			<input type="submit" name="Clear" class="button button-secondary" value="<?php _e( "Clear Cache", 'open-google-analytics-dashboard-for-wp' ); ?>" />
+																			<input type="submit" name="Authorize" class="button button-secondary" id="authorize" value="<?php _e( "Authorize Plugin", 'google-analytics-plus-wp' ); ?>" />
+																			<input type="submit" name="Clear" class="button button-secondary" value="<?php _e( "Clear Cache", 'google-analytics-plus-wp' ); ?>" />
 																		</td>
 																	</tr>
 							<?php endif; ?>
@@ -1865,7 +1865,7 @@ final class OGADWP_Settings {
 													<div class="meta-box-sortables">
 														<div class="postbox">
 															<h3>
-																<span><?php _e("Setup Tutorial & Demo",'open-google-analytics-dashboard-for-wp') ?></span>
+																<span><?php _e("Setup Tutorial & Demo",'google-analytics-plus-wp') ?></span>
 															</h3>
 															<div class="inside">
 																<a href="https://deconf.com/open-google-analytics-dashboard-wordpress/?utm_source=ogadwp_config&utm_medium=link&utm_content=video&utm_campaign=ogadwp" target="_blank"><img src="<?php echo plugins_url( 'images/open-google-analytics-dashboard.png' , __FILE__ );?>" width="100%" alt="" /></a>
@@ -1873,7 +1873,7 @@ final class OGADWP_Settings {
 														</div>
 														<div class="postbox">
 															<h3>
-																<span><?php _e("Stay Updated",'open-google-analytics-dashboard-for-wp')?></span>
+																<span><?php _e("Stay Updated",'google-analytics-plus-wp')?></span>
 															</h3>
 															<div class="inside">
 																<div class="ogadwp-desc">
@@ -1893,28 +1893,28 @@ final class OGADWP_Settings {
 														</div>
 														<div class="postbox">
 															<h3>
-																<span><?php _e("Further Reading",'open-google-analytics-dashboard-for-wp')?></span>
+																<span><?php _e("Further Reading",'google-analytics-plus-wp')?></span>
 															</h3>
 															<div class="inside">
 																<div class="ogadwp-title">
 																	<a href="https://deconf.com/clicky-web-analytics-review/?utm_source=ogadwp_config&utm_medium=link&utm_content=clicky&utm_campaign=ogadwp"><img src="<?php echo plugins_url( 'images/clicky.png' , __FILE__ ); ?>" /></a>
 																</div>
 																<div class="ogadwp-desc">
-																	<?php printf(__('%s service with users tracking at IP level.', 'open-google-analytics-dashboard-for-wp'), sprintf('<a href="https://deconf.com/clicky-web-analytics-review/?utm_source=ogadwp_config&utm_medium=link&utm_content=clicky&utm_campaign=ogadwp">%s</a>', __('Web Analytics', 'open-google-analytics-dashboard-for-wp')));?>
+																	<?php printf(__('%s service with users tracking at IP level.', 'google-analytics-plus-wp'), sprintf('<a href="https://deconf.com/clicky-web-analytics-review/?utm_source=ogadwp_config&utm_medium=link&utm_content=clicky&utm_campaign=ogadwp">%s</a>', __('Web Analytics', 'google-analytics-plus-wp')));?>
 																</div>
 																<br />
 																<div class="ogadwp-title">
 																	<a href="https://deconf.com/move-website-https-ssl/?utm_source=ogadwp_config&utm_medium=link&utm_content=ssl&utm_campaign=ogadwp"><img src="<?php echo plugins_url( 'images/ssl.png' , __FILE__ ); ?>" /></a>
 																</div>
 																<div class="ogadwp-desc">
-																	<?php printf(__('%s by moving your website to HTTPS/SSL.', 'open-google-analytics-dashboard-for-wp'), sprintf('<a href="https://deconf.com/move-website-https-ssl/?utm_source=ogadwp_config&utm_medium=link&utm_content=ssl&utm_campaign=ogadwp">%s</a>', __('Improve search rankings', 'open-google-analytics-dashboard-for-wp')));?>
+																	<?php printf(__('%s by moving your website to HTTPS/SSL.', 'google-analytics-plus-wp'), sprintf('<a href="https://deconf.com/move-website-https-ssl/?utm_source=ogadwp_config&utm_medium=link&utm_content=ssl&utm_campaign=ogadwp">%s</a>', __('Improve search rankings', 'google-analytics-plus-wp')));?>
 																</div>
 																<br />
 																<div class="ogadwp-title">
-																	<a href="http://wordpress.org/support/view/plugin-reviews/open-google-analytics-dashboard-for-wp#plugin-info"><img src="<?php echo plugins_url( 'images/star.png' , __FILE__ ); ?>" /></a>
+																	<a href="http://wordpress.org/support/view/plugin-reviews/google-analytics-plus-wp#plugin-info"><img src="<?php echo plugins_url( 'images/star.png' , __FILE__ ); ?>" /></a>
 																</div>
 																<div class="ogadwp-desc">
-																	<?php printf(__('Your feedback and review are both important, %s!', 'open-google-analytics-dashboard-for-wp'), sprintf('<a href="http://wordpress.org/support/view/plugin-reviews/open-google-analytics-dashboard-for-wp#plugin-info">%s</a>', __('rate this plugin', 'open-google-analytics-dashboard-for-wp')));?>
+																	<?php printf(__('Your feedback and review are both important, %s!', 'google-analytics-plus-wp'), sprintf('<a href="http://wordpress.org/support/view/plugin-reviews/google-analytics-plus-wp#plugin-info">%s</a>', __('rate this plugin', 'google-analytics-plus-wp')));?>
 																</div>
 															</div>
 														</div>

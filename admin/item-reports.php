@@ -50,7 +50,7 @@ if ( ! class_exists( 'OGADWP_Backend_Item_Reports' ) ) {
 		}
 
 		public function add_columns( $columns ) {
-			return array_merge( $columns, array( 'ogadwp_stats' => __( 'Analytics', 'open-google-analytics-dashboard-for-wp' ) ) );
+			return array_merge( $columns, array( 'ogadwp_stats' => __( 'Analytics', 'google-analytics-plus-wp' ) ) );
 		}
 	}
 }

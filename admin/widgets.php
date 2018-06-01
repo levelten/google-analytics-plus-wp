@@ -25,14 +25,14 @@ if ( ! class_exists( 'OGADWP_Backend_Widgets' ) ) {
 		}
 
 		public function add_widget() {
-			wp_add_dashboard_widget( 'ogadwp-widget', __( "Open Google Analytics Dashboard", 'open-google-analytics-dashboard-for-wp' ), array( $this, 'dashboard_widget' ), $control_callback = null );
+			wp_add_dashboard_widget( 'ogadwp-widget', __( "Open Google Analytics Dashboard", 'google-analytics-plus-wp' ), array( $this, 'dashboard_widget' ), $control_callback = null );
 		}
 
 		public function dashboard_widget() {
 			$projectId = 0;
 			
 			if ( empty( $this->ogadwp->config->options['token'] ) ) {
-				echo '<p>' . __( "This plugin needs an authorization:", 'open-google-analytics-dashboard-for-wp' ) . '</p><form action="' . menu_page_url( 'ogadwp_settings', false ) . '" method="POST">' . get_submit_button( __( "Authorize Plugin", 'open-google-analytics-dashboard-for-wp' ), 'secondary' ) . '</form>';
+				echo '<p>' . __( "This plugin needs an authorization:", 'google-analytics-plus-wp' ) . '</p><form action="' . menu_page_url( 'ogadwp_settings', false ) . '" method="POST">' . get_submit_button( __( "Authorize Plugin", 'google-analytics-plus-wp' ), 'secondary' ) . '</form>';
 				return;
 			}
 			
@@ -40,20 +40,20 @@ if ( ! class_exists( 'OGADWP_Backend_Widgets' ) ) {
 				if ( $this->ogadwp->config->options['tableid_jail'] ) {
 					$projectId = $this->ogadwp->config->options['tableid_jail'];
 				} else {
-					echo '<p>' . __( "An admin should asign a default Google Analytics Profile.", 'open-google-analytics-dashboard-for-wp' ) . '</p><form action="' . menu_page_url( 'ogadwp_settings', false ) . '" method="POST">' . get_submit_button( __( "Select Domain", 'open-google-analytics-dashboard-for-wp' ), 'secondary' ) . '</form>';
+					echo '<p>' . __( "An admin should asign a default Google Analytics Profile.", 'google-analytics-plus-wp' ) . '</p><form action="' . menu_page_url( 'ogadwp_settings', false ) . '" method="POST">' . get_submit_button( __( "Select Domain", 'google-analytics-plus-wp' ), 'secondary' ) . '</form>';
 					return;
 				}
 			} else {
 				if ( $this->ogadwp->config->options['tableid_jail'] ) {
 					$projectId = $this->ogadwp->config->options['tableid_jail'];
 				} else {
-					echo '<p>' . __( "An admin should asign a default Google Analytics Profile.", 'open-google-analytics-dashboard-for-wp' ) . '</p><form action="' . menu_page_url( 'ogadwp_settings', false ) . '" method="POST">' . get_submit_button( __( "Select Domain", 'open-google-analytics-dashboard-for-wp' ), 'secondary' ) . '</form>';
+					echo '<p>' . __( "An admin should asign a default Google Analytics Profile.", 'google-analytics-plus-wp' ) . '</p><form action="' . menu_page_url( 'ogadwp_settings', false ) . '" method="POST">' . get_submit_button( __( "Select Domain", 'google-analytics-plus-wp' ), 'secondary' ) . '</form>';
 					return;
 				}
 			}
 			
 			if ( ! ( $projectId ) ) {
-				echo '<p>' . __( "Something went wrong while retrieving property data. You need to create and properly configure a Google Analytics account:", 'open-google-analytics-dashboard-for-wp' ) . '</p> <form action="https://deconf.com/how-to-set-up-google-analytics-on-your-website/" method="POST">' . get_submit_button( __( "Find out more!", 'open-google-analytics-dashboard-for-wp' ), 'secondary' ) . '</form>';
+				echo '<p>' . __( "Something went wrong while retrieving property data. You need to create and properly configure a Google Analytics account:", 'google-analytics-plus-wp' ) . '</p> <form action="https://deconf.com/how-to-set-up-google-analytics-on-your-website/" method="POST">' . get_submit_button( __( "Find out more!", 'google-analytics-plus-wp' ), 'secondary' ) . '</form>';
 				return;
 			}
 			

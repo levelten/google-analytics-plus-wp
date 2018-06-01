@@ -30,7 +30,7 @@ if ( ! class_exists( 'OGADWP_Tracking' ) ) {
 		}
 
 		public function tracking_code() { // Removed since 5.0
-			OGADWP_Tools::doing_it_wrong( __METHOD__, __( "This method is deprecated, read the documentation!", 'open-google-analytics-dashboard-for-wp' ), '5.0' );
+			OGADWP_Tools::doing_it_wrong( __METHOD__, __( "This method is deprecated, read the documentation!", 'google-analytics-plus-wp' ), '5.0' );
 		}
 
 		public static function ogadwp_user_optout( $atts, $content = "" ) {

@@ -39,12 +39,12 @@ if ( ! class_exists( 'OGADWP_Backend_Setup' ) ) {
 			global $wp_version;
 			if ( current_user_can( 'manage_options' ) ) {
 				include ( OGADWP_DIR . 'admin/settings.php' );
-				add_menu_page( __( "Google Analytics", 'open-google-analytics-dashboard-for-wp' ), __( "Google Analytics", 'open-google-analytics-dashboard-for-wp' ), 'manage_options', 'ogadwp_settings', array( 'OGADWP_Settings', 'general_settings' ), version_compare( $wp_version, '3.8.0', '>=' ) ? 'dashicons-chart-area' : OGADWP_URL . 'admin/images/ogadwp-icon.png' );
-				add_submenu_page( 'ogadwp_settings', __( "General Settings", 'open-google-analytics-dashboard-for-wp' ), __( "General Settings", 'open-google-analytics-dashboard-for-wp' ), 'manage_options', 'ogadwp_settings', array( 'OGADWP_Settings', 'general_settings' ) );
-				add_submenu_page( 'ogadwp_settings', __( "Backend Settings", 'open-google-analytics-dashboard-for-wp' ), __( "Backend Settings", 'open-google-analytics-dashboard-for-wp' ), 'manage_options', 'ogadwp_backend_settings', array( 'OGADWP_Settings', 'backend_settings' ) );
-				add_submenu_page( 'ogadwp_settings', __( "Frontend Settings", 'open-google-analytics-dashboard-for-wp' ), __( "Frontend Settings", 'open-google-analytics-dashboard-for-wp' ), 'manage_options', 'ogadwp_frontend_settings', array( 'OGADWP_Settings', 'frontend_settings' ) );
-				add_submenu_page( 'ogadwp_settings', __( "Tracking Code", 'open-google-analytics-dashboard-for-wp' ), __( "Tracking Code", 'open-google-analytics-dashboard-for-wp' ), 'manage_options', 'ogadwp_tracking_settings', array( 'OGADWP_Settings', 'tracking_settings' ) );
-				add_submenu_page( 'ogadwp_settings', __( "Errors & Debug", 'open-google-analytics-dashboard-for-wp' ), __( "Errors & Debug", 'open-google-analytics-dashboard-for-wp' ), 'manage_options', 'ogadwp_errors_debugging', array( 'OGADWP_Settings', 'errors_debugging' ) );
+				add_menu_page( __( "Google Analytics", 'google-analytics-plus-wp' ), __( "Google Analytics", 'google-analytics-plus-wp' ), 'manage_options', 'ogadwp_settings', array( 'OGADWP_Settings', 'general_settings' ), version_compare( $wp_version, '3.8.0', '>=' ) ? 'dashicons-chart-area' : OGADWP_URL . 'admin/images/ogadwp-icon.png' );
+				add_submenu_page( 'ogadwp_settings', __( "General Settings", 'google-analytics-plus-wp' ), __( "General Settings", 'google-analytics-plus-wp' ), 'manage_options', 'ogadwp_settings', array( 'OGADWP_Settings', 'general_settings' ) );
+				add_submenu_page( 'ogadwp_settings', __( "Backend Settings", 'google-analytics-plus-wp' ), __( "Backend Settings", 'google-analytics-plus-wp' ), 'manage_options', 'ogadwp_backend_settings', array( 'OGADWP_Settings', 'backend_settings' ) );
+				add_submenu_page( 'ogadwp_settings', __( "Frontend Settings", 'google-analytics-plus-wp' ), __( "Frontend Settings", 'google-analytics-plus-wp' ), 'manage_options', 'ogadwp_frontend_settings', array( 'OGADWP_Settings', 'frontend_settings' ) );
+				add_submenu_page( 'ogadwp_settings', __( "Tracking Code", 'google-analytics-plus-wp' ), __( "Tracking Code", 'google-analytics-plus-wp' ), 'manage_options', 'ogadwp_tracking_settings', array( 'OGADWP_Settings', 'tracking_settings' ) );
+				add_submenu_page( 'ogadwp_settings', __( "Errors & Debug", 'google-analytics-plus-wp' ), __( "Errors & Debug", 'google-analytics-plus-wp' ), 'manage_options', 'ogadwp_errors_debugging', array( 'OGADWP_Settings', 'errors_debugging' ) );
 			}
 		}
 
@@ -55,9 +55,9 @@ if ( ! class_exists( 'OGADWP_Backend_Setup' ) ) {
 			global $wp_version;
 			if ( current_user_can( 'manage_network' ) ) {
 				include ( OGADWP_DIR . 'admin/settings.php' );
-				add_menu_page( __( "Google Analytics", 'open-google-analytics-dashboard-for-wp' ), "Google Analytics", 'manage_network', 'ogadwp_settings', array( 'OGADWP_Settings', 'general_settings_network' ), version_compare( $wp_version, '3.8.0', '>=' ) ? 'dashicons-chart-area' : OGADWP_URL . 'admin/images/ogadwp-icon.png' );
-				add_submenu_page( 'ogadwp_settings', __( "General Settings", 'open-google-analytics-dashboard-for-wp' ), __( "General Settings", 'open-google-analytics-dashboard-for-wp' ), 'manage_network', 'ogadwp_settings', array( 'OGADWP_Settings', 'general_settings_network' ) );
-				add_submenu_page( 'ogadwp_settings', __( "Errors & Debug", 'open-google-analytics-dashboard-for-wp' ), __( "Errors & Debug", 'open-google-analytics-dashboard-for-wp' ), 'manage_network', 'ogadwp_errors_debugging', array( 'OGADWP_Settings', 'errors_debugging' ) );
+				add_menu_page( __( "Google Analytics", 'google-analytics-plus-wp' ), "Google Analytics", 'manage_network', 'ogadwp_settings', array( 'OGADWP_Settings', 'general_settings_network' ), version_compare( $wp_version, '3.8.0', '>=' ) ? 'dashicons-chart-area' : OGADWP_URL . 'admin/images/ogadwp-icon.png' );
+				add_submenu_page( 'ogadwp_settings', __( "General Settings", 'google-analytics-plus-wp' ), __( "General Settings", 'google-analytics-plus-wp' ), 'manage_network', 'ogadwp_settings', array( 'OGADWP_Settings', 'general_settings_network' ) );
+				add_submenu_page( 'ogadwp_settings', __( "Errors & Debug", 'google-analytics-plus-wp' ), __( "Errors & Debug", 'google-analytics-plus-wp' ), 'manage_network', 'ogadwp_errors_debugging', array( 'OGADWP_Settings', 'errors_debugging' ) );
 			}
 		}
 
@@ -151,15 +151,15 @@ if ( ! class_exists( 'OGADWP_Backend_Setup' ) ) {
 					/* @formatter:off */
 
 					$datelist = array(
-						'realtime' => __( "Real-Time", 'open-google-analytics-dashboard-for-wp' ),
-						'today' => __( "Today", 'open-google-analytics-dashboard-for-wp' ),
-						'yesterday' => __( "Yesterday", 'open-google-analytics-dashboard-for-wp' ),
-						'7daysAgo' => sprintf( __( "Last %d Days", 'open-google-analytics-dashboard-for-wp' ), 7 ),
-						'14daysAgo' => sprintf( __( "Last %d Days", 'open-google-analytics-dashboard-for-wp' ), 14 ),
-						'30daysAgo' => sprintf( __( "Last %d Days", 'open-google-analytics-dashboard-for-wp' ), 30 ),
-						'90daysAgo' => sprintf( __( "Last %d Days", 'open-google-analytics-dashboard-for-wp' ), 90 ),
-						'365daysAgo' =>  sprintf( _n( "%s Year", "%s Years", 1, 'open-google-analytics-dashboard-for-wp' ), __('One', 'open-google-analytics-dashboard-for-wp') ),
-						'1095daysAgo' =>  sprintf( _n( "%s Year", "%s Years", 3, 'open-google-analytics-dashboard-for-wp' ), __('Three', 'open-google-analytics-dashboard-for-wp') ),
+						'realtime' => __( "Real-Time", 'google-analytics-plus-wp' ),
+						'today' => __( "Today", 'google-analytics-plus-wp' ),
+						'yesterday' => __( "Yesterday", 'google-analytics-plus-wp' ),
+						'7daysAgo' => sprintf( __( "Last %d Days", 'google-analytics-plus-wp' ), 7 ),
+						'14daysAgo' => sprintf( __( "Last %d Days", 'google-analytics-plus-wp' ), 14 ),
+						'30daysAgo' => sprintf( __( "Last %d Days", 'google-analytics-plus-wp' ), 30 ),
+						'90daysAgo' => sprintf( __( "Last %d Days", 'google-analytics-plus-wp' ), 90 ),
+						'365daysAgo' =>  sprintf( _n( "%s Year", "%s Years", 1, 'google-analytics-plus-wp' ), __('One', 'google-analytics-plus-wp') ),
+						'1095daysAgo' =>  sprintf( _n( "%s Year", "%s Years", 3, 'google-analytics-plus-wp' ), __('Three', 'google-analytics-plus-wp') ),
 					);
 
 
@@ -172,49 +172,49 @@ if ( ! class_exists( 'OGADWP_Backend_Setup' ) ) {
 						'security' => wp_create_nonce( 'ogadwp_backend_item_reports' ),
 						'dateList' => $datelist,
 						'reportList' => array(
-							'sessions' => __( "Sessions", 'open-google-analytics-dashboard-for-wp' ),
-							'users' => __( "Users", 'open-google-analytics-dashboard-for-wp' ),
-							'organicSearches' => __( "Organic", 'open-google-analytics-dashboard-for-wp' ),
-							'pageviews' => __( "Page Views", 'open-google-analytics-dashboard-for-wp' ),
-							'visitBounceRate' => __( "Bounce Rate", 'open-google-analytics-dashboard-for-wp' ),
-							'locations' => __( "Location", 'open-google-analytics-dashboard-for-wp' ),
-							'contentpages' =>  __( "Pages", 'open-google-analytics-dashboard-for-wp' ),
-							'referrers' => __( "Referrers", 'open-google-analytics-dashboard-for-wp' ),
-							'searches' => __( "Searches", 'open-google-analytics-dashboard-for-wp' ),
-							'trafficdetails' => __( "Traffic", 'open-google-analytics-dashboard-for-wp' ),
-							'technologydetails' => __( "Technology", 'open-google-analytics-dashboard-for-wp' ),
-							'404errors' => __( "404 Errors", 'open-google-analytics-dashboard-for-wp' ),
+							'sessions' => __( "Sessions", 'google-analytics-plus-wp' ),
+							'users' => __( "Users", 'google-analytics-plus-wp' ),
+							'organicSearches' => __( "Organic", 'google-analytics-plus-wp' ),
+							'pageviews' => __( "Page Views", 'google-analytics-plus-wp' ),
+							'visitBounceRate' => __( "Bounce Rate", 'google-analytics-plus-wp' ),
+							'locations' => __( "Location", 'google-analytics-plus-wp' ),
+							'contentpages' =>  __( "Pages", 'google-analytics-plus-wp' ),
+							'referrers' => __( "Referrers", 'google-analytics-plus-wp' ),
+							'searches' => __( "Searches", 'google-analytics-plus-wp' ),
+							'trafficdetails' => __( "Traffic", 'google-analytics-plus-wp' ),
+							'technologydetails' => __( "Technology", 'google-analytics-plus-wp' ),
+							'404errors' => __( "404 Errors", 'google-analytics-plus-wp' ),
 						),
 						'i18n' => array(
-							__( "A JavaScript Error is blocking plugin resources!", 'open-google-analytics-dashboard-for-wp' ), //0
-							__( "Traffic Mediums", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Visitor Type", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Search Engines", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Social Networks", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Sessions", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Users", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Page Views", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Bounce Rate", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Organic Search", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Pages/Session", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Invalid response", 'open-google-analytics-dashboard-for-wp' ),
-							__( "No Data", 'open-google-analytics-dashboard-for-wp' ),
-							__( "This report is unavailable", 'open-google-analytics-dashboard-for-wp' ),
-							__( "report generated by", 'open-google-analytics-dashboard-for-wp' ), //14
-							__( "This plugin needs an authorization:", 'open-google-analytics-dashboard-for-wp' ) . ' <a href="' . menu_page_url( 'ogadwp_settings', false ) . '">' . __( "authorize the plugin", 'open-google-analytics-dashboard-for-wp' ) . '</a>.',
-							__( "Browser", 'open-google-analytics-dashboard-for-wp' ), //16
-							__( "Operating System", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Screen Resolution", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Mobile Brand", 'open-google-analytics-dashboard-for-wp' ),
-							__( "REFERRALS", 'open-google-analytics-dashboard-for-wp' ), //20
-							__( "KEYWORDS", 'open-google-analytics-dashboard-for-wp' ),
-							__( "SOCIAL", 'open-google-analytics-dashboard-for-wp' ),
-							__( "CAMPAIGN", 'open-google-analytics-dashboard-for-wp' ),
-							__( "DIRECT", 'open-google-analytics-dashboard-for-wp' ),
-							__( "NEW", 'open-google-analytics-dashboard-for-wp' ), //25
-							__( "Time on Page", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Page Load Time", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Session Duration", 'open-google-analytics-dashboard-for-wp' ),
+							__( "A JavaScript Error is blocking plugin resources!", 'google-analytics-plus-wp' ), //0
+							__( "Traffic Mediums", 'google-analytics-plus-wp' ),
+							__( "Visitor Type", 'google-analytics-plus-wp' ),
+							__( "Search Engines", 'google-analytics-plus-wp' ),
+							__( "Social Networks", 'google-analytics-plus-wp' ),
+							__( "Sessions", 'google-analytics-plus-wp' ),
+							__( "Users", 'google-analytics-plus-wp' ),
+							__( "Page Views", 'google-analytics-plus-wp' ),
+							__( "Bounce Rate", 'google-analytics-plus-wp' ),
+							__( "Organic Search", 'google-analytics-plus-wp' ),
+							__( "Pages/Session", 'google-analytics-plus-wp' ),
+							__( "Invalid response", 'google-analytics-plus-wp' ),
+							__( "No Data", 'google-analytics-plus-wp' ),
+							__( "This report is unavailable", 'google-analytics-plus-wp' ),
+							__( "report generated by", 'google-analytics-plus-wp' ), //14
+							__( "This plugin needs an authorization:", 'google-analytics-plus-wp' ) . ' <a href="' . menu_page_url( 'ogadwp_settings', false ) . '">' . __( "authorize the plugin", 'google-analytics-plus-wp' ) . '</a>.',
+							__( "Browser", 'google-analytics-plus-wp' ), //16
+							__( "Operating System", 'google-analytics-plus-wp' ),
+							__( "Screen Resolution", 'google-analytics-plus-wp' ),
+							__( "Mobile Brand", 'google-analytics-plus-wp' ),
+							__( "REFERRALS", 'google-analytics-plus-wp' ), //20
+							__( "KEYWORDS", 'google-analytics-plus-wp' ),
+							__( "SOCIAL", 'google-analytics-plus-wp' ),
+							__( "CAMPAIGN", 'google-analytics-plus-wp' ),
+							__( "DIRECT", 'google-analytics-plus-wp' ),
+							__( "NEW", 'google-analytics-plus-wp' ), //25
+							__( "Time on Page", 'google-analytics-plus-wp' ),
+							__( "Page Load Time", 'google-analytics-plus-wp' ),
+							__( "Session Duration", 'google-analytics-plus-wp' ),
 						),
 						'rtLimitPages' => $this->ogadwp->config->options['ga_realtime_pages'],
 						'colorVariations' => OGADWP_Tools::variations( $this->ogadwp->config->options['theme_color'] ),
@@ -265,57 +265,57 @@ if ( ! class_exists( 'OGADWP_Backend_Setup' ) ) {
 						'ajaxurl' => admin_url( 'admin-ajax.php' ),
 						'security' => wp_create_nonce( 'ogadwp_backend_item_reports' ),
 						'dateList' => array(
-							'today' => __( "Today", 'open-google-analytics-dashboard-for-wp' ),
-							'yesterday' => __( "Yesterday", 'open-google-analytics-dashboard-for-wp' ),
-							'7daysAgo' => sprintf( __( "Last %d Days", 'open-google-analytics-dashboard-for-wp' ), 7 ),
-							'14daysAgo' => sprintf( __( "Last %d Days", 'open-google-analytics-dashboard-for-wp' ), 14 ),
-							'30daysAgo' => sprintf( __( "Last %d Days", 'open-google-analytics-dashboard-for-wp' ), 30 ),
-							'90daysAgo' => sprintf( __( "Last %d Days", 'open-google-analytics-dashboard-for-wp' ), 90 ),
-							'365daysAgo' =>  sprintf( _n( "%s Year", "%s Years", 1, 'open-google-analytics-dashboard-for-wp' ), __('One', 'open-google-analytics-dashboard-for-wp') ),
-							'1095daysAgo' =>  sprintf( _n( "%s Year", "%s Years", 3, 'open-google-analytics-dashboard-for-wp' ), __('Three', 'open-google-analytics-dashboard-for-wp') ),
+							'today' => __( "Today", 'google-analytics-plus-wp' ),
+							'yesterday' => __( "Yesterday", 'google-analytics-plus-wp' ),
+							'7daysAgo' => sprintf( __( "Last %d Days", 'google-analytics-plus-wp' ), 7 ),
+							'14daysAgo' => sprintf( __( "Last %d Days", 'google-analytics-plus-wp' ), 14 ),
+							'30daysAgo' => sprintf( __( "Last %d Days", 'google-analytics-plus-wp' ), 30 ),
+							'90daysAgo' => sprintf( __( "Last %d Days", 'google-analytics-plus-wp' ), 90 ),
+							'365daysAgo' =>  sprintf( _n( "%s Year", "%s Years", 1, 'google-analytics-plus-wp' ), __('One', 'google-analytics-plus-wp') ),
+							'1095daysAgo' =>  sprintf( _n( "%s Year", "%s Years", 3, 'google-analytics-plus-wp' ), __('Three', 'google-analytics-plus-wp') ),
 						),
 						'reportList' => array(
-							'uniquePageviews' => __( "Unique Views", 'open-google-analytics-dashboard-for-wp' ),
-							'users' => __( "Users", 'open-google-analytics-dashboard-for-wp' ),
-							'organicSearches' => __( "Organic", 'open-google-analytics-dashboard-for-wp' ),
-							'pageviews' => __( "Page Views", 'open-google-analytics-dashboard-for-wp' ),
-							'visitBounceRate' => __( "Bounce Rate", 'open-google-analytics-dashboard-for-wp' ),
-							'locations' => __( "Location", 'open-google-analytics-dashboard-for-wp' ),
-							'referrers' => __( "Referrers", 'open-google-analytics-dashboard-for-wp' ),
-							'searches' => __( "Searches", 'open-google-analytics-dashboard-for-wp' ),
-							'trafficdetails' => __( "Traffic", 'open-google-analytics-dashboard-for-wp' ),
-							'technologydetails' => __( "Technology", 'open-google-analytics-dashboard-for-wp' ),
+							'uniquePageviews' => __( "Unique Views", 'google-analytics-plus-wp' ),
+							'users' => __( "Users", 'google-analytics-plus-wp' ),
+							'organicSearches' => __( "Organic", 'google-analytics-plus-wp' ),
+							'pageviews' => __( "Page Views", 'google-analytics-plus-wp' ),
+							'visitBounceRate' => __( "Bounce Rate", 'google-analytics-plus-wp' ),
+							'locations' => __( "Location", 'google-analytics-plus-wp' ),
+							'referrers' => __( "Referrers", 'google-analytics-plus-wp' ),
+							'searches' => __( "Searches", 'google-analytics-plus-wp' ),
+							'trafficdetails' => __( "Traffic", 'google-analytics-plus-wp' ),
+							'technologydetails' => __( "Technology", 'google-analytics-plus-wp' ),
 						),
 						'i18n' => array(
-							__( "A JavaScript Error is blocking plugin resources!", 'open-google-analytics-dashboard-for-wp' ), //0
-							__( "Traffic Mediums", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Visitor Type", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Social Networks", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Search Engines", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Unique Views", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Users", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Page Views", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Bounce Rate", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Organic Search", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Pages/Session", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Invalid response", 'open-google-analytics-dashboard-for-wp' ),
-							__( "No Data", 'open-google-analytics-dashboard-for-wp' ),
-							__( "This report is unavailable", 'open-google-analytics-dashboard-for-wp' ),
-							__( "report generated by", 'open-google-analytics-dashboard-for-wp' ), //14
-							__( "This plugin needs an authorization:", 'open-google-analytics-dashboard-for-wp' ) . ' <a href="' . menu_page_url( 'ogadwp_settings', false ) . '">' . __( "authorize the plugin", 'open-google-analytics-dashboard-for-wp' ) . '</a>.',
-							__( "Browser", 'open-google-analytics-dashboard-for-wp' ), //16
-							__( "Operating System", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Screen Resolution", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Mobile Brand", 'open-google-analytics-dashboard-for-wp' ), //19
-							__( "Future Use", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Future Use", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Future Use", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Future Use", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Future Use", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Future Use", 'open-google-analytics-dashboard-for-wp' ), //25
-							__( "Time on Page", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Page Load Time", 'open-google-analytics-dashboard-for-wp' ),
-							__( "Exit Rate", 'open-google-analytics-dashboard-for-wp' ),
+							__( "A JavaScript Error is blocking plugin resources!", 'google-analytics-plus-wp' ), //0
+							__( "Traffic Mediums", 'google-analytics-plus-wp' ),
+							__( "Visitor Type", 'google-analytics-plus-wp' ),
+							__( "Social Networks", 'google-analytics-plus-wp' ),
+							__( "Search Engines", 'google-analytics-plus-wp' ),
+							__( "Unique Views", 'google-analytics-plus-wp' ),
+							__( "Users", 'google-analytics-plus-wp' ),
+							__( "Page Views", 'google-analytics-plus-wp' ),
+							__( "Bounce Rate", 'google-analytics-plus-wp' ),
+							__( "Organic Search", 'google-analytics-plus-wp' ),
+							__( "Pages/Session", 'google-analytics-plus-wp' ),
+							__( "Invalid response", 'google-analytics-plus-wp' ),
+							__( "No Data", 'google-analytics-plus-wp' ),
+							__( "This report is unavailable", 'google-analytics-plus-wp' ),
+							__( "report generated by", 'google-analytics-plus-wp' ), //14
+							__( "This plugin needs an authorization:", 'google-analytics-plus-wp' ) . ' <a href="' . menu_page_url( 'ogadwp_settings', false ) . '">' . __( "authorize the plugin", 'google-analytics-plus-wp' ) . '</a>.',
+							__( "Browser", 'google-analytics-plus-wp' ), //16
+							__( "Operating System", 'google-analytics-plus-wp' ),
+							__( "Screen Resolution", 'google-analytics-plus-wp' ),
+							__( "Mobile Brand", 'google-analytics-plus-wp' ), //19
+							__( "Future Use", 'google-analytics-plus-wp' ),
+							__( "Future Use", 'google-analytics-plus-wp' ),
+							__( "Future Use", 'google-analytics-plus-wp' ),
+							__( "Future Use", 'google-analytics-plus-wp' ),
+							__( "Future Use", 'google-analytics-plus-wp' ),
+							__( "Future Use", 'google-analytics-plus-wp' ), //25
+							__( "Time on Page", 'google-analytics-plus-wp' ),
+							__( "Page Load Time", 'google-analytics-plus-wp' ),
+							__( "Exit Rate", 'google-analytics-plus-wp' ),
 						),
 						'colorVariations' => OGADWP_Tools::variations( $this->ogadwp->config->options['theme_color'] ),
 						'region' => $region,
@@ -350,7 +350,7 @@ if ( ! class_exists( 'OGADWP_Backend_Setup' ) ) {
 		 * @return array
 		 */
 		public function settings_link( $links ) {
-			$settings_link = '<a href="' . esc_url( get_admin_url( null, 'admin.php?page=ogadwp_settings' ) ) . '">' . __( "Settings", 'open-google-analytics-dashboard-for-wp' ) . '</a>';
+			$settings_link = '<a href="' . esc_url( get_admin_url( null, 'admin.php?page=ogadwp_settings' ) ) . '">' . __( "Settings", 'google-analytics-plus-wp' ) . '</a>';
 			array_unshift( $links, $settings_link );
 			return $links;
 		}
@@ -368,7 +368,7 @@ if ( ! class_exists( 'OGADWP_Backend_Setup' ) ) {
 			if ( get_option( 'ogadwp_got_updated' ) ) :
 				?>
 <div id="ogadwp-notice" class="notice is-dismissible">
-	<p><?php echo sprintf( __('Open Google Analytics Dashboard for WP has been updated to version %s.', 'open-google-analytics-dashboard-for-wp' ), OGADWP_CURRENT_VERSION).' '.sprintf( __('For details, check out %1$s.', 'open-google-analytics-dashboard-for-wp' ), sprintf(' <a href="https://deconf.com/open-google-analytics-dashboard-wordpress/?utm_source=ogadwp_notice&utm_medium=link&utm_content=release_notice&utm_campaign=ogadwp">%s</a>', __('the plugin documentation', 'open-google-analytics-dashboard-for-wp') ) ); ?></p>
+	<p><?php echo sprintf( __('Open Google Analytics Dashboard for WP has been updated to version %s.', 'google-analytics-plus-wp' ), OGADWP_CURRENT_VERSION).' '.sprintf( __('For details, check out %1$s.', 'google-analytics-plus-wp' ), sprintf(' <a href="https://deconf.com/open-google-analytics-dashboard-wordpress/?utm_source=ogadwp_notice&utm_medium=link&utm_content=release_notice&utm_campaign=ogadwp">%s</a>', __('the plugin documentation', 'google-analytics-plus-wp') ) ); ?></p>
 </div>
 
 			<?php
