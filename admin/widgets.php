@@ -25,7 +25,7 @@ if ( ! class_exists( 'GAPWP_Backend_Widgets' ) ) {
 		}
 
 		public function add_widget() {
-			wp_add_dashboard_widget( 'gapwp-widget', __( "Open Google Analytics Dashboard", 'google-analytics-plus-wp' ), array( $this, 'dashboard_widget' ), $control_callback = null );
+			wp_add_dashboard_widget( 'gapwp-widget', __( "Google Analytics+", 'google-analytics-plus-wp' ), array( $this, 'dashboard_widget' ), $control_callback = null );
 		}
 
 		public function dashboard_widget() {

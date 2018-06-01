@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Google Analytics+ for WP (GA+WP)
  * Plugin URI: https://deconf.com
- * Description: Displays Google Analytics Reports and Real-Time Statistics in your Dashboard. Automatically inserts the tracking code in every page of your website.
+ * Description: Displays Google Analytics Reports and Real-Time Statistics in your dashboard. Automatically inserts the tracking code in every page of your website.
  * Author: Alin Marcu
  * Version: 5.4.0.0-dev
  * Author URI: https://deconf.com

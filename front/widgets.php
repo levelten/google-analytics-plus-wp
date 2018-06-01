@@ -18,7 +18,7 @@ final class GAPWP_Frontend_Widget extends WP_Widget {
 	public function __construct() {
 		$this->gapwp = GAPWP();
 
-		parent::__construct( 'gapwp-frontwidget-report', __( 'Open Google Analytics Dashboard', 'google-analytics-plus-wp' ), array( 'description' => __( "Will display your google analytics stats in a widget", 'google-analytics-plus-wp' ) ) );
+		parent::__construct( 'gapwp-frontwidget-report', __( 'Google Analytics+', 'google-analytics-plus-wp' ), array( 'description' => __( "Will display your google analytics stats in a widget", 'google-analytics-plus-wp' ) ) );
 		// Frontend Styles
 		if ( is_active_widget( false, false, $this->id_base, true ) ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'load_styles_scripts' ) );

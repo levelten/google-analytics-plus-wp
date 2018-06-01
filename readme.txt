@@ -1,4 +1,4 @@
-=== Open Google Analytics Dashboard for WP (GAPWP) ===
+=== Open Google Analytics+ for WP (GA+WP) ===
 Contributors: deconf
 Donate link: https://deconf.com/donate/
 Tags: analytics,google analytics,google analytics dashboard,google analytics plugin,google analytics widget,gtag
@@ -58,7 +58,7 @@ User privacy oriented features:
 - option to follow Do Not Track (DNT) sent by browsers
 - support for user tracking opt-out
 
-Open Google Analytics Dashboard for WP enables you to easily track events like:
+Open Google Analytics+ for WP enables you to easily track events like:
  
 - Downloads
 - Emails 
@@ -69,7 +69,7 @@ Open Google Analytics Dashboard for WP enables you to easily track events like:
 - Page Scrolling Depth
 - Custom event categories, actions and labels using annotated HTML elements
 
-With Open Google Analytics Dashboard for WP you can use custom dimensions to track:
+With Open Google Analytics+ for WP you can use custom dimensions to track:
 
 - Authors
 - Publication year
@@ -103,7 +103,7 @@ As an alternative to Google Analytics tracking code, you can use Google Tag Mana
 - Hashmarks, outbound links, telephones and e-mails tracking
 - Custom event categories, actions and labels using annotated HTML elements
 
-= Open Google Analytics Dashboard for WP on Multisite =
+= Open Google Analytics+ for WP on Multisite =
 
 This plugin is fully compatible with multisite network installs, allowing three setup modes:
 
@@ -111,19 +111,19 @@ This plugin is fully compatible with multisite network installs, allowing three 
 - Mode 2: network activated using a single Google Analytics account
 - Mode 3: network deactivated using multiple Google Analytics accounts
 
-> <strong>Open Google Analytics Dashboard for WP on GitHub</strong><br>
-> You can submit feature requests or bugs on [Open Google Analytics Dashboard for WP](https://github.com/deconf/Google-Analytics-Dashboard-for-WP) repository.
+> <strong>Open Google Analytics+ for WP on GitHub</strong><br>
+> You can submit feature requests or bugs on [Open Google Analytics+ for WP](https://github.com/levelten/google-analytics-plus-wp) repository.
 
 = Further reading =
 
-* Homepage of [Open Google Analytics Dashboard for WP](https://deconf.com/open-google-analytics-dashboard-wordpress/)
+* Homepage of [Open Google Analytics+ for WP](https://deconf.com/open-google-analytics-dashboard-wordpress/)
 * Other [WordPress Plugins](https://deconf.com/wordpress/) by same author
 * [Google Analytics | Partners](https://www.google.com/analytics/partners/company/5127525902581760/gadp/5629499534213120/app/5707702298738688/listing/5639274879778816) Gallery
 
 == Installation ==
 
 1. Upload the full google-analytics-plus-wp directory into your wp-content/plugins directory.
-2. In WordPress select Plugins from your sidebar menu and activate the Open Google Analytics Dashboard for WP plugin.
+2. In WordPress select Plugins from your sidebar menu and activate the Open Google Analytics+ for WP plugin.
 3. Open the plugin configuration page, which is located under Google Analytics menu.
 4. Authorize the plugin to connect to Google Analytics using the Authorize Plugin button.
 5. Go back to the plugin configuration page, which is located under Google Analytics menu to update/set your settings.
@@ -137,35 +137,35 @@ No, once the plugin is authorized and a default domain is selected the Google An
 
 = Some settings are missing in the video tutorial =
 
-We are constantly improving Open Google Analytics Dashboard for WP, sometimes the video tutorial may be a little outdated.
+We are constantly improving Open Google Analytics+ for WP, sometimes the video tutorial may be a little outdated.
 
 = How can I suggest a new feature, contribute or report a bug? =
 
-You can submit pull requests, feature requests and bug reports on [our GitHub repository](https://github.com/deconf/Google-Analytics-Dashboard-for-WP).
+You can submit pull requests, feature requests and bug reports on [our GitHub repository](https://github.com/levelten/google-analytics-plus-wp).
 
 = Documentation, Tutorials and FAQ =
 
-For documentation, tutorials, FAQ and videos check out: [Open Google Analytics Dashboard for WP documentation](https://deconf.com/open-google-analytics-dashboard-wordpress/).
+For documentation, tutorials, FAQ and videos check out: [Google Analytics+ for WP documentation](https://deconf.com/open-google-analytics-dashboard-wordpress/).
 
 == Screenshots ==
 
-1. Open Google Analytics Dashboard for WP Blue Color
-2. Open Google Analytics Dashboard for WP Real-Time
-3. Open Google Analytics Dashboard for WP reports per Posts/Pages
-4. Open Google Analytics Dashboard for WP Geo Map
-5. Open Google Analytics Dashboard for WP Top Pages, Top Referrers and Top Searches
-6. Open Google Analytics Dashboard for WP Traffic Overview
-7. Open Google Analytics Dashboard for WP statistics per page on Frontend
-8. Open Google Analytics Dashboard for WP cities on region map
-9. Open Google Analytics Dashboard for WP Widget
+1. Open Google Analytics+ for WP Blue Color
+2. Open Google Analytics+ for WP Real-Time
+3. Open Google Analytics+ for WP reports per Posts/Pages
+4. Open Google Analytics+ for WP Geo Map
+5. Open Google Analytics+ for WP Top Pages, Top Referrers and Top Searches
+6. Open Google Analytics+ for WP Traffic Overview
+7. Open Google Analytics+ for WP statistics per page on Frontend
+8. Open Google Analytics+ for WP cities on region map
+9. Open Google Analytics+ for WP Widget
 
 == Localization ==
 
-You can translate Open Google Analytics Dashboard for WP on [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/google-analytics-plus-wp).
+You can translate Google Analytics+ for WP on [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/google-analytics-plus-wp).
 
 == License ==
 
-Open Google Analytics Dashboard for WP it's released under the GPLv2, you can use it free of charge on your personal or commercial website.
+Google Analytics+ for WP it's released under the GPLv2, you can use it free of charge on your personal or commercial website.
 
 == Upgrade Notice ==
 
