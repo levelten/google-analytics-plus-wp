@@ -14,11 +14,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 final class GAPWP_Settings {
 
-	private static function update_options( $who ) {
+	private static function update_options( $who, $validation_error = 0 ) {
 		$gapwp = GAPWP();
 		$network_settings = false;
 		$options = $gapwp->config->options; // Get current options
-		if ( isset( $_POST['options']['gapwp_hidden'] ) && isset( $_POST['options'] ) && ( isset( $_POST['gapwp_security'] ) && wp_verify_nonce( $_POST['gapwp_security'], 'gapwp_form' ) ) && 'Reset' != $who ) {
+		if ( isset( $_POST['options']['gapwp_hidden'] ) && isset( $_POST['options'] ) && ( isset( $_POST['gapwp_security'] ) && wp_verify_nonce( $_POST['gapwp_security'], 'gapwp_form' ) ) && !$validation_error && 'Reset' != $who ) {
 			$new_options = $_POST['options'];
 			if ( 'tracking' == $who ) {
 				$options['ga_anonymize_ip'] = 0;
@@ -92,12 +92,43 @@ final class GAPWP_Settings {
 		echo '</h2>';
 	}
 
+	private static function global_notices( $who, &$validation_error = 0 ) {
+	  $gapwp = GAPWP();
+	  $message = '';
+
+	  if ( isset( $_POST['options']['gapwp_hidden'] ) ) {
+	    if ( ! ( isset( $_POST['gapwp_security'] ) && wp_verify_nonce( $_POST['gapwp_security'], 'gapwp_form' ) ) ) {
+        $message .= "<div class='error' id='gapwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-plus-wp' ) . "</p></div>";
+        $validation_error = 1;
+      }
+      if ( ! $validation_error) {
+        $message .= "<div class='updated' id='gapwp-autodismiss'><p>" . __( "Settings saved.", 'google-analytics-plus-wp' ) . "</p></div>";
+      }
+      else {
+        $message .= "<div class='error' id='gapwp-autodismiss'><p>" . __( "Settings not saved.", 'google-analytics-plus-wp' ) . "</p></div>";
+      }
+    }
+
+		if ( ! $gapwp->config->options['tableid_jail'] && ! $gapwp->config->options['tracking_id']) {
+			$message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'google-analytics-plus-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'gapwp_errors_debugging', false ), __( 'Errors & Debug', 'google-analytics-plus-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'gapwp_gapi_settings', false ), __( 'authorize the plugin', 'google-analytics-plus-wp' ) ) ) );
+		}
+		return $message;
+	}
+
 	public static function frontend_settings() {
 		$gapwp = GAPWP();
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
-		$options = self::update_options( 'frontend' );
+
+		$message = '';
+    $validation_error = 0;
+
+		$message .= self::global_notices( 'frontend',  $validation_error);
+		$options = self::update_options( 'frontend', $validation_error );
+
+
+		/*
 		if ( isset( $_POST['options']['gapwp_hidden'] ) ) {
 			$message = "<div class='updated' id='gapwp-autodismiss'><p>" . __( "Settings saved.", 'google-analytics-plus-wp' ) . "</p></div>";
 			if ( ! ( isset( $_POST['gapwp_security'] ) && wp_verify_nonce( $_POST['gapwp_security'], 'gapwp_form' ) ) ) {
@@ -107,6 +138,7 @@ final class GAPWP_Settings {
 		if ( ! $gapwp->config->options['tableid_jail'] || ! $gapwp->config->options['token'] ) {
 			$message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'google-analytics-plus-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'gapwp_errors_debugging', false ), __( 'Errors & Debug', 'google-analytics-plus-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'gapwp_settings', false ), __( 'authorize the plugin', 'google-analytics-plus-wp' ) ) ) );
 		}
+		*/
 		?>
 <form name="gapwp_form" method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
 	<div class="wrap">
@@ -192,7 +224,12 @@ final class GAPWP_Settings {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
-		$options = self::update_options( 'backend' );
+		$message = '';
+    $validation_error = 0;
+
+		$message .= self::global_notices( 'backend',  $validation_error);
+		$options = self::update_options( 'backend', $validation_error );
+		/*
 		if ( isset( $_POST['options']['gapwp_hidden'] ) ) {
 			$message = "<div class='updated' id='gapwp-autodismiss'><p>" . __( "Settings saved.", 'google-analytics-plus-wp' ) . "</p></div>";
 			if ( ! ( isset( $_POST['gapwp_security'] ) && wp_verify_nonce( $_POST['gapwp_security'], 'gapwp_form' ) ) ) {
@@ -202,6 +239,7 @@ final class GAPWP_Settings {
 		if ( ! $gapwp->config->options['tableid_jail'] || ! $gapwp->config->options['token'] ) {
 			$message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'google-analytics-plus-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'gapwp_errors_debugging', false ), __( 'Errors & Debug', 'google-analytics-plus-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'gapwp_settings', false ), __( 'authorize the plugin', 'google-analytics-plus-wp' ) ) ) );
 		}
+		*/
 		?>
 <form name="gapwp_form" method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
 	<div class="wrap">
@@ -367,7 +405,18 @@ final class GAPWP_Settings {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
-		$options = self::update_options( 'tracking' );
+		$message = '';
+    $validation_error = 0;
+
+    if (!empty($_POST['options']['tracking_id']) && !preg_match('/^ua-\d{4,9}-\d{1,4}$/i', $_POST['options']['tracking_id'])) {
+      $validation_error = 1;
+      $message = sprintf( '<div class="error"><p>%s</p></div>', __( 'Tracking ID must be in the format of UA-12345678-9.', 'google-analytics-plus-wp' ) );
+    }
+
+		$message .= self::global_notices( 'tracking',  $validation_error);
+		$options = self::update_options( 'tracking', $validation_error );
+
+		/*
 		if ( isset( $_POST['options']['gapwp_hidden'] ) ) {
 			$message = "<div class='updated' id='gapwp-autodismiss'><p>" . __( "Settings saved.", 'google-analytics-plus-wp' ) . "</p></div>";
 			if ( ! ( isset( $_POST['gapwp_security'] ) && wp_verify_nonce( $_POST['gapwp_security'], 'gapwp_form' ) ) ) {
@@ -377,6 +426,7 @@ final class GAPWP_Settings {
 		if ( ! $gapwp->config->options['tableid_jail'] ) {
 			$message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'google-analytics-plus-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'gapwp_errors_debugging', false ), __( 'Errors & Debug', 'google-analytics-plus-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'gapwp_settings', false ), __( 'authorize the plugin', 'google-analytics-plus-wp' ) ) ) );
 		}
+		*/
 		?>
 <form name="gapwp_form" method="post" action="<?php  esc_url($_SERVER['REQUEST_URI']); ?>">
 	<div class="wrap">
@@ -1125,9 +1175,12 @@ final class GAPWP_Settings {
 		$anonim = GAPWP_Tools::anonymize_options( $gapwp->config->options );
 
 		$options = self::update_options( 'frontend' );
+		$message = self::global_notices( 'frontend' );
+		/*
 		if ( ! $gapwp->config->options['tableid_jail'] || ! $gapwp->config->options['token'] ) {
 			$message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'google-analytics-plus-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'gapwp_errors_debugging', false ), __( 'Errors & Debug', 'google-analytics-plus-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'gapwp_settings', false ), __( 'authorize the plugin', 'google-analytics-plus-wp' ) ) ) );
 		}
+		*/
 		?>
 <div class="wrap">
 		<?php echo "<h2>" . __( "Google Analytics Errors & Debugging", 'google-analytics-plus-wp' ) . "</h2>"; ?>
@@ -1212,9 +1265,8 @@ final class GAPWP_Settings {
 		self::output_sidebar();
 	}
 
-	public static function general_settings() {
+	public static function gapi_settings() {
 		$gapwp = GAPWP();
-//Intel_Df::watchdog('GAPWP_Settings::general_settings()', '');
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
@@ -1529,7 +1581,7 @@ final class GAPWP_Settings {
 	}
 
 	// Network Settings
-	public static function general_settings_network() {
+	public static function gapi_settings_network() {
 		$gapwp = GAPWP();
 
 		if ( ! current_user_can( 'manage_network_options' ) ) {
