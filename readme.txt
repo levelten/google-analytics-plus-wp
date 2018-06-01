@@ -1,6 +1,5 @@
-=== Open Google Analytics+ for WP (GA+WP) ===
-Contributors: deconf
-Donate link: https://deconf.com/donate/
+=== Google Analytics+ for WP (GA+WP) ===
+Contributors: tomdude,deconf
 Tags: analytics,google analytics,google analytics dashboard,google analytics plugin,google analytics widget,gtag
 Requires at least: 3.5
 Tested up to: 4.9.6
@@ -58,7 +57,7 @@ User privacy oriented features:
 - option to follow Do Not Track (DNT) sent by browsers
 - support for user tracking opt-out
 
-Open Google Analytics+ for WP enables you to easily track events like:
+Google Analytics+ for WP enables you to easily track events like:
  
 - Downloads
 - Emails 
@@ -69,7 +68,7 @@ Open Google Analytics+ for WP enables you to easily track events like:
 - Page Scrolling Depth
 - Custom event categories, actions and labels using annotated HTML elements
 
-With Open Google Analytics+ for WP you can use custom dimensions to track:
+With Google Analytics+ for WP you can use custom dimensions to track:
 
 - Authors
 - Publication year
@@ -103,7 +102,7 @@ As an alternative to Google Analytics tracking code, you can use Google Tag Mana
 - Hashmarks, outbound links, telephones and e-mails tracking
 - Custom event categories, actions and labels using annotated HTML elements
 
-= Open Google Analytics+ for WP on Multisite =
+= Google Analytics+ for WP on Multisite =
 
 This plugin is fully compatible with multisite network installs, allowing three setup modes:
 
@@ -111,19 +110,19 @@ This plugin is fully compatible with multisite network installs, allowing three 
 - Mode 2: network activated using a single Google Analytics account
 - Mode 3: network deactivated using multiple Google Analytics accounts
 
-> <strong>Open Google Analytics+ for WP on GitHub</strong><br>
-> You can submit feature requests or bugs on [Open Google Analytics+ for WP](https://github.com/levelten/google-analytics-plus-wp) repository.
+> <strong>Google Analytics+ for WP on GitHub</strong><br>
+> You can submit feature requests or bugs on [Google Analytics+ for WP](https://github.com/levelten/google-analytics-plus-wp) repository.
 
 = Further reading =
 
-* Homepage of [Open Google Analytics+ for WP](https://deconf.com/open-google-analytics-dashboard-wordpress/)
+* Homepage of [Google Analytics+ for WP](https://deconf.com/open-google-analytics-dashboard-wordpress/)
 * Other [WordPress Plugins](https://deconf.com/wordpress/) by same author
 * [Google Analytics | Partners](https://www.google.com/analytics/partners/company/5127525902581760/gadp/5629499534213120/app/5707702298738688/listing/5639274879778816) Gallery
 
 == Installation ==
 
 1. Upload the full google-analytics-plus-wp directory into your wp-content/plugins directory.
-2. In WordPress select Plugins from your sidebar menu and activate the Open Google Analytics+ for WP plugin.
+2. In WordPress select Plugins from your sidebar menu and activate the Google Analytics+ for WP plugin.
 3. Open the plugin configuration page, which is located under Google Analytics menu.
 4. Authorize the plugin to connect to Google Analytics using the Authorize Plugin button.
 5. Go back to the plugin configuration page, which is located under Google Analytics menu to update/set your settings.
@@ -137,7 +136,7 @@ No, once the plugin is authorized and a default domain is selected the Google An
 
 = Some settings are missing in the video tutorial =
 
-We are constantly improving Open Google Analytics+ for WP, sometimes the video tutorial may be a little outdated.
+We are constantly improving Google Analytics+ for WP, sometimes the video tutorial may be a little outdated.
 
 = How can I suggest a new feature, contribute or report a bug? =
 
@@ -149,15 +148,15 @@ For documentation, tutorials, FAQ and videos check out: [Google Analytics+ for W
 
 == Screenshots ==
 
-1. Open Google Analytics+ for WP Blue Color
-2. Open Google Analytics+ for WP Real-Time
-3. Open Google Analytics+ for WP reports per Posts/Pages
-4. Open Google Analytics+ for WP Geo Map
-5. Open Google Analytics+ for WP Top Pages, Top Referrers and Top Searches
-6. Open Google Analytics+ for WP Traffic Overview
-7. Open Google Analytics+ for WP statistics per page on Frontend
-8. Open Google Analytics+ for WP cities on region map
-9. Open Google Analytics+ for WP Widget
+1. Google Analytics+ for WP Blue Color
+2. Google Analytics+ for WP Real-Time
+3. Google Analytics+ for WP reports per Posts/Pages
+4. Google Analytics+ for WP Geo Map
+5. Google Analytics+ for WP Top Pages, Top Referrers and Top Searches
+6. Google Analytics+ for WP Traffic Overview
+7. Google Analytics+ for WP statistics per page on Frontend
+8. Google Analytics+ for WP cities on region map
+9. Google Analytics+ for WP Widget
 
 == Localization ==
 
