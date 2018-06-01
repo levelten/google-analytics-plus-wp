@@ -1,4 +1,4 @@
-=== Open Google Analytics Dashboard for WP (OGADWP) ===
+=== Open Google Analytics Dashboard for WP (GAPWP) ===
 Contributors: deconf
 Donate link: https://deconf.com/donate/
 Tags: analytics,google analytics,google analytics dashboard,google analytics plugin,google analytics widget,gtag
@@ -171,7 +171,7 @@ Open Google Analytics Dashboard for WP it's released under the GPLv2, you can us
 
 == Changelog ==
 
-[OGADWP v5.3 release notes](https://deconf.com/adding-gtag-js-to-your-site/)
+[GAPWP v5.3 release notes](https://deconf.com/adding-gtag-js-to-your-site/)
 
 = 5.3.2 =
 * Bug Fixes:	
@@ -216,7 +216,7 @@ Open Google Analytics Dashboard for WP it's released under the GPLv2, you can us
 * Enhancements:  
 	* more informative alerts and suggestions on the authorization screen
 	* disable autocomplete for the access code input field to avoid reuse of the same unique authorization code
-	* OGADWP Endpoint improvements
+	* GAPWP Endpoint improvements
 	* Error reporting improvements
 	* introducing the ogadwp_maps_api_key filter
 * Bug Fixes:	

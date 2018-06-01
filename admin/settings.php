@@ -12,10 +12,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit();
 }
 
-final class OGADWP_Settings {
+final class GAPWP_Settings {
 
 	private static function update_options( $who ) {
-		$ogadwp = OGADWP();
+		$ogadwp = GAPWP();
 		$network_settings = false;
 		$options = $ogadwp->config->options; // Get current options
 		if ( isset( $_POST['options']['ogadwp_hidden'] ) && isset( $_POST['options'] ) && ( isset( $_POST['ogadwp_security'] ) && wp_verify_nonce( $_POST['ogadwp_security'], 'ogadwp_form' ) ) && 'Reset' != $who ) {
@@ -93,7 +93,7 @@ final class OGADWP_Settings {
 	}
 
 	public static function frontend_settings() {
-		$ogadwp = OGADWP();
+		$ogadwp = GAPWP();
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
@@ -188,7 +188,7 @@ final class OGADWP_Settings {
 	}
 
 	public static function backend_settings() {
-		$ogadwp = OGADWP();
+		$ogadwp = GAPWP();
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
@@ -362,7 +362,7 @@ final class OGADWP_Settings {
 	}
 
 	public static function tracking_settings() {
-		$ogadwp = OGADWP();
+		$ogadwp = GAPWP();
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
@@ -420,7 +420,7 @@ final class OGADWP_Settings {
 								<tr>
 									<td class="ogadwp-settings-title"></td>
 									<td>
-										<?php $profile_info = OGADWP_Tools::get_selected_profile($ogadwp->config->options['ga_profiles_list'], $ogadwp->config->options['tableid_jail']); ?>
+										<?php $profile_info = GAPWP_Tools::get_selected_profile($ogadwp->config->options['ga_profiles_list'], $ogadwp->config->options['tableid_jail']); ?>
 										<?php echo '<pre>' . __("View Name:", 'google-analytics-plus-wp') . "\t" . esc_html($profile_info[0]) . "<br />" . __("Tracking ID:", 'google-analytics-plus-wp') . "\t" . esc_html($profile_info[2]) . "<br />" . __("Default URL:", 'google-analytics-plus-wp') . "\t" . esc_html($profile_info[3]) . "<br />" . __("Time Zone:", 'google-analytics-plus-wp') . "\t" . esc_html($profile_info[5]) . '</pre>';?>
 									</td>
 								</tr>
@@ -1104,13 +1104,13 @@ final class OGADWP_Settings {
 
 	public static function errors_debugging() {
 
-		$ogadwp = OGADWP();
+		$ogadwp = GAPWP();
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 
-		$anonim = OGADWP_Tools::anonymize_options( $ogadwp->config->options );
+		$anonim = GAPWP_Tools::anonymize_options( $ogadwp->config->options );
 
 		$options = self::update_options( 'frontend' );
 		if ( ! $ogadwp->config->options['tableid_jail'] || ! $ogadwp->config->options['token'] ) {
@@ -1137,12 +1137,12 @@ final class OGADWP_Settings {
 							</tr>
 							<tr>
 								<td>
-									<?php $errors_count = OGADWP_Tools::get_cache( 'errors_count' ); ?>
+									<?php $errors_count = GAPWP_Tools::get_cache( 'errors_count' ); ?>
 									<pre class="ogadwp-settings-logdata"><?php echo '<span>' . __("Count: ", 'google-analytics-plus-wp') . '</span>' . (int)$errors_count;?></pre>
-									<?php $errors = print_r( OGADWP_Tools::get_cache( 'last_error' ), true ) ? esc_html( print_r( OGADWP_Tools::get_cache( 'last_error' ), true ) ) : ''; ?>
+									<?php $errors = print_r( GAPWP_Tools::get_cache( 'last_error' ), true ) ? esc_html( print_r( GAPWP_Tools::get_cache( 'last_error' ), true ) ) : ''; ?>
 									<?php $errors = str_replace( 'Deconf_', 'Google_', $errors); ?>
 									<pre class="ogadwp-settings-logdata"><?php echo '<span>' . __("Last Error: ", 'google-analytics-plus-wp') . '</span>' . "\n" . $errors;?></pre>
-									<pre class="ogadwp-settings-logdata"><?php echo '<span>' . __("GAPI Error: ", 'google-analytics-plus-wp') . '</span>'; echo "\n" . esc_html( print_r( OGADWP_Tools::get_cache( 'gapi_errors' ), true ) ) ?></pre>
+									<pre class="ogadwp-settings-logdata"><?php echo '<span>' . __("GAPI Error: ", 'google-analytics-plus-wp') . '</span>'; echo "\n" . esc_html( print_r( GAPWP_Tools::get_cache( 'gapi_errors' ), true ) ) ?></pre>
 									<br />
 									<hr>
 								</td>
@@ -1154,7 +1154,7 @@ final class OGADWP_Settings {
 							</tr>
 							<tr>
 								<td>
-									<?php $sampling = OGADWP_TOOLS::get_cache( 'sampleddata' ); ?>
+									<?php $sampling = GAPWP_TOOLS::get_cache( 'sampleddata' ); ?>
 									<?php if ( $sampling ) :?>
 									<?php printf( __( "Last Detected on %s.", 'google-analytics-plus-wp' ), '<strong>'. $sampling['date'] . '</strong>' );?>
 									<br />
@@ -1189,7 +1189,7 @@ final class OGADWP_Settings {
 							</tr>
 							<tr>
 								<td>
-									<pre class="ogadwp-settings-logdata"><?php echo esc_html(OGADWP_Tools::system_info());?></pre>
+									<pre class="ogadwp-settings-logdata"><?php echo esc_html(GAPWP_Tools::system_info());?></pre>
 									<br />
 									<hr>
 								</td>
@@ -1201,8 +1201,8 @@ final class OGADWP_Settings {
 	}
 
 	public static function general_settings() {
-		$ogadwp = OGADWP();
-//Intel_Df::watchdog('OGADWP_Settings::general_settings()', '');
+		$ogadwp = GAPWP();
+//Intel_Df::watchdog('GAPWP_Settings::general_settings()', '');
 
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
@@ -1211,7 +1211,7 @@ final class OGADWP_Settings {
 		$options = self::update_options( 'general' );
 		printf( '<div id="gapi-warning" class="updated"><p>%1$s <a href="https://deconf.com/open-google-analytics-dashboard-wordpress/?utm_source=ogadwp_config&utm_medium=link&utm_content=general_screen&utm_campaign=ogadwp">%2$s</a></p></div>', __( 'Loading the required libraries. If this results in a blank screen or a fatal error, try this solution:', 'google-analytics-plus-wp' ), __( 'Library conflicts between WordPress plugins', 'google-analytics-plus-wp' ) );
 		if ( null === $ogadwp->gapi_controller ) {
-			$ogadwp->gapi_controller = new OGADWP_GAPI_Controller();
+			$ogadwp->gapi_controller = new GAPWP_GAPI_Controller();
 		}
 		echo '<script type="text/javascript">jQuery("#gapi-warning").hide()</script>';
 		if ( isset( $_POST['ogadwp_access_code'] ) ) {
@@ -1219,9 +1219,9 @@ final class OGADWP_Settings {
 				try {
 					$ogadwp_access_code = $_POST['ogadwp_access_code'];
 					update_option( 'ogadwp_redeemed_code', $ogadwp_access_code );
-					OGADWP_Tools::delete_cache( 'gapi_errors' );
-					OGADWP_Tools::delete_cache( 'last_error' );
-//Intel_Df::watchdog('OGADWP_Settings::general_settings $_POST', print_r($_POST, 1));
+					GAPWP_Tools::delete_cache( 'gapi_errors' );
+					GAPWP_Tools::delete_cache( 'last_error' );
+//Intel_Df::watchdog('GAPWP_Settings::general_settings $_POST', print_r($_POST, 1));
 					$ogadwp->gapi_controller->client->authenticate( $_POST['ogadwp_access_code'] );
 					$ogadwp->config->options['token'] = $ogadwp->gapi_controller->client->getAccessToken();
 					$ogadwp->config->options['automatic_updates_minorversion'] = 1;
@@ -1233,7 +1233,7 @@ final class OGADWP_Settings {
 						if ( is_array ( $profiles ) && ! empty( $profiles ) ) {
 							$ogadwp->config->options['ga_profiles_list'] = $profiles;
 							if ( ! $ogadwp->config->options['tableid_jail'] ) {
-								$profile = OGADWP_Tools::guess_default_domain( $profiles );
+								$profile = GAPWP_Tools::guess_default_domain( $profiles );
 								$ogadwp->config->options['tableid_jail'] = $profile;
 							}
 							$ogadwp->config->set_plugin_options();
@@ -1242,13 +1242,13 @@ final class OGADWP_Settings {
 					}
 				} catch ( Deconf_IO_Exception $e ) {
 					$timeout = $ogadwp->gapi_controller->get_timeouts( 'midnight' );
-					OGADWP_Tools::set_error( $e, $timeout );
+					GAPWP_Tools::set_error( $e, $timeout );
 				} catch ( Deconf_Service_Exception $e ) {
 					$timeout = $ogadwp->gapi_controller->get_timeouts( 'midnight' );
-					OGADWP_Tools::set_error( $e, $timeout );
+					GAPWP_Tools::set_error( $e, $timeout );
 				} catch ( Exception $e ) {
 					$timeout = $ogadwp->gapi_controller->get_timeouts( 'midnight' );
-					OGADWP_Tools::set_error( $e, $timeout );
+					GAPWP_Tools::set_error( $e, $timeout );
 					$ogadwp->gapi_controller->reset_token();
 				}
 			} else {
@@ -1261,7 +1261,7 @@ final class OGADWP_Settings {
 		}
 		if ( isset( $_POST['Clear'] ) ) {
 			if ( isset( $_POST['ogadwp_security'] ) && wp_verify_nonce( $_POST['ogadwp_security'], 'ogadwp_form' ) ) {
-				OGADWP_Tools::clear_cache();
+				GAPWP_Tools::clear_cache();
 				$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Cleared Cache.", 'google-analytics-plus-wp' ) . "</p></div>";
 			} else {
 				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-plus-wp' ) . "</p></div>";
@@ -1270,7 +1270,7 @@ final class OGADWP_Settings {
 		if ( isset( $_POST['Reset'] ) ) {
 			if ( isset( $_POST['ogadwp_security'] ) && wp_verify_nonce( $_POST['ogadwp_security'], 'ogadwp_form' ) ) {
 				$ogadwp->gapi_controller->reset_token();
-				OGADWP_Tools::clear_cache();
+				GAPWP_Tools::clear_cache();
 				$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Token Reseted and Revoked.", 'google-analytics-plus-wp' ) . "</p></div>";
 				$options = self::update_options( 'Reset' );
 			} else {
@@ -1280,20 +1280,20 @@ final class OGADWP_Settings {
 		if ( isset( $_POST['Reset_Err'] ) ) {
 			if ( isset( $_POST['ogadwp_security'] ) && wp_verify_nonce( $_POST['ogadwp_security'], 'ogadwp_form' ) ) {
 
-				if ( OGADWP_Tools::get_cache( 'gapi_errors' ) || OGADWP_Tools::get_cache( 'last_error' ) ) {
+				if ( GAPWP_Tools::get_cache( 'gapi_errors' ) || GAPWP_Tools::get_cache( 'last_error' ) ) {
 
-					$info = OGADWP_Tools::system_info();
-					$info .= 'OGADWP Version: ' . OGADWP_CURRENT_VERSION;
+					$info = GAPWP_Tools::system_info();
+					$info .= 'GAPWP Version: ' . GAPWP_CURRENT_VERSION;
 
 					$sep = "\n---------------------------\n";
-					$error_report = OGADWP_Tools::get_cache( 'last_error' );
-					$error_report .= $sep . print_r( OGADWP_Tools::get_cache( 'gapi_errors' ), true );
-					$error_report .= $sep . OGADWP_Tools::get_cache( 'errors_count' );
+					$error_report = GAPWP_Tools::get_cache( 'last_error' );
+					$error_report .= $sep . print_r( GAPWP_Tools::get_cache( 'gapi_errors' ), true );
+					$error_report .= $sep . GAPWP_Tools::get_cache( 'errors_count' );
 					$error_report .= $sep . $info;
 
 					$error_report = urldecode( $error_report );
 
-					$url = OGADWP_ENDPOINT_URL . 'ogadwp-report.php';
+					$url = GAPWP_ENDPOINT_URL . 'ogadwp-report.php';
 					/* @formatter:off */
 					$response = wp_remote_post( $url, array(
 							'method' => 'POST',
@@ -1309,8 +1309,8 @@ final class OGADWP_Settings {
 				}
 
 				/* @formatter:on */
-				OGADWP_Tools::delete_cache( 'last_error' );
-				OGADWP_Tools::delete_cache( 'gapi_errors' );
+				GAPWP_Tools::delete_cache( 'last_error' );
+				GAPWP_Tools::delete_cache( 'gapi_errors' );
 				delete_option( 'ogadwp_got_updated' );
 				$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "All errors reseted.", 'google-analytics-plus-wp' ) . "</p></div>";
 			} else {
@@ -1326,7 +1326,7 @@ final class OGADWP_Settings {
 		if ( isset( $_POST['Hide'] ) ) {
 			if ( isset( $_POST['ogadwp_security'] ) && wp_verify_nonce( $_POST['ogadwp_security'], 'ogadwp_form' ) ) {
 				$message = "<div class='updated' id='ogadwp-action'><p>" . __( "All other domains/properties were removed.", 'google-analytics-plus-wp' ) . "</p></div>";
-				$lock_profile = OGADWP_Tools::get_selected_profile( $ogadwp->config->options['ga_profiles_list'], $ogadwp->config->options['tableid_jail'] );
+				$lock_profile = GAPWP_Tools::get_selected_profile( $ogadwp->config->options['ga_profiles_list'], $ogadwp->config->options['tableid_jail'] );
 				$ogadwp->config->options['ga_profiles_list'] = array( $lock_profile );
 				$options = self::update_options( 'general' );
 			} else {
@@ -1343,11 +1343,11 @@ final class OGADWP_Settings {
 							<div id="post-body-content">
 								<div class="settings-wrapper">
 									<div class="inside">
-										<?php if ( $ogadwp->gapi_controller->gapi_errors_handler() || OGADWP_Tools::get_cache( 'last_error' ) ) : ?>
+										<?php if ( $ogadwp->gapi_controller->gapi_errors_handler() || GAPWP_Tools::get_cache( 'last_error' ) ) : ?>
 													<?php $message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'google-analytics-plus-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_errors_debugging', false ), __( 'Errors & Debug', 'google-analytics-plus-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_settings', false ), __( 'authorize the plugin', 'google-analytics-plus-wp' ) ) ) );?>
 										<?php endif;?>
 										<?php if ( isset( $_POST['Authorize'] ) ) : ?>
-											<?php OGADWP_Tools::clear_cache(); ?>
+											<?php GAPWP_Tools::clear_cache(); ?>
 											<?php $ogadwp->gapi_controller->token_request(); ?>
 											<div class="updated">
 											<p><?php _e( "Use the red link (see below) to generate and get your access code! You need to generate a new code each time you authorize!", 'google-analytics-plus-wp' )?></p>
@@ -1423,7 +1423,7 @@ final class OGADWP_Settings {
 																	<?php foreach ( $options['ga_profiles_list'] as $items ) : ?>
 																		<?php if ( $items[3] ) : ?>
 																			<option value="<?php echo esc_attr( $items[1] ); ?>" <?php selected( $items[1], $options['tableid_jail'] ); ?> title="<?php _e( "View Name:", 'google-analytics-plus-wp' ); ?> <?php echo esc_attr( $items[0] ); ?>">
-																				<?php echo esc_html( OGADWP_Tools::strip_protocol( $items[3] ) )?> &#8658; <?php echo esc_attr( $items[0] ); ?>
+																				<?php echo esc_html( GAPWP_Tools::strip_protocol( $items[3] ) )?> &#8658; <?php echo esc_attr( $items[0] ); ?>
 																			</option>
 																		<?php endif; ?>
 																	<?php endforeach; ?>
@@ -1440,7 +1440,7 @@ final class OGADWP_Settings {
 												<tr>
 													<td class="ogadwp-settings-title"></td>
 													<td>
-													<?php $profile_info = OGADWP_Tools::get_selected_profile( $ogadwp->config->options['ga_profiles_list'], $ogadwp->config->options['tableid_jail'] ); ?>
+													<?php $profile_info = GAPWP_Tools::get_selected_profile( $ogadwp->config->options['ga_profiles_list'], $ogadwp->config->options['tableid_jail'] ); ?>
 														<pre><?php echo __( "View Name:", 'google-analytics-plus-wp' ) . "\t" . esc_html( $profile_info[0] ) . "<br />" . __( "Tracking ID:", 'google-analytics-plus-wp' ) . "\t" . esc_html( $profile_info[2] ) . "<br />" . __( "Default URL:", 'google-analytics-plus-wp' ) . "\t" . esc_html( $profile_info[3] ) . "<br />" . __( "Time Zone:", 'google-analytics-plus-wp' ) . "\t" . esc_html( $profile_info[5] );?></pre>
 													</td>
 												</tr>
@@ -1517,7 +1517,7 @@ final class OGADWP_Settings {
 
 	// Network Settings
 	public static function general_settings_network() {
-		$ogadwp = OGADWP();
+		$ogadwp = GAPWP();
 
 		if ( ! current_user_can( 'manage_network_options' ) ) {
 			return;
@@ -1529,7 +1529,7 @@ final class OGADWP_Settings {
 		echo '<div id="gapi-warning" class="updated"><p>' . __( 'Loading the required libraries. If this results in a blank screen or a fatal error, try this solution:', 'google-analytics-plus-wp' ) . ' <a href="https://deconf.com/open-google-analytics-dashboard-wordpress/?utm_source=ogadwp_config&utm_medium=link&utm_content=general_screen&utm_campaign=ogadwp">Library conflicts between WordPress plugins</a></p></div>';
 
 		if ( null === $ogadwp->gapi_controller ) {
-			$ogadwp->gapi_controller = new OGADWP_GAPI_Controller();
+			$ogadwp->gapi_controller = new GAPWP_GAPI_Controller();
 		}
 
 		echo '<script type="text/javascript">jQuery("#gapi-warning").hide()</script>';
@@ -1545,22 +1545,22 @@ final class OGADWP_Settings {
 					$options = self::update_options( 'network' );
 					$message = "<div class='updated' id='ogadwp-action'><p>" . __( "Plugin authorization succeeded.", 'google-analytics-plus-wp' ) . "</p></div>";
 					if ( is_multisite() ) { // Cleanup errors on the entire network
-						foreach ( OGADWP_Tools::get_sites( array( 'number' => apply_filters( 'ogadwp_sites_limit', 100 ) ) ) as $blog ) {
+						foreach ( GAPWP_Tools::get_sites( array( 'number' => apply_filters( 'ogadwp_sites_limit', 100 ) ) ) as $blog ) {
 							switch_to_blog( $blog['blog_id'] );
-							OGADWP_Tools::delete_cache( 'last_error' );
-							OGADWP_Tools::delete_cache( 'gapi_errors' );
+							GAPWP_Tools::delete_cache( 'last_error' );
+							GAPWP_Tools::delete_cache( 'gapi_errors' );
 							restore_current_blog();
 						}
 					} else {
-						OGADWP_Tools::delete_cache( 'last_error' );
-						OGADWP_Tools::delete_cache( 'gapi_errors' );
+						GAPWP_Tools::delete_cache( 'last_error' );
+						GAPWP_Tools::delete_cache( 'gapi_errors' );
 					}
 					if ( $ogadwp->config->options['token'] && $ogadwp->gapi_controller->client->getAccessToken() ) {
 						$profiles = $ogadwp->gapi_controller->refresh_profiles();
 						if ( is_array ( $profiles ) && ! empty( $profiles ) ) {
 							$ogadwp->config->options['ga_profiles_list'] = $profiles;
 							if ( isset( $ogadwp->config->options['tableid_jail'] ) && ! $ogadwp->config->options['tableid_jail'] ) {
-								$profile = OGADWP_Tools::guess_default_domain( $profiles );
+								$profile = GAPWP_Tools::guess_default_domain( $profiles );
 								$ogadwp->config->options['tableid_jail'] = $profile;
 							}
 							$ogadwp->config->set_plugin_options( true );
@@ -1569,13 +1569,13 @@ final class OGADWP_Settings {
 					}
 				} catch ( Deconf_IO_Exception $e ) {
 					$timeout = $ogadwp->gapi_controller->get_timeouts( 'midnight' );
-					OGADWP_Tools::set_error( $e, $timeout );
+					GAPWP_Tools::set_error( $e, $timeout );
 				} catch ( Deconf_Service_Exception $e ) {
 					$timeout = $ogadwp->gapi_controller->get_timeouts( 'midnight' );
-					OGADWP_Tools::set_error( $e, $timeout );
+					GAPWP_Tools::set_error( $e, $timeout );
 				} catch ( Exception $e ) {
 					$timeout = $ogadwp->gapi_controller->get_timeouts( 'midnight' );
-					OGADWP_Tools::set_error( $e, $timeout );
+					GAPWP_Tools::set_error( $e, $timeout );
 					$ogadwp->gapi_controller->reset_token();
 				}
 			} else {
@@ -1600,7 +1600,7 @@ final class OGADWP_Settings {
 					if ( $profiles ) {
 						$ogadwp->config->options['ga_profiles_list'] = $profiles;
 						if ( isset( $ogadwp->config->options['tableid_jail'] ) && ! $ogadwp->config->options['tableid_jail'] ) {
-							$profile = OGADWP_Tools::guess_default_domain( $profiles );
+							$profile = GAPWP_Tools::guess_default_domain( $profiles );
 							$ogadwp->config->options['tableid_jail'] = $profile;
 						}
 						$ogadwp->config->set_plugin_options( true );
@@ -1613,7 +1613,7 @@ final class OGADWP_Settings {
 		}
 		if ( isset( $_POST['Clear'] ) ) {
 			if ( isset( $_POST['ogadwp_security'] ) && wp_verify_nonce( $_POST['ogadwp_security'], 'ogadwp_form' ) ) {
-				OGADWP_Tools::clear_cache();
+				GAPWP_Tools::clear_cache();
 				$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Cleared Cache.", 'google-analytics-plus-wp' ) . "</p></div>";
 			} else {
 				$message = "<div class='error' id='ogadwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-plus-wp' ) . "</p></div>";
@@ -1622,7 +1622,7 @@ final class OGADWP_Settings {
 		if ( isset( $_POST['Reset'] ) ) {
 			if ( isset( $_POST['ogadwp_security'] ) && wp_verify_nonce( $_POST['ogadwp_security'], 'ogadwp_form' ) ) {
 				$ogadwp->gapi_controller->reset_token();
-				OGADWP_Tools::clear_cache();
+				GAPWP_Tools::clear_cache();
 				$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "Token Reseted and Revoked.", 'google-analytics-plus-wp' ) . "</p></div>";
 				$options = self::update_options( 'Reset' );
 			} else {
@@ -1638,7 +1638,7 @@ final class OGADWP_Settings {
 		if ( isset( $_POST['Hide'] ) ) {
 			if ( isset( $_POST['ogadwp_security'] ) && wp_verify_nonce( $_POST['ogadwp_security'], 'ogadwp_form' ) ) {
 				$message = "<div class='updated' id='ogadwp-autodismiss'><p>" . __( "All other domains/properties were removed.", 'google-analytics-plus-wp' ) . "</p></div>";
-				$lock_profile = OGADWP_Tools::get_selected_profile( $ogadwp->config->options['ga_profiles_list'], $ogadwp->config->options['tableid_jail'] );
+				$lock_profile = GAPWP_Tools::get_selected_profile( $ogadwp->config->options['ga_profiles_list'], $ogadwp->config->options['tableid_jail'] );
 				$ogadwp->config->options['ga_profiles_list'] = array( $lock_profile );
 				$options = self::update_options( 'network' );
 			} else {
@@ -1655,11 +1655,11 @@ final class OGADWP_Settings {
 												<div id="post-body-content">
 													<div class="settings-wrapper">
 														<div class="inside">
-					<?php if ( $ogadwp->gapi_controller->gapi_errors_handler() || OGADWP_Tools::get_cache( 'last_error' ) ) : ?>
+					<?php if ( $ogadwp->gapi_controller->gapi_errors_handler() || GAPWP_Tools::get_cache( 'last_error' ) ) : ?>
 						<?php $message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'google-analytics-plus-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_errors_debugging', false ), __( 'Errors & Debug', 'google-analytics-plus-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'ogadwp_settings', false ), __( 'authorize the plugin', 'google-analytics-plus-wp' ) ) ) );?>
 					<?php endif; ?>
 					<?php if ( isset( $_POST['Authorize'] ) ) : ?>
-						<?php OGADWP_Tools::clear_cache();?>
+						<?php GAPWP_Tools::clear_cache();?>
 						<?php $ogadwp->gapi_controller->token_request();?>
 					<div class="updated">
 																<p><?php _e( "Use the red link (see below) to generate and get your access code! You need to generate a new code each time you authorize!", 'google-analytics-plus-wp' );?></p>
@@ -1753,7 +1753,7 @@ final class OGADWP_Settings {
 							<?php if ( isset( $options['network_tableid'] ) ) : ?>
 								<?php $options['network_tableid'] = json_decode( json_encode( $options['network_tableid'] ), false ); ?>
 							<?php endif; ?>
-							<?php foreach ( OGADWP_Tools::get_sites( array( 'number' => apply_filters( 'ogadwp_sites_limit', 100 ) ) ) as $blog ) : ?>
+							<?php foreach ( GAPWP_Tools::get_sites( array( 'number' => apply_filters( 'ogadwp_sites_limit', 100 ) ) ) as $blog ) : ?>
 							<tr>
 																		<td class="ogadwp-settings-title-s">
 																			<label for="network_tableid"><?php echo '<strong>'.$blog['domain'].$blog['path'].'</strong>: ';?></label>
@@ -1765,7 +1765,7 @@ final class OGADWP_Settings {
 											<?php if ( $items[3] ) : ?>
 												<?php $temp_id = $blog['blog_id']; ?>
 												<option value="<?php echo esc_attr( $items[1] );?>" <?php selected( $items[1], isset( $options['network_tableid']->$temp_id ) ? $options['network_tableid']->$temp_id : '');?> title="<?php echo __( "View Name:", 'google-analytics-plus-wp' ) . ' ' . esc_attr( $items[0] );?>">
-													 <?php echo esc_html( OGADWP_Tools::strip_protocol( $items[3] ) );?> &#8658; <?php echo esc_attr( $items[0] );?>
+													 <?php echo esc_html( GAPWP_Tools::strip_protocol( $items[3] ) );?> &#8658; <?php echo esc_attr( $items[0] );?>
 												</option>
 											<?php endif; ?>
 										<?php endforeach; ?>
@@ -1856,7 +1856,7 @@ final class OGADWP_Settings {
 	public static function output_sidebar() {
 		global $wp_version;
 
-		$ogadwp = OGADWP();
+		$ogadwp = GAPWP();
 		?>
 				</div>
 													</div>

@@ -11,18 +11,18 @@
 if ( ! defined( 'ABSPATH' ) )
 	exit();
 
-if ( ! class_exists( 'OGADWP_Tracking_Analytics_Base' ) ) {
+if ( ! class_exists( 'GAPWP_Tracking_Analytics_Base' ) ) {
 
-	class OGADWP_Tracking_Analytics_Base {
+	class GAPWP_Tracking_Analytics_Base {
 
 		protected $ogadwp;
 
 		protected $uaid;
 
 		public function __construct() {
-			$this->ogadwp = OGADWP();
+			$this->ogadwp = GAPWP();
 
-			$profile = OGADWP_Tools::get_selected_profile( $this->ogadwp->config->options['ga_profiles_list'], $this->ogadwp->config->options['tableid_jail'] );
+			$profile = GAPWP_Tools::get_selected_profile( $this->ogadwp->config->options['ga_profiles_list'], $this->ogadwp->config->options['tableid_jail'] );
 
 			$this->uaid = esc_html( $profile[2] );
 		}
@@ -107,9 +107,9 @@ if ( ! class_exists( 'OGADWP_Tracking_Analytics_Base' ) ) {
 	}
 }
 
-if ( ! class_exists( 'OGADWP_Tracking_Analytics_Common' ) ) {
+if ( ! class_exists( 'GAPWP_Tracking_Analytics_Common' ) ) {
 
-	class OGADWP_Tracking_Analytics_Common extends OGADWP_Tracking_Analytics_Base {
+	class GAPWP_Tracking_Analytics_Common extends GAPWP_Tracking_Analytics_Base {
 
 		protected $commands;
 
@@ -129,12 +129,12 @@ if ( ! class_exists( 'OGADWP_Tracking_Analytics_Common' ) ) {
 		private function load_scripts() {
 			if ( $this->is_event_tracking( true ) ) {
 
-				$root_domain = OGADWP_Tools::get_root_domain();
+				$root_domain = GAPWP_Tools::get_root_domain();
 
-				wp_enqueue_script( 'ogadwp-tracking-analytics-events', OGADWP_URL . 'front/js/tracking-analytics-events.js', array( 'jquery' ), OGADWP_CURRENT_VERSION, $this->ogadwp->config->options['trackingevents_infooter'] );
+				wp_enqueue_script( 'ogadwp-tracking-analytics-events', GAPWP_URL . 'front/js/tracking-analytics-events.js', array( 'jquery' ), GAPWP_CURRENT_VERSION, $this->ogadwp->config->options['trackingevents_infooter'] );
 
 				if ( $this->ogadwp->config->options['ga_pagescrolldepth_tracking'] ) {
-					wp_enqueue_script( 'ogadwp-pagescrolldepth-tracking', OGADWP_URL . 'front/js/tracking-scrolldepth.js', array( 'jquery' ), OGADWP_CURRENT_VERSION, $this->ogadwp->config->options['trackingevents_infooter'] );
+					wp_enqueue_script( 'ogadwp-pagescrolldepth-tracking', GAPWP_URL . 'front/js/tracking-scrolldepth.js', array( 'jquery' ), GAPWP_CURRENT_VERSION, $this->ogadwp->config->options['trackingevents_infooter'] );
 				}
 
 				/* @formatter:off */
@@ -163,7 +163,7 @@ if ( ! class_exists( 'OGADWP_Tracking_Analytics_Common' ) ) {
 		 * Outputs the Google Optimize tracking code
 		 */
 		public function optimize_output() {
-			OGADWP_Tools::load_view( 'front/views/optimize-code.php', array( 'containerid' => $this->ogadwp->config->options['optimize_containerid'] ) );
+			GAPWP_Tools::load_view( 'front/views/optimize-code.php', array( 'containerid' => $this->ogadwp->config->options['optimize_containerid'] ) );
 		}
 
 		/**
@@ -221,9 +221,9 @@ if ( ! class_exists( 'OGADWP_Tracking_Analytics_Common' ) ) {
 	}
 }
 
-if ( ! class_exists( 'OGADWP_Tracking_Analytics' ) ) {
+if ( ! class_exists( 'GAPWP_Tracking_Analytics' ) ) {
 
-	class OGADWP_Tracking_Analytics extends OGADWP_Tracking_Analytics_Common {
+	class GAPWP_Tracking_Analytics extends GAPWP_Tracking_Analytics_Common {
 
 		public function __construct() {
 			parent::__construct();
@@ -382,18 +382,18 @@ if ( ! class_exists( 'OGADWP_Tracking_Analytics' ) ) {
 			$tracking_script_path = apply_filters( 'ogadwp_analytics_script_path', 'https://www.google-analytics.com/analytics.js' );
 
 			if ( $this->ogadwp->config->options['ga_optout'] || $this->ogadwp->config->options['ga_dnt_optout'] ) {
-				OGADWP_Tools::load_view( 'front/views/analytics-optout-code.php', array( 'uaid' => $this->uaid, 'gaDntOptout' => $this->ogadwp->config->options['ga_dnt_optout'], 'gaOptout' => $this->ogadwp->config->options['ga_optout'] ) );
+				GAPWP_Tools::load_view( 'front/views/analytics-optout-code.php', array( 'uaid' => $this->uaid, 'gaDntOptout' => $this->ogadwp->config->options['ga_dnt_optout'], 'gaOptout' => $this->ogadwp->config->options['ga_optout'] ) );
 			}
 
-			OGADWP_Tools::load_view( 'front/views/analytics-code.php', array( 'trackingcode' => $trackingcode, 'tracking_script_path' => $tracking_script_path, 'ga_with_gtag' => $this->ogadwp->config->options['ga_with_gtag'] , 'uaid' => $this->uaid ) );
+			GAPWP_Tools::load_view( 'front/views/analytics-code.php', array( 'trackingcode' => $trackingcode, 'tracking_script_path' => $tracking_script_path, 'ga_with_gtag' => $this->ogadwp->config->options['ga_with_gtag'] , 'uaid' => $this->uaid ) );
 		}
 	}
 }
 
 
-if ( ! class_exists( 'OGADWP_Tracking_GlobalSiteTag' ) ) {
+if ( ! class_exists( 'GAPWP_Tracking_GlobalSiteTag' ) ) {
 
-	class OGADWP_Tracking_GlobalSiteTag extends OGADWP_Tracking_Analytics_Common {
+	class GAPWP_Tracking_GlobalSiteTag extends GAPWP_Tracking_Analytics_Common {
 
 		public function __construct() {
 			parent::__construct();
@@ -519,17 +519,17 @@ if ( ! class_exists( 'OGADWP_Tracking_GlobalSiteTag' ) ) {
 			$tracking_script_path = apply_filters( 'ogadwp_gtag_script_path', 'https://www.googletagmanager.com/gtag/js' );
 
 			if ( $this->ogadwp->config->options['ga_optout'] || $this->ogadwp->config->options['ga_dnt_optout'] ) {
-				OGADWP_Tools::load_view( 'front/views/analytics-optout-code.php', array( 'uaid' => $this->uaid, 'gaDntOptout' => $this->ogadwp->config->options['ga_dnt_optout'], 'gaOptout' => $this->ogadwp->config->options['ga_optout'] ) );
+				GAPWP_Tools::load_view( 'front/views/analytics-optout-code.php', array( 'uaid' => $this->uaid, 'gaDntOptout' => $this->ogadwp->config->options['ga_dnt_optout'], 'gaOptout' => $this->ogadwp->config->options['ga_optout'] ) );
 			}
 
-			OGADWP_Tools::load_view( 'front/views/analytics-code.php', array( 'trackingcode' => $trackingcode, 'tracking_script_path' => $tracking_script_path, 'ga_with_gtag' => $this->ogadwp->config->options['ga_with_gtag'] , 'uaid' => $this->uaid ) );
+			GAPWP_Tools::load_view( 'front/views/analytics-code.php', array( 'trackingcode' => $trackingcode, 'tracking_script_path' => $tracking_script_path, 'ga_with_gtag' => $this->ogadwp->config->options['ga_with_gtag'] , 'uaid' => $this->uaid ) );
 		}
 	}
 }
 
-if ( ! class_exists( 'OGADWP_Tracking_Analytics_AMP' ) ) {
+if ( ! class_exists( 'GAPWP_Tracking_Analytics_AMP' ) ) {
 
-	class OGADWP_Tracking_Analytics_AMP extends OGADWP_Tracking_Analytics_Base {
+	class GAPWP_Tracking_Analytics_AMP extends GAPWP_Tracking_Analytics_Base {
 
 		private $config;
 
@@ -566,7 +566,7 @@ if ( ! class_exists( 'OGADWP_Tracking_Analytics_AMP' ) ) {
 			}
 			if ( $this->ogadwp->config->options['ga_hash_tracking'] ) {
 				// Add hashmark data-vars
-				$root_domain = OGADWP_Tools::get_root_domain();
+				$root_domain = GAPWP_Tools::get_root_domain();
 				if ( $root_domain && ( strpos( $link, $root_domain ) > - 1 || strpos( $link, '://' ) === false ) && strpos( $link, '#' ) > - 1 ) {
 					return array( 'hashmark', 'click', $link );
 				}
@@ -579,7 +579,7 @@ if ( ! class_exists( 'OGADWP_Tracking_Analytics_AMP' ) ) {
 			}
 			if ( $this->ogadwp->config->options['ga_event_tracking'] ) {
 				// Add outbound data-vars
-				$root_domain = OGADWP_Tools::get_root_domain();
+				$root_domain = GAPWP_Tools::get_root_domain();
 				if ( $root_domain && strpos( $link, $root_domain ) === false && strpos( $link, '://' ) > - 1 ) {
 					return array( 'outbound', 'click', $link );
 				}
@@ -590,7 +590,7 @@ if ( ! class_exists( 'OGADWP_Tracking_Analytics_AMP' ) ) {
 		public function add_data_attributes( $content ) {
 			if ( function_exists( 'is_amp_endpoint' ) && is_amp_endpoint() && $this->is_event_tracking( false ) ) {
 
-				$dom = OGADWP_Tools::get_dom_from_content( $content );
+				$dom = GAPWP_Tools::get_dom_from_content( $content );
 
 				if ( $dom ) {
 
@@ -635,7 +635,7 @@ if ( ! class_exists( 'OGADWP_Tracking_Analytics_AMP' ) ) {
 							}
 						}
 					}
-					return OGADWP_Tools::get_content_from_dom( $dom );
+					return GAPWP_Tools::get_content_from_dom( $dom );
 				}
 			}
 
@@ -750,7 +750,7 @@ if ( ! class_exists( 'OGADWP_Tracking_Analytics_AMP' ) ) {
 		}
 
 		public function add_amp_client_id() {
-			OGADWP_Tools::load_view( 'front/views/analytics-amp-clientidapi.php' );
+			GAPWP_Tools::load_view( 'front/views/analytics-amp-clientidapi.php' );
 		}
 
 		/**
@@ -769,7 +769,7 @@ if ( ! class_exists( 'OGADWP_Tracking_Analytics_AMP' ) ) {
 
 			$data = array( 'json' => $json );
 
-			OGADWP_Tools::load_view( 'front/views/analytics-amp-code.php', $data );
+			GAPWP_Tools::load_view( 'front/views/analytics-amp-code.php', $data );
 		}
 	}
 }

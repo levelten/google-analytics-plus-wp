@@ -11,16 +11,16 @@
 if ( ! defined( 'ABSPATH' ) )
 	exit();
 
-if ( ! class_exists( 'OGADWP_Backend_Ajax' ) ) {
+if ( ! class_exists( 'GAPWP_Backend_Ajax' ) ) {
 
-	final class OGADWP_Backend_Ajax {
+	final class GAPWP_Backend_Ajax {
 
 		private $ogadwp;
 
 		public function __construct() {
-			$this->ogadwp = OGADWP();
+			$this->ogadwp = GAPWP();
 
-			if ( OGADWP_Tools::check_roles( $this->ogadwp->config->options['access_back'] ) && ( ( 1 == $this->ogadwp->config->options['backend_item_reports'] ) || ( 1 == $this->ogadwp->config->options['dashboard_widget'] ) ) ) {
+			if ( GAPWP_Tools::check_roles( $this->ogadwp->config->options['access_back'] ) && ( ( 1 == $this->ogadwp->config->options['backend_item_reports'] ) || ( 1 == $this->ogadwp->config->options['dashboard_widget'] ) ) ) {
 				// Items action
 				add_action( 'wp_ajax_ogadwp_backend_item_reports', array( $this, 'ajax_item_reports' ) );
 			}
@@ -66,12 +66,12 @@ if ( ! class_exists( 'OGADWP_Backend_Ajax' ) ) {
 				ob_clean();
 			}
 
-			if ( ! ( OGADWP_Tools::check_roles( $this->ogadwp->config->options['access_back'] ) && ( ( 1 == $this->ogadwp->config->options['backend_item_reports'] ) || ( 1 == $this->ogadwp->config->options['dashboard_widget'] ) ) ) ) {
+			if ( ! ( GAPWP_Tools::check_roles( $this->ogadwp->config->options['access_back'] ) && ( ( 1 == $this->ogadwp->config->options['backend_item_reports'] ) || ( 1 == $this->ogadwp->config->options['dashboard_widget'] ) ) ) ) {
 				wp_die( - 31 );
 			}
 			if ( $this->ogadwp->config->options['token'] && $this->ogadwp->config->options['tableid_jail'] && $from && $to ) {
 				if ( null === $this->ogadwp->gapi_controller ) {
-					$this->ogadwp->gapi_controller = new OGADWP_GAPI_Controller();
+					$this->ogadwp->gapi_controller = new GAPWP_GAPI_Controller();
 				}
 			} else {
 				wp_die( - 24 );
@@ -79,7 +79,7 @@ if ( ! class_exists( 'OGADWP_Backend_Ajax' ) ) {
 			if ( false == $projectId ) {
 				$projectId = $this->ogadwp->config->options['tableid_jail'];
 			}
-			$profile_info = OGADWP_Tools::get_selected_profile( $this->ogadwp->config->options['ga_profiles_list'], $projectId );
+			$profile_info = GAPWP_Tools::get_selected_profile( $this->ogadwp->config->options['ga_profiles_list'], $projectId );
 			if ( isset( $profile_info[4] ) ) {
 				$this->ogadwp->gapi_controller->timeshift = $profile_info[4];
 			} else {

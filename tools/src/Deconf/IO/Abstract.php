@@ -122,7 +122,7 @@ abstract class Deconf_IO_Abstract
   public function makeRequest(Deconf_Http_Request $request)
   {
 //Intel_Df::watchdog('Deconf_IO_Abstract::makeRequest $request', print_r($request, 1));
-  	// Add support for OGADWP Endpoint
+  	// Add support for GAPWP Endpoint
     // TODO: disabled to prevent request to old gadwp.deconf.com endpoint
   	//do_action('ogadwp_endpoint_support', $request);
 

@@ -11,16 +11,16 @@
 if ( ! defined( 'ABSPATH' ) )
 	exit();
 
-if ( ! class_exists( 'OGADWP_Common_Ajax' ) ) {
+if ( ! class_exists( 'GAPWP_Common_Ajax' ) ) {
 
-	final class OGADWP_Common_Ajax {
+	final class GAPWP_Common_Ajax {
 
 		private $ogadwp;
 
 		public function __construct() {
-			$this->ogadwp = OGADWP();
+			$this->ogadwp = GAPWP();
 
-			if ( OGADWP_Tools::check_roles( $this->ogadwp->config->options['access_back'] ) || OGADWP_Tools::check_roles( $this->ogadwp->config->options['access_front'] ) ) {
+			if ( GAPWP_Tools::check_roles( $this->ogadwp->config->options['access_back'] ) || GAPWP_Tools::check_roles( $this->ogadwp->config->options['access_front'] ) ) {
 				add_action( 'wp_ajax_ogadwp_set_error', array( $this, 'ajax_set_error' ) );
 			}
 		}
@@ -35,7 +35,7 @@ if ( ! class_exists( 'OGADWP_Common_Ajax' ) ) {
 				wp_die( - 40 );
 			}
 			$timeout = 24 * 60 * 60;
-			OGADWP_Tools::set_error( $_POST['response'], $timeout );
+			GAPWP_Tools::set_error( $_POST['response'], $timeout );
 			wp_die();
 		}
 	}

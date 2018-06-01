@@ -11,16 +11,16 @@
 if ( ! defined( 'ABSPATH' ) )
 	exit();
 
-if ( ! class_exists( 'OGADWP_Frontend_Ajax' ) ) {
+if ( ! class_exists( 'GAPWP_Frontend_Ajax' ) ) {
 
-	final class OGADWP_Frontend_Ajax {
+	final class GAPWP_Frontend_Ajax {
 
 		private $ogadwp;
 
 		public function __construct() {
-			$this->ogadwp = OGADWP();
+			$this->ogadwp = GAPWP();
 
-			if ( OGADWP_Tools::check_roles( $this->ogadwp->config->options['access_front'] ) && $this->ogadwp->config->options['frontend_item_reports'] ) {
+			if ( GAPWP_Tools::check_roles( $this->ogadwp->config->options['access_front'] ) && $this->ogadwp->config->options['frontend_item_reports'] ) {
 				// Item Reports action
 				add_action( 'wp_ajax_ogadwp_frontend_item_reports', array( $this, 'ajax_item_reports' ) );
 			}
@@ -55,13 +55,13 @@ if ( ! class_exists( 'OGADWP_Frontend_Ajax' ) ) {
 				ob_clean();
 			}
 
-			if ( ! OGADWP_Tools::check_roles( $this->ogadwp->config->options['access_front'] ) || 0 == $this->ogadwp->config->options['frontend_item_reports'] ) {
+			if ( ! GAPWP_Tools::check_roles( $this->ogadwp->config->options['access_front'] ) || 0 == $this->ogadwp->config->options['frontend_item_reports'] ) {
 				wp_die( - 31 );
 			}
 
 			if ( $this->ogadwp->config->options['token'] && $this->ogadwp->config->options['tableid_jail'] ) {
 				if ( null === $this->ogadwp->gapi_controller ) {
-					$this->ogadwp->gapi_controller = new OGADWP_GAPI_Controller();
+					$this->ogadwp->gapi_controller = new GAPWP_GAPI_Controller();
 				}
 			} else {
 				wp_die( - 24 );
@@ -73,7 +73,7 @@ if ( ! class_exists( 'OGADWP_Frontend_Ajax' ) ) {
 				wp_die( - 26 );
 			}
 
-			$profile_info = OGADWP_Tools::get_selected_profile( $this->ogadwp->config->options['ga_profiles_list'], $projectId );
+			$profile_info = GAPWP_Tools::get_selected_profile( $this->ogadwp->config->options['ga_profiles_list'], $projectId );
 
 			if ( isset( $profile_info[4] ) ) {
 				$this->ogadwp->gapi_controller->timeshift = $profile_info[4];
@@ -139,13 +139,13 @@ if ( ! class_exists( 'OGADWP_Frontend_Ajax' ) ) {
 			}
 			if ( $this->ogadwp->config->options['token'] && $this->ogadwp->config->options['tableid_jail'] ) {
 				if ( null === $this->ogadwp->gapi_controller ) {
-					$this->ogadwp->gapi_controller = new OGADWP_GAPI_Controller();
+					$this->ogadwp->gapi_controller = new GAPWP_GAPI_Controller();
 				}
 			} else {
 				wp_die( - 24 );
 			}
 			$projectId = $this->ogadwp->config->options['tableid_jail'];
-			$profile_info = OGADWP_Tools::get_selected_profile( $this->ogadwp->config->options['ga_profiles_list'], $projectId );
+			$profile_info = GAPWP_Tools::get_selected_profile( $this->ogadwp->config->options['ga_profiles_list'], $projectId );
 			if ( isset( $profile_info[4] ) ) {
 				$this->ogadwp->gapi_controller->timeshift = $profile_info[4];
 			} else {

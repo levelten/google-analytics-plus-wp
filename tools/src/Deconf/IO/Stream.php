@@ -87,7 +87,7 @@ class Deconf_IO_Stream extends Deconf_IO_Abstract
     $requestSslContext = array_key_exists('ssl', $default_options) ?
         $default_options['ssl'] : array();
 
-    // Add support for OGADWP Endpoint
+    // Add support for GAPWP Endpoint
     $requestSslContext = apply_filters('ogadwp_endpoint_stream_options', $requestSslContext, $request);
 
     if (!$this->client->isAppEngine() && !array_key_exists("cafile", $requestSslContext)) {

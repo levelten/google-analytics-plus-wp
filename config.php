@@ -11,9 +11,9 @@
 if ( ! defined( 'ABSPATH' ) )
 	exit();
 
-if ( ! class_exists( 'OGADWP_Config' ) ) {
+if ( ! class_exists( 'GAPWP_Config' ) ) {
 
-	final class OGADWP_Config {
+	final class GAPWP_Config {
 
 		public $options;
 
@@ -49,8 +49,8 @@ if ( ! class_exists( 'OGADWP_Config' ) ) {
 			}
 			if ( isset( $item['slug'] ) && 'google-analytics-plus-wp' == $item['slug'] ) {
 				// Only when a minor update is available
-				if ( $this->get_major_version( OGADWP_CURRENT_VERSION ) == $this->get_major_version( $item['new_version'] ) ) {
-					return ( $this->get_major_version( OGADWP_CURRENT_VERSION ) == $this->get_major_version( $item['new_version'] ) );
+				if ( $this->get_major_version( GAPWP_CURRENT_VERSION ) == $this->get_major_version( $item['new_version'] ) ) {
+					return ( $this->get_major_version( GAPWP_CURRENT_VERSION ) == $this->get_major_version( $item['new_version'] ) );
 				}
 			}
 			return $update;
@@ -201,7 +201,7 @@ if ( ! class_exists( 'OGADWP_Config' ) ) {
 			global $blog_id;
 
 			if ( ! get_option( 'ogadwp_options' ) ) {
-				OGADWP_Install::install();
+				GAPWP_Install::install();
 			}
 			$this->options = (array) json_decode( get_option( 'ogadwp_options' ) );
 			// Maintain Compatibility
@@ -212,7 +212,7 @@ if ( ! class_exists( 'OGADWP_Config' ) ) {
 				$network_options = (array) json_decode( $get_network_options );
 				if ( isset( $network_options['network_mode'] ) && ( $network_options['network_mode'] ) ) {
 					if ( ! is_network_admin() && ! empty( $network_options['ga_profiles_list'] ) && isset( $network_options['network_tableid']->$blog_id ) ) {
-						$network_options['ga_profiles_list'] = array( 0 => OGADWP_Tools::get_selected_profile( $network_options['ga_profiles_list'], $network_options['network_tableid']->$blog_id ) );
+						$network_options['ga_profiles_list'] = array( 0 => GAPWP_Tools::get_selected_profile( $network_options['ga_profiles_list'], $network_options['network_tableid']->$blog_id ) );
 						$network_options['tableid_jail'] = $network_options['ga_profiles_list'][0][1];
 					}
 					$this->options = array_merge( $this->options, $network_options );
@@ -226,23 +226,23 @@ if ( ! class_exists( 'OGADWP_Config' ) ) {
 			$flag = false;
 
 			$prevver = get_option( 'ogadwp_version' );
-			if ( $prevver && OGADWP_CURRENT_VERSION != $prevver ) {
+			if ( $prevver && GAPWP_CURRENT_VERSION != $prevver ) {
 				$flag = true;
-				update_option( 'ogadwp_version', OGADWP_CURRENT_VERSION );
+				update_option( 'ogadwp_version', GAPWP_CURRENT_VERSION );
 				update_option( 'ogadwp_got_updated', true );
-				OGADWP_Tools::clear_cache();
-				OGADWP_Tools::delete_cache( 'last_error' );
+				GAPWP_Tools::clear_cache();
+				GAPWP_Tools::delete_cache( 'last_error' );
 				if ( is_multisite() ) { // Cleanup errors and cookies on the entire network
-					foreach ( OGADWP_Tools::get_sites( array( 'number' => apply_filters( 'ogadwp_sites_limit', 100 ) ) ) as $blog ) {
+					foreach ( GAPWP_Tools::get_sites( array( 'number' => apply_filters( 'ogadwp_sites_limit', 100 ) ) ) as $blog ) {
 						switch_to_blog( $blog['blog_id'] );
-						OGADWP_Tools::delete_cache( 'gapi_errors' );
+						GAPWP_Tools::delete_cache( 'gapi_errors' );
 						restore_current_blog();
 					}
 				} else {
-					OGADWP_Tools::delete_cache( 'gapi_errors' );
+					GAPWP_Tools::delete_cache( 'gapi_errors' );
 				}
 
-				// Enable OGADWP EndPoint for those updating from a version lower than 5.2, introduced in OGADWP v5.3
+				// Enable GAPWP EndPoint for those updating from a version lower than 5.2, introduced in GAPWP v5.3
 				if (version_compare( $prevver, '5.2', '<' ) ) {
 					$this->options['with_endpoint'] = 2;
 				}
@@ -441,7 +441,7 @@ if ( ! class_exists( 'OGADWP_Config' ) ) {
 				$options = get_site_option( 'gadash_network_options' );
 				if ( $options ) {
 					$options = (array) json_decode( $options );
-					$options = OGADWP_Tools::array_keys_rename( $options, $batch );
+					$options = GAPWP_Tools::array_keys_rename( $options, $batch );
 					update_site_option( 'ogadwp_network_options', json_encode( $this->validate_data( $options ) ) );
 					delete_site_option( 'gadash_network_options' );
 				}
@@ -450,7 +450,7 @@ if ( ! class_exists( 'OGADWP_Config' ) ) {
 			$options = get_option( 'gadash_options' );
 			if ( $options ) {
 				$options = (array) json_decode( $options );
-				$options = OGADWP_Tools::array_keys_rename( $options, $batch );
+				$options = GAPWP_Tools::array_keys_rename( $options, $batch );
 				update_option( 'ogadwp_options', json_encode( $this->validate_data( $options ) ) );
 				delete_option( 'gadash_options' );
 			}

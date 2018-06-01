@@ -11,9 +11,9 @@
 if ( ! defined( 'ABSPATH' ) )
 	exit();
 
-if ( ! class_exists( 'OGADWP_GAPI_Controller' ) ) {
+if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 
-	final class OGADWP_GAPI_Controller {
+	final class GAPWP_GAPI_Controller {
 
 		public $client;
 
@@ -28,9 +28,9 @@ if ( ! class_exists( 'OGADWP_GAPI_Controller' ) ) {
 		private $access = array( '12536165902-l1h9gq7gi2qsmov9vnhsua0qbobni62t.apps.googleusercontent.com', '1FryDwvhdNaUcTFkJKFmApau1A' );
 
 		public function __construct() {
-			$this->ogadwp = OGADWP();
+			$this->ogadwp = GAPWP();
 
-			include_once ( OGADWP_DIR . 'tools/src/Deconf/autoload.php' );
+			include_once ( GAPWP_DIR . 'tools/src/Deconf/autoload.php' );
 			$config = new Deconf_Config();
 			$config->setCacheClass( 'Deconf_Cache_Null' );
 			if ( function_exists( 'curl_version' ) ) {
@@ -42,8 +42,8 @@ if ( ! class_exists( 'OGADWP_GAPI_Controller' ) ) {
 					$rightversion = false;
 				}
 
-				if ( $rightversion && defined( 'OGADWP_IP_VERSION' ) && OGADWP_IP_VERSION ) {
-					$curl_options[CURLOPT_IPRESOLVE] = OGADWP_IP_VERSION; // Force CURL_IPRESOLVE_V4 or CURL_IPRESOLVE_V6
+				if ( $rightversion && defined( 'GAPWP_IP_VERSION' ) && GAPWP_IP_VERSION ) {
+					$curl_options[CURLOPT_IPRESOLVE] = GAPWP_IP_VERSION; // Force CURL_IPRESOLVE_V4 or CURL_IPRESOLVE_V6
 				}
 
 				// add Proxy server settings to curl, if defined
@@ -65,7 +65,7 @@ if ( ! class_exists( 'OGADWP_GAPI_Controller' ) ) {
 			$this->client = new Deconf_Client( $config );
 			$this->client->setScopes( array( 'https://www.googleapis.com/auth/analytics.readonly' ) );
 			$this->client->setAccessType( 'offline' );
-			$this->client->setApplicationName( 'OGADWP ' . OGADWP_CURRENT_VERSION );
+			$this->client->setApplicationName( 'GAPWP ' . GAPWP_CURRENT_VERSION );
 			$this->client->setRedirectUri( 'urn:ietf:wg:oauth:2.0:oob' );
 			$this->managequota = 'u' . get_current_user_id() . 's' . get_current_blog_id();
 			$this->access = array_map( array( $this, 'map' ), $this->access );
@@ -78,7 +78,7 @@ if ( ! class_exists( 'OGADWP_GAPI_Controller' ) ) {
 			}
 
 			/**
-			 * OGADWP Endpoint support
+			 * GAPWP Endpoint support
 			 */
 			add_action( 'ogadwp_endpoint_support', array( $this, 'add_endpoint_support' ) );
 
@@ -95,14 +95,14 @@ if ( ! class_exists( 'OGADWP_GAPI_Controller' ) ) {
 						$this->ogadwp->config->options['token'] = $this->client->getAccessToken();
 					} catch ( Deconf_IO_Exception $e ) {
 						$timeout = $this->get_timeouts( 'midnight' );
-						OGADWP_Tools::set_error( $e, $timeout );
+						GAPWP_Tools::set_error( $e, $timeout );
 					} catch ( Deconf_Service_Exception $e ) {
 						$timeout = $this->get_timeouts( 'midnight' );
-						OGADWP_Tools::set_error( $e, $timeout );
+						GAPWP_Tools::set_error( $e, $timeout );
 						$this->reset_token();
 					} catch ( Exception $e ) {
 						$timeout = $this->get_timeouts( 'midnight' );
-						OGADWP_Tools::set_error( $e, $timeout );
+						GAPWP_Tools::set_error( $e, $timeout );
 						$this->reset_token();
 					}
 					if ( is_multisite() && $this->ogadwp->config->options['network_mode'] ) {
@@ -143,9 +143,9 @@ if ( ! class_exists( 'OGADWP_GAPI_Controller' ) ) {
 					}
 				}
 
-				$url = str_replace( 'https://accounts.google.com/o/oauth2/token', OGADWP_ENDPOINT_URL . 'ogadwp-token.php', $url );
+				$url = str_replace( 'https://accounts.google.com/o/oauth2/token', GAPWP_ENDPOINT_URL . 'ogadwp-token.php', $url );
 
-				$url = str_replace( 'https://accounts.google.com/o/oauth2/revoke', OGADWP_ENDPOINT_URL . 'ogadwp-revoke.php', $url );
+				$url = str_replace( 'https://accounts.google.com/o/oauth2/revoke', GAPWP_ENDPOINT_URL . 'ogadwp-revoke.php', $url );
 
 				$request->setUrl( $url );
 
@@ -165,7 +165,7 @@ if ( ! class_exists( 'OGADWP_GAPI_Controller' ) ) {
 		 * @return boolean
 		 */
 		public function gapi_errors_handler() {
-			$errors = OGADWP_Tools::get_cache( 'gapi_errors' );
+			$errors = GAPWP_Tools::get_cache( 'gapi_errors' );
 
 			if ( false === $errors || ! isset( $errors[0] ) ) { // invalid error
 				return false;
@@ -229,7 +229,7 @@ if ( ! class_exists( 'OGADWP_GAPI_Controller' ) ) {
 		 */
 		public function token_request() {
 			$data['authUrl'] = $this->client->createAuthUrl();
-			OGADWP_Tools::load_view( 'admin/views/access-code.php', $data );
+			GAPWP_Tools::load_view( 'admin/views/access-code.php', $data );
 		}
 
 		/**
@@ -266,21 +266,21 @@ if ( ! class_exists( 'OGADWP_GAPI_Controller' ) ) {
 
 				if ( empty( $ga_profiles_list ) ) {
 					$timeout = $this->get_timeouts( 'midnight' );
-					OGADWP_Tools::set_error( 'No properties were found in this account!', $timeout );
+					GAPWP_Tools::set_error( 'No properties were found in this account!', $timeout );
 				} else {
-					OGADWP_Tools::delete_cache( 'last_error' );
+					GAPWP_Tools::delete_cache( 'last_error' );
 				}
 				return $ga_profiles_list;
 			} catch ( Deconf_IO_Exception $e ) {
 				$timeout = $this->get_timeouts( 'midnight' );
-				OGADWP_Tools::set_error( $e, $timeout );
+				GAPWP_Tools::set_error( $e, $timeout );
 				return $ga_profiles_list;
 			} catch ( Deconf_Service_Exception $e ) {
 				$timeout = $this->get_timeouts( 'midnight' );
-				OGADWP_Tools::set_error( $e, $timeout );
+				GAPWP_Tools::set_error( $e, $timeout );
 			} catch ( Exception $e ) {
 				$timeout = $this->get_timeouts( 'midnight' );
-				OGADWP_Tools::set_error( $e, $timeout );
+				GAPWP_Tools::set_error( $e, $timeout );
 			}
 		}
 
@@ -336,7 +336,7 @@ if ( ! class_exists( 'OGADWP_GAPI_Controller' ) ) {
 				} else {
 					$interval = 'daily';
 				}
-				$transient = OGADWP_Tools::get_cache( $serial );
+				$transient = GAPWP_Tools::get_cache( $serial );
 				if ( false === $transient ) {
 					if ( $this->gapi_errors_handler() ) {
 						return - 23;
@@ -347,21 +347,21 @@ if ( ! class_exists( 'OGADWP_GAPI_Controller' ) ) {
 						$sampling['date'] = date( 'Y-m-d H:i:s' );
 						$sampling['percent'] = number_format( ( $data->getSampleSize() / $data->getSampleSpace() ) * 100, 2 ) . '%';
 						$sampling['sessions'] = $data->getSampleSize() . ' / ' . $data->getSampleSpace();
-						OGADWP_Tools::set_cache( 'sampleddata', $sampling, 30 * 24 * 3600 );
-						OGADWP_Tools::set_cache( $serial, $data, $this->get_timeouts( 'hourly' ) ); // refresh every hour if data is sampled
+						GAPWP_Tools::set_cache( 'sampleddata', $sampling, 30 * 24 * 3600 );
+						GAPWP_Tools::set_cache( $serial, $data, $this->get_timeouts( 'hourly' ) ); // refresh every hour if data is sampled
 					} else {
-						OGADWP_Tools::set_cache( $serial, $data, $this->get_timeouts( $interval ) );
+						GAPWP_Tools::set_cache( $serial, $data, $this->get_timeouts( $interval ) );
 					}
 				} else {
 					$data = $transient;
 				}
 			} catch ( Deconf_Service_Exception $e ) {
 				$timeout = $this->get_timeouts( 'midnight' );
-				OGADWP_Tools::set_error( $e, $timeout );
+				GAPWP_Tools::set_error( $e, $timeout );
 				return $e->getCode();
 			} catch ( Exception $e ) {
 				$timeout = $this->get_timeouts( 'midnight' );
-				OGADWP_Tools::set_error( $e, $timeout );
+				GAPWP_Tools::set_error( $e, $timeout );
 				return $e->getCode();
 			}
 
@@ -677,7 +677,7 @@ if ( ! class_exists( 'OGADWP_GAPI_Controller' ) ) {
 			if ( $this->ogadwp->config->options['ga_target_geomap'] ) {
 				$dimensions = 'ga:city, ga:region';
 
-				$country_codes = OGADWP_Tools::get_countrycodes();
+				$country_codes = GAPWP_Tools::get_countrycodes();
 				if ( isset( $country_codes[$this->ogadwp->config->options['ga_target_geomap']] ) ) {
 					$local_filter = 'ga:country==' . ( $country_codes[$this->ogadwp->config->options['ga_target_geomap']] );
 					$title = __( "Cities from", 'google-analytics-plus-wp' ) . ' ' . __( $country_codes[$this->ogadwp->config->options['ga_target_geomap']] );
@@ -860,23 +860,23 @@ if ( ! class_exists( 'OGADWP_GAPI_Controller' ) ) {
 			$dimensions = 'rt:pagePath,rt:source,rt:keyword,rt:trafficType,rt:visitorType,rt:pageTitle';
 			try {
 				$serial = 'qr_realtimecache_' . $this->get_serial( $projectId );
-				$transient = OGADWP_Tools::get_cache( $serial );
+				$transient = GAPWP_Tools::get_cache( $serial );
 				if ( false === $transient ) {
 					if ( $this->gapi_errors_handler() ) {
 						return - 23;
 					}
 					$data = $this->service->data_realtime->get( 'ga:' . $projectId, $metrics, array( 'dimensions' => $dimensions, 'quotaUser' => $this->managequota . 'p' . $projectId ) );
-					OGADWP_Tools::set_cache( $serial, $data, 55 );
+					GAPWP_Tools::set_cache( $serial, $data, 55 );
 				} else {
 					$data = $transient;
 				}
 			} catch ( Deconf_Service_Exception $e ) {
 				$timeout = $this->get_timeouts( 'midnight' );
-				OGADWP_Tools::set_error( $e, $timeout );
+				GAPWP_Tools::set_error( $e, $timeout );
 				return $e->getCode();
 			} catch ( Exception $e ) {
 				$timeout = $this->get_timeouts( 'midnight' );
-				OGADWP_Tools::set_error( $e, $timeout );
+				GAPWP_Tools::set_error( $e, $timeout );
 				return $e->getCode();
 			}
 			if ( $data->getRows() < 1 ) {

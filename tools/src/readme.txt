@@ -6,14 +6,14 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
  
- * Custom OGADWP EndPoint:
+ * Custom GAPWP EndPoint:
 
  		- added an action hook to IO -> Abstract -> MakeRequest to enable custom endpoint support:
  
 			   public function makeRequest(Deconf_Http_Request $request)
 			   {
 			
-				  	// Add support for OGADWP Endpoint
+				  	// Add support for GAPWP Endpoint
 				  	do_action('ogadwp_endpoint_support', $request);
 				  	
 				  	...

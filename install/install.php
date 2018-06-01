@@ -11,7 +11,7 @@
 if ( ! defined( 'ABSPATH' ) )
 	exit();
 
-class OGADWP_Install {
+class GAPWP_Install {
 
 	public static function install() {
 		if ( ! get_option( 'ga_dash_token' ) ) {

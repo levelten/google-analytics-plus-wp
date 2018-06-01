@@ -11,15 +11,15 @@
 if ( ! defined( 'ABSPATH' ) )
 	exit();
 
-if ( ! class_exists( 'OGADWP_Backend_Widgets' ) ) {
+if ( ! class_exists( 'GAPWP_Backend_Widgets' ) ) {
 
-	class OGADWP_Backend_Widgets {
+	class GAPWP_Backend_Widgets {
 
 		private $ogadwp;
 
 		public function __construct() {
-			$this->ogadwp = OGADWP();
-			if ( OGADWP_Tools::check_roles( $this->ogadwp->config->options['access_back'] ) && ( 1 == $this->ogadwp->config->options['dashboard_widget'] ) ) {
+			$this->ogadwp = GAPWP();
+			if ( GAPWP_Tools::check_roles( $this->ogadwp->config->options['access_back'] ) && ( 1 == $this->ogadwp->config->options['dashboard_widget'] ) ) {
 				add_action( 'wp_dashboard_setup', array( $this, 'add_widget' ) );
 			}
 		}
