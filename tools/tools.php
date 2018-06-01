@@ -110,30 +110,30 @@ if ( ! class_exists( 'GAPWP_Tools' ) ) {
 		}
 
 		public static function unset_cookie( $name ) {
-			$name = 'ogadwp_wg_' . $name;
+			$name = 'gapwp_wg_' . $name;
 			setcookie( $name, '', time() - 3600, '/' );
-			$name = 'ogadwp_ir_' . $name;
+			$name = 'gapwp_ir_' . $name;
 			setcookie( $name, '', time() - 3600, '/' );
 		}
 
 		public static function set_cache( $name, $value, $expiration = 0 ) {
 			$option = array( 'value' => $value, 'expires' => time() + (int) $expiration );
-			update_option( 'ogadwp_cache_' . $name, $option, 'no' );
+			update_option( 'gapwp_cache_' . $name, $option, 'no' );
 		}
 
 		public static function delete_cache( $name ) {
-			delete_option( 'ogadwp_cache_' . $name );
+			delete_option( 'gapwp_cache_' . $name );
 		}
 
 		public static function get_cache( $name ) {
-			$option = get_option( 'ogadwp_cache_' . $name );
+			$option = get_option( 'gapwp_cache_' . $name );
 
 			if ( false === $option || ! isset( $option['value'] ) || ! isset( $option['expires'] ) ) {
 				return false;
 			}
 
 			if ( $option['expires'] < time() ) {
-				delete_option( 'ogadwp_cache_' . $name );
+				delete_option( 'gapwp_cache_' . $name );
 				return false;
 			} else {
 				return $option['value'];
@@ -142,7 +142,7 @@ if ( ! class_exists( 'GAPWP_Tools' ) ) {
 
 		public static function clear_cache() {
 			global $wpdb;
-			$sqlquery = $wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'ogadwp_cache_qr%%'" );
+			$sqlquery = $wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'gapwp_cache_qr%%'" );
 		}
 
 		public static function get_sites( $args ) { // Use wp_get_sites() if WP version is lower than 4.6.0
@@ -247,7 +247,7 @@ if ( ! class_exists( 'GAPWP_Tools' ) ) {
 			global $wp_version;
 
 			$options['wp_version'] = $wp_version;
-			$options['ogadwp_version'] = GAPWP_CURRENT_VERSION;
+			$options['gapwp_version'] = GAPWP_CURRENT_VERSION;
 			if ( $options['token'] ) {
 				$options['token'] = 'HIDDEN';
 			}

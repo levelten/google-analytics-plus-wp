@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-function google_api_php_client_autoload_ogadwp($className)
+function google_api_php_client_autoload_gapwp($className)
 {
   $classPath = explode('_', $className);
   if ($classPath[0] != 'Deconf') {
@@ -28,4 +28,4 @@ function google_api_php_client_autoload_ogadwp($className)
     require_once($filePath);
   }
 }
-spl_autoload_register('google_api_php_client_autoload_ogadwp');
+spl_autoload_register('google_api_php_client_autoload_gapwp');

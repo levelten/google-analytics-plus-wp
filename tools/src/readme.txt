@@ -14,7 +14,7 @@
 			   {
 			
 				  	// Add support for GAPWP Endpoint
-				  	do_action('ogadwp_endpoint_support', $request);
+				  	do_action('gapwp_endpoint_support', $request);
 				  	
 				  	...
 				 

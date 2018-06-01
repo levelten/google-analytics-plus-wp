@@ -8,15 +8,15 @@
  */
 ?>
 <script>
-var ogadwpDnt = false;
-var ogadwpProperty = '<?php echo $data['uaid']?>';
-var ogadwpDntFollow = <?php echo $data['gaDntOptout'] ? 'true' : 'false'?>;
-var ogadwpOptout = <?php echo $data['gaOptout'] ? 'true' : 'false'?>;
-var disableStr = 'ga-disable-' + ogadwpProperty;
-if(ogadwpDntFollow && (window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
-	ogadwpDnt = true;
+var gapwpDnt = false;
+var gapwpProperty = '<?php echo $data['uaid']?>';
+var gapwpDntFollow = <?php echo $data['gaDntOptout'] ? 'true' : 'false'?>;
+var gapwpOptout = <?php echo $data['gaOptout'] ? 'true' : 'false'?>;
+var disableStr = 'ga-disable-' + gapwpProperty;
+if(gapwpDntFollow && (window.doNotTrack === "1" || navigator.doNotTrack === "1" || navigator.doNotTrack === "yes" || navigator.msDoNotTrack === "1")) {
+	gapwpDnt = true;
 }
-if (ogadwpDnt || (document.cookie.indexOf(disableStr + '=true') > -1 && ogadwpOptout)) {
+if (gapwpDnt || (document.cookie.indexOf(disableStr + '=true') > -1 && gapwpOptout)) {
 	window[disableStr] = true;
 }
 function gaOptout() {

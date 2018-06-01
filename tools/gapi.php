@@ -23,12 +23,12 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 
 		public $managequota;
 
-		private $ogadwp;
+		private $gapwp;
 
 		private $access = array( '12536165902-l1h9gq7gi2qsmov9vnhsua0qbobni62t.apps.googleusercontent.com', '1FryDwvhdNaUcTFkJKFmApau1A' );
 
 		public function __construct() {
-			$this->ogadwp = GAPWP();
+			$this->gapwp = GAPWP();
 
 			include_once ( GAPWP_DIR . 'tools/src/Deconf/autoload.php' );
 			$config = new Deconf_Config();
@@ -57,7 +57,7 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 					$curl_options[CURLOPT_PROXYUSERPWD] = WP_PROXY_USERNAME . ':' . WP_PROXY_PASSWORD;
 				}
 
-				$curl_options = apply_filters( 'ogadwp_curl_options', $curl_options );
+				$curl_options = apply_filters( 'gapwp_curl_options', $curl_options );
 				if ( ! empty( $curl_options ) ) {
 					$config->setClassConfig( 'Deconf_IO_Curl', 'options', $curl_options );
 				}
@@ -69,9 +69,9 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 			$this->client->setRedirectUri( 'urn:ietf:wg:oauth:2.0:oob' );
 			$this->managequota = 'u' . get_current_user_id() . 's' . get_current_blog_id();
 			$this->access = array_map( array( $this, 'map' ), $this->access );
-			if ( $this->ogadwp->config->options['user_api'] ) {
-				$this->client->setClientId( $this->ogadwp->config->options['client_id'] );
-				$this->client->setClientSecret( $this->ogadwp->config->options['client_secret'] );
+			if ( $this->gapwp->config->options['user_api'] ) {
+				$this->client->setClientId( $this->gapwp->config->options['client_id'] );
+				$this->client->setClientSecret( $this->gapwp->config->options['client_secret'] );
 			} else {
 				$this->client->setClientId( $this->access[0] );
 				$this->client->setClientSecret( $this->access[1] );
@@ -80,11 +80,11 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 			/**
 			 * GAPWP Endpoint support
 			 */
-			add_action( 'ogadwp_endpoint_support', array( $this, 'add_endpoint_support' ) );
+			add_action( 'gapwp_endpoint_support', array( $this, 'add_endpoint_support' ) );
 
 			$this->service = new Deconf_Service_Analytics( $this->client );
-			if ( $this->ogadwp->config->options['token'] ) {
-				$token = $this->ogadwp->config->options['token'];
+			if ( $this->gapwp->config->options['token'] ) {
+				$token = $this->gapwp->config->options['token'];
 				if ( $token ) {
 					try {
 						$this->client->setAccessToken( $token );
@@ -92,7 +92,7 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 							$refreshtoken = $this->client->getRefreshToken();
 							$this->client->refreshToken( $refreshtoken );
 						}
-						$this->ogadwp->config->options['token'] = $this->client->getAccessToken();
+						$this->gapwp->config->options['token'] = $this->client->getAccessToken();
 					} catch ( Deconf_IO_Exception $e ) {
 						$timeout = $this->get_timeouts( 'midnight' );
 						GAPWP_Tools::set_error( $e, $timeout );
@@ -105,17 +105,17 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 						GAPWP_Tools::set_error( $e, $timeout );
 						$this->reset_token();
 					}
-					if ( is_multisite() && $this->ogadwp->config->options['network_mode'] ) {
-						$this->ogadwp->config->set_plugin_options( true );
+					if ( is_multisite() && $this->gapwp->config->options['network_mode'] ) {
+						$this->gapwp->config->set_plugin_options( true );
 					} else {
-						$this->ogadwp->config->set_plugin_options();
+						$this->gapwp->config->set_plugin_options();
 					}
 				}
 			}
 		}
 
 		public function add_endpoint_support( $request ) {
-			if ( $this->ogadwp->config->options['with_endpoint'] && ! $this->ogadwp->config->options['user_api'] ) {
+			if ( $this->gapwp->config->options['with_endpoint'] && ! $this->gapwp->config->options['user_api'] ) {
 
 				$url = $request->getUrl();
 
@@ -126,7 +126,7 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 						$curl_options[CURLOPT_SSL_VERIFYPEER] = 0;
 						$this->client->setClassConfig( 'Deconf_IO_Curl', 'options', $curl_options );
 					} else {
-						add_filter( 'ogadwp_endpoint_stream_options', array( $this, 'add_endpoint_stream_ssl' ), 10 );
+						add_filter( 'gapwp_endpoint_stream_options', array( $this, 'add_endpoint_stream_ssl' ), 10 );
 					}
 				} else {
 					if ( get_class( $this->client->getIo() ) != 'Deconf_IO_Stream' ) {
@@ -143,9 +143,9 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 					}
 				}
 
-				$url = str_replace( 'https://accounts.google.com/o/oauth2/token', GAPWP_ENDPOINT_URL . 'ogadwp-token.php', $url );
+				$url = str_replace( 'https://accounts.google.com/o/oauth2/token', GAPWP_ENDPOINT_URL . 'gapwp-token.php', $url );
 
-				$url = str_replace( 'https://accounts.google.com/o/oauth2/revoke', GAPWP_ENDPOINT_URL . 'ogadwp-revoke.php', $url );
+				$url = str_replace( 'https://accounts.google.com/o/oauth2/revoke', GAPWP_ENDPOINT_URL . 'gapwp-revoke.php', $url );
 
 				$request->setUrl( $url );
 
@@ -180,10 +180,10 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 			 *  The native back-off system for Service requests is covered by the GAPI PHP Client
 			 */
 			if ( isset( $errors[1][0]['reason'] ) && ( 'authError' == $errors[1][0]['reason'] ) ) {
-				if ( $this->ogadwp->config->options['api_backoff'] <= 5 ) {
-					usleep( $this->ogadwp->config->options['api_backoff'] * 1000000 + rand( 100000, 1000000 ) );
-					$this->ogadwp->config->options['api_backoff'] = $this->ogadwp->config->options['api_backoff'] + 1;
-					$this->ogadwp->config->set_plugin_options();
+				if ( $this->gapwp->config->options['api_backoff'] <= 5 ) {
+					usleep( $this->gapwp->config->options['api_backoff'] * 1000000 + rand( 100000, 1000000 ) );
+					$this->gapwp->config->options['api_backoff'] = $this->gapwp->config->options['api_backoff'] + 1;
+					$this->gapwp->config->set_plugin_options();
 					return false;
 				} else {
 					return true;
@@ -291,24 +291,24 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 		 *            $all
 		 */
 		public function reset_token( $all = false ) {
-			$this->ogadwp->config->options['token'] = "";
+			$this->gapwp->config->options['token'] = "";
 			if ( $all ) {
-				$this->ogadwp->config->options['tableid_jail'] = "";
-				$this->ogadwp->config->options['ga_profiles_list'] = array();
+				$this->gapwp->config->options['tableid_jail'] = "";
+				$this->gapwp->config->options['ga_profiles_list'] = array();
 				try {
 					$this->client->revokeToken();
 				} catch ( Exception $e ) {
-					if ( is_multisite() && $this->ogadwp->config->options['network_mode'] ) {
-						$this->ogadwp->config->set_plugin_options( true );
+					if ( is_multisite() && $this->gapwp->config->options['network_mode'] ) {
+						$this->gapwp->config->set_plugin_options( true );
 					} else {
-						$this->ogadwp->config->set_plugin_options();
+						$this->gapwp->config->set_plugin_options();
 					}
 				}
 			}
-			if ( is_multisite() && $this->ogadwp->config->options['network_mode'] ) {
-				$this->ogadwp->config->set_plugin_options( true );
+			if ( is_multisite() && $this->gapwp->config->options['network_mode'] ) {
+				$this->gapwp->config->set_plugin_options( true );
 			} else {
-				$this->ogadwp->config->set_plugin_options();
+				$this->gapwp->config->set_plugin_options();
 			}
 		}
 
@@ -365,8 +365,8 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 				return $e->getCode();
 			}
 
-			$this->ogadwp->config->options['api_backoff'] = 0;
-			$this->ogadwp->config->set_plugin_options();
+			$this->gapwp->config->options['api_backoff'] = 0;
+			$this->gapwp->config->set_plugin_options();
 
 			if ( $data->getRows() > 0 ) {
 				return $data;
@@ -446,10 +446,10 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 				// unable to render it as an Area Chart, returns a numeric value to be handled by reportsx.js
 				return - 21;
 			}
-			$ogadwp_data = array( array( $dayorhour, $title ) );
+			$gapwp_data = array( array( $dayorhour, $title ) );
 			if ( 'today' == $from || 'yesterday' == $from ) {
 				foreach ( $data->getRows() as $row ) {
-					$ogadwp_data[] = array( (int) $row[0] . ':00', round( $row[1], 2 ) );
+					$gapwp_data[] = array( (int) $row[0] . ':00', round( $row[1], 2 ) );
 				}
 			} else if ( '365daysAgo' == $from || '1095daysAgo' == $from ) {
 				foreach ( $data->getRows() as $row ) {
@@ -458,7 +458,7 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 					 * Example: 'F, Y' will become 'November, 2015'
 					 * For details see: http://php.net/manual/en/function.date.php#refsect1-function.date-parameters
 					 */
-					$ogadwp_data[] = array( date_i18n( __( 'F, Y', 'google-analytics-plus-wp' ), strtotime( $row[0] . '01' ) ), round( $row[2], 2 ) );
+					$gapwp_data[] = array( date_i18n( __( 'F, Y', 'google-analytics-plus-wp' ), strtotime( $row[0] . '01' ) ), round( $row[2], 2 ) );
 				}
 			} else {
 				foreach ( $data->getRows() as $row ) {
@@ -467,11 +467,11 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 					 * Example: 'l, F j, Y' will become 'Thusday, November 17, 2015'
 					 * For details see: http://php.net/manual/en/function.date.php#refsect1-function.date-parameters
 					 */
-					$ogadwp_data[] = array( date_i18n( __( 'l, F j, Y', 'google-analytics-plus-wp' ), strtotime( $row[0] ) ), round( $row[2], 2 ) );
+					$gapwp_data[] = array( date_i18n( __( 'l, F j, Y', 'google-analytics-plus-wp' ), strtotime( $row[0] ) ), round( $row[2], 2 ) );
 				}
 			}
 
-			return $ogadwp_data;
+			return $gapwp_data;
 		}
 
 		/**
@@ -500,27 +500,27 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 			if ( is_numeric( $data ) ) {
 				return $data;
 			}
-			$ogadwp_data = array();
+			$gapwp_data = array();
 			foreach ( $data->getRows() as $row ) {
-				$ogadwp_data = array_map( 'floatval', $row );
+				$gapwp_data = array_map( 'floatval', $row );
 			}
 
 			// i18n support
-			$ogadwp_data[0] = isset( $ogadwp_data[0] ) ? number_format_i18n( $ogadwp_data[0] ) : 0;
-			$ogadwp_data[1] = isset( $ogadwp_data[1] ) ? number_format_i18n( $ogadwp_data[1] ) : 0;
-			$ogadwp_data[2] = isset( $ogadwp_data[2] ) ? number_format_i18n( $ogadwp_data[2] ) : 0;
-			$ogadwp_data[3] = isset( $ogadwp_data[3] ) ? number_format_i18n( $ogadwp_data[3], 2 ) . '%' : '0%';
-			$ogadwp_data[4] = isset( $ogadwp_data[4] ) ? number_format_i18n( $ogadwp_data[4] ) : 0;
-			$ogadwp_data[5] = isset( $ogadwp_data[5] ) ? number_format_i18n( $ogadwp_data[5], 2 ) : 0;
-			$ogadwp_data[6] = isset( $ogadwp_data[6] ) ? gmdate( "H:i:s", $ogadwp_data[6] ) : '00:00:00';
-			$ogadwp_data[7] = isset( $ogadwp_data[7] ) ? number_format_i18n( $ogadwp_data[7], 2 ) : 0;
+			$gapwp_data[0] = isset( $gapwp_data[0] ) ? number_format_i18n( $gapwp_data[0] ) : 0;
+			$gapwp_data[1] = isset( $gapwp_data[1] ) ? number_format_i18n( $gapwp_data[1] ) : 0;
+			$gapwp_data[2] = isset( $gapwp_data[2] ) ? number_format_i18n( $gapwp_data[2] ) : 0;
+			$gapwp_data[3] = isset( $gapwp_data[3] ) ? number_format_i18n( $gapwp_data[3], 2 ) . '%' : '0%';
+			$gapwp_data[4] = isset( $gapwp_data[4] ) ? number_format_i18n( $gapwp_data[4] ) : 0;
+			$gapwp_data[5] = isset( $gapwp_data[5] ) ? number_format_i18n( $gapwp_data[5], 2 ) : 0;
+			$gapwp_data[6] = isset( $gapwp_data[6] ) ? gmdate( "H:i:s", $gapwp_data[6] ) : '00:00:00';
+			$gapwp_data[7] = isset( $gapwp_data[7] ) ? number_format_i18n( $gapwp_data[7], 2 ) : 0;
 			if ( $filter ) {
-				$ogadwp_data[8] = isset( $ogadwp_data[8] ) ? number_format_i18n( $ogadwp_data[8], 2 ) . '%' : '0%';
+				$gapwp_data[8] = isset( $gapwp_data[8] ) ? number_format_i18n( $gapwp_data[8], 2 ) . '%' : '0%';
 			} else {
-				$ogadwp_data[8] = isset( $ogadwp_data[8] ) ? gmdate( "H:i:s", $ogadwp_data[8] ) : '00:00:00';
+				$gapwp_data[8] = isset( $gapwp_data[8] ) ? gmdate( "H:i:s", $gapwp_data[8] ) : '00:00:00';
 			}
 
-			return $ogadwp_data;
+			return $gapwp_data;
 		}
 
 		/**
@@ -548,11 +548,11 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 			if ( is_numeric( $data ) ) {
 				return $data;
 			}
-			$ogadwp_data = array( array( __( "Pages", 'google-analytics-plus-wp' ), __( ucfirst( $metric ), 'google-analytics-plus-wp' ) ) );
+			$gapwp_data = array( array( __( "Pages", 'google-analytics-plus-wp' ), __( ucfirst( $metric ), 'google-analytics-plus-wp' ) ) );
 			foreach ( $data->getRows() as $row ) {
-				$ogadwp_data[] = array( esc_html( $row[0] ), (int) $row[1] );
+				$gapwp_data[] = array( esc_html( $row[0] ), (int) $row[1] );
 			}
-			return $ogadwp_data;
+			return $gapwp_data;
 		}
 
 		/**
@@ -576,13 +576,13 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 			if ( is_numeric( $data ) ) {
 				return $data;
 			}
-			$ogadwp_data = array( array( __( "404 Errors", 'google-analytics-plus-wp' ), __( ucfirst( $metric ), 'google-analytics-plus-wp' ) ) );
+			$gapwp_data = array( array( __( "404 Errors", 'google-analytics-plus-wp' ), __( ucfirst( $metric ), 'google-analytics-plus-wp' ) ) );
 			foreach ( $data->getRows() as $row ) {
 				$path = esc_html( $row[0] );
 				$source = esc_html( $row[1] );
-				$ogadwp_data[] = array( "<strong>" . __( "URI:", 'google-analytics-plus-wp' ) . "</strong> " . $path . "<br><strong>" . __( "Source:", 'google-analytics-plus-wp' ) . "</strong> " . $source, (int) $row[2] );
+				$gapwp_data[] = array( "<strong>" . __( "URI:", 'google-analytics-plus-wp' ) . "</strong> " . $path . "<br><strong>" . __( "Source:", 'google-analytics-plus-wp' ) . "</strong> " . $source, (int) $row[2] );
 			}
-			return $ogadwp_data;
+			return $gapwp_data;
 		}
 
 		/**
@@ -612,11 +612,11 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 			if ( is_numeric( $data ) ) {
 				return $data;
 			}
-			$ogadwp_data = array( array( __( "Referrers", 'google-analytics-plus-wp' ), __( ucfirst( $metric ), 'google-analytics-plus-wp' ) ) );
+			$gapwp_data = array( array( __( "Referrers", 'google-analytics-plus-wp' ), __( ucfirst( $metric ), 'google-analytics-plus-wp' ) ) );
 			foreach ( $data->getRows() as $row ) {
-				$ogadwp_data[] = array( esc_html( $row[0] ), (int) $row[1] );
+				$gapwp_data[] = array( esc_html( $row[0] ), (int) $row[1] );
 			}
-			return $ogadwp_data;
+			return $gapwp_data;
 		}
 
 		/**
@@ -647,11 +647,11 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 				return $data;
 			}
 
-			$ogadwp_data = array( array( __( "Searches", 'google-analytics-plus-wp' ), __( ucfirst( $metric ), 'google-analytics-plus-wp' ) ) );
+			$gapwp_data = array( array( __( "Searches", 'google-analytics-plus-wp' ), __( ucfirst( $metric ), 'google-analytics-plus-wp' ) ) );
 			foreach ( $data->getRows() as $row ) {
-				$ogadwp_data[] = array( esc_html( $row[0] ), (int) $row[1] );
+				$gapwp_data[] = array( esc_html( $row[0] ), (int) $row[1] );
 			}
-			return $ogadwp_data;
+			return $gapwp_data;
 		}
 
 		/**
@@ -674,14 +674,14 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 			$serial = 'qr7_' . $this->get_serial( $projectId . $from . $filter . $metric );
 			$dimensions = 'ga:country';
 			$local_filter = '';
-			if ( $this->ogadwp->config->options['ga_target_geomap'] ) {
+			if ( $this->gapwp->config->options['ga_target_geomap'] ) {
 				$dimensions = 'ga:city, ga:region';
 
 				$country_codes = GAPWP_Tools::get_countrycodes();
-				if ( isset( $country_codes[$this->ogadwp->config->options['ga_target_geomap']] ) ) {
-					$local_filter = 'ga:country==' . ( $country_codes[$this->ogadwp->config->options['ga_target_geomap']] );
-					$title = __( "Cities from", 'google-analytics-plus-wp' ) . ' ' . __( $country_codes[$this->ogadwp->config->options['ga_target_geomap']] );
-					$serial = 'qr7_' . $this->get_serial( $projectId . $from . $this->ogadwp->config->options['ga_target_geomap'] . $filter . $metric );
+				if ( isset( $country_codes[$this->gapwp->config->options['ga_target_geomap']] ) ) {
+					$local_filter = 'ga:country==' . ( $country_codes[$this->gapwp->config->options['ga_target_geomap']] );
+					$title = __( "Cities from", 'google-analytics-plus-wp' ) . ' ' . __( $country_codes[$this->gapwp->config->options['ga_target_geomap']] );
+					$serial = 'qr7_' . $this->get_serial( $projectId . $from . $this->gapwp->config->options['ga_target_geomap'] . $filter . $metric );
 				}
 			}
 			$options = array( 'dimensions' => $dimensions, 'sort' => '-' . $metrics, 'quotaUser' => $this->managequota . 'p' . $projectId );
@@ -700,15 +700,15 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 				return $data;
 			}
 
-			$ogadwp_data = array( array( $title, __( ucfirst( $metric ), 'google-analytics-plus-wp' ) ) );
+			$gapwp_data = array( array( $title, __( ucfirst( $metric ), 'google-analytics-plus-wp' ) ) );
 			foreach ( $data->getRows() as $row ) {
 				if ( isset( $row[2] ) ) {
-					$ogadwp_data[] = array( esc_html( $row[0] ) . ', ' . esc_html( $row[1] ), (int) $row[2] );
+					$gapwp_data[] = array( esc_html( $row[0] ) . ', ' . esc_html( $row[1] ), (int) $row[2] );
 				} else {
-					$ogadwp_data[] = array( esc_html( $row[0] ), (int) $row[1] );
+					$gapwp_data[] = array( esc_html( $row[0] ), (int) $row[1] );
 				}
 			}
-			return $ogadwp_data;
+			return $gapwp_data;
 		}
 
 		/**
@@ -743,12 +743,12 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 				return - 21;
 			}
 			$block = ( 'channelGrouping' == $query ) ? __( "Channels", 'google-analytics-plus-wp' ) : __( "Devices", 'google-analytics-plus-wp' );
-			$ogadwp_data = array( array( '<div style="color:black; font-size:1.1em">' . $block . '</div><div style="color:darkblue; font-size:1.2em">' . (int) $data['totalsForAllResults'][$metrics] . '</div>', "" ) );
+			$gapwp_data = array( array( '<div style="color:black; font-size:1.1em">' . $block . '</div><div style="color:darkblue; font-size:1.2em">' . (int) $data['totalsForAllResults'][$metrics] . '</div>', "" ) );
 			foreach ( $data->getRows() as $row ) {
 				$shrink = explode( " ", $row[0] );
-				$ogadwp_data[] = array( '<div style="color:black; font-size:1.1em">' . esc_html( $shrink[0] ) . '</div><div style="color:darkblue; font-size:1.2em">' . (int) $row[1] . '</div>', '<div style="color:black; font-size:1.1em">' . $block . '</div><div style="color:darkblue; font-size:1.2em">' . (int) $data['totalsForAllResults'][$metrics] . '</div>' );
+				$gapwp_data[] = array( '<div style="color:black; font-size:1.1em">' . esc_html( $shrink[0] ) . '</div><div style="color:darkblue; font-size:1.2em">' . (int) $row[1] . '</div>', '<div style="color:black; font-size:1.1em">' . $block . '</div><div style="color:darkblue; font-size:1.2em">' . (int) $data['totalsForAllResults'][$metrics] . '</div>' );
 			}
-			return $ogadwp_data;
+			return $gapwp_data;
 		}
 
 		/**
@@ -790,12 +790,12 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 			if ( is_numeric( $data ) ) {
 				return $data;
 			}
-			$ogadwp_data = array( array( __( "Type", 'google-analytics-plus-wp' ), __( ucfirst( $metric ), 'google-analytics-plus-wp' ) ) );
+			$gapwp_data = array( array( __( "Type", 'google-analytics-plus-wp' ), __( ucfirst( $metric ), 'google-analytics-plus-wp' ) ) );
 			$i = 0;
 			$included = 0;
 			foreach ( $data->getRows() as $row ) {
 				if ( $i < 20 ) {
-					$ogadwp_data[] = array( str_replace( "(none)", "direct", esc_html( $row[0] ) ), (int) $row[1] );
+					$gapwp_data[] = array( str_replace( "(none)", "direct", esc_html( $row[0] ) ), (int) $row[1] );
 					$included += $row[1];
 					$i++;
 				} else {
@@ -805,10 +805,10 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 			$totals = $data->getTotalsForAllResults();
 			$others = $totals[$metrics] - $included;
 			if ( $others > 0 ) {
-				$ogadwp_data[] = array( __( 'Other', 'google-analytics-plus-wp' ), $others );
+				$gapwp_data[] = array( __( 'Other', 'google-analytics-plus-wp' ), $others );
 			}
 
-			return $ogadwp_data;
+			return $gapwp_data;
 		}
 
 		/**
@@ -833,7 +833,7 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 			if ( is_numeric( $data ) ) {
 				return $data;
 			}
-			$ogadwp_data = array( array( __( "Date", 'google-analytics-plus-wp' ), __( "Sessions", 'google-analytics-plus-wp' ) ) );
+			$gapwp_data = array( array( __( "Date", 'google-analytics-plus-wp' ), __( "Sessions", 'google-analytics-plus-wp' ) ) );
 			if ( $anonim ) {
 				$max_array = array();
 				foreach ( $data->getRows() as $item ) {
@@ -842,10 +842,10 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 				$max = max( $max_array ) ? max( $max_array ) : 1;
 			}
 			foreach ( $data->getRows() as $row ) {
-				$ogadwp_data[] = array( date_i18n( __( 'l, F j, Y', 'google-analytics-plus-wp' ), strtotime( $row[0] ) ), ( $anonim ? round( $row[2] * 100 / $max, 2 ) : (int) $row[2] ) );
+				$gapwp_data[] = array( date_i18n( __( 'l, F j, Y', 'google-analytics-plus-wp' ), strtotime( $row[0] ) ), ( $anonim ? round( $row[2] * 100 / $max, 2 ) : (int) $row[2] ) );
 			}
 			$totals = $data->getTotalsForAllResults();
-			return array( $ogadwp_data, $anonim ? 0 : number_format_i18n( $totals['ga:sessions'] ) );
+			return array( $gapwp_data, $anonim ? 0 : number_format_i18n( $totals['ga:sessions'] ) );
 		}
 
 		/**
@@ -883,17 +883,17 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 				return - 21;
 			}
 			$i = 0;
-			$ogadwp_data = $data;
+			$gapwp_data = $data;
 			foreach ( $data->getRows() as $row ) {
 				$strip = array_map( 'wp_kses_data', $row );
-				$ogadwp_data->rows[$i] = array_map( 'esc_html', $strip );
+				$gapwp_data->rows[$i] = array_map( 'esc_html', $strip );
 				$i++;
 			}
 
-			$this->ogadwp->config->options['api_backoff'] = 0;
-			$this->ogadwp->config->set_plugin_options();
+			$this->gapwp->config->options['api_backoff'] = 0;
+			$this->gapwp->config->set_plugin_options();
 
-			return array( $ogadwp_data );
+			return array( $gapwp_data );
 		}
 
 		private function map( $map ) {
@@ -945,7 +945,7 @@ if ( ! class_exists( 'GAPWP_GAPI_Controller' ) ) {
 				return $this->get_contentpages( $projectId, $from, $to, $filter, $metric );
 			}
 			if ( '404errors' == $query ) {
-				$filter = $this->ogadwp->config->options['pagetitle_404'];
+				$filter = $this->gapwp->config->options['pagetitle_404'];
 				return $this->get_404errors( $projectId, $from, $to, $filter, $metric );
 			}
 			if ( 'searches' == $query ) {

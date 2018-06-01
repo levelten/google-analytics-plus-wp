@@ -13,12 +13,12 @@ if ( ! defined( 'ABSPATH' ) )
 
 final class GAPWP_Frontend_Widget extends WP_Widget {
 
-	private $ogadwp;
+	private $gapwp;
 
 	public function __construct() {
-		$this->ogadwp = GAPWP();
+		$this->gapwp = GAPWP();
 
-		parent::__construct( 'ogadwp-frontwidget-report', __( 'Open Google Analytics Dashboard', 'google-analytics-plus-wp' ), array( 'description' => __( "Will display your google analytics stats in a widget", 'google-analytics-plus-wp' ) ) );
+		parent::__construct( 'gapwp-frontwidget-report', __( 'Open Google Analytics Dashboard', 'google-analytics-plus-wp' ), array( 'description' => __( "Will display your google analytics stats in a widget", 'google-analytics-plus-wp' ) ) );
 		// Frontend Styles
 		if ( is_active_widget( false, false, $this->id_base, true ) ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'load_styles_scripts' ) );
@@ -30,8 +30,8 @@ final class GAPWP_Frontend_Widget extends WP_Widget {
 		$lang = explode( '-', $lang );
 		$lang = $lang[0];
 
-		wp_enqueue_style( 'ogadwp-front-widget', GAPWP_URL . 'front/css/widgets.css', null, GAPWP_CURRENT_VERSION );
-		wp_enqueue_script( 'ogadwp-front-widget', GAPWP_URL . 'front/js/widgets.js', array( 'jquery' ), GAPWP_CURRENT_VERSION );
+		wp_enqueue_style( 'gapwp-front-widget', GAPWP_URL . 'front/css/widgets.css', null, GAPWP_CURRENT_VERSION );
+		wp_enqueue_script( 'gapwp-front-widget', GAPWP_URL . 'front/js/widgets.js', array( 'jquery' ), GAPWP_CURRENT_VERSION );
 		wp_enqueue_script( 'googlecharts', 'https://www.gstatic.com/charts/loader.js', array(), null );
 	}
 
@@ -44,9 +44,9 @@ final class GAPWP_Frontend_Widget extends WP_Widget {
 			echo $args['before_title'] . $widget_title . $args['after_title'];
 		}
 
-		if ( isset( $this->ogadwp->config->options['theme_color'] ) ) {
-			$css = "colors:['" . $this->ogadwp->config->options['theme_color'] . "','" . GAPWP_Tools::colourVariator( $this->ogadwp->config->options['theme_color'], - 20 ) . "'],";
-			$color = $this->ogadwp->config->options['theme_color'];
+		if ( isset( $this->gapwp->config->options['theme_color'] ) ) {
+			$css = "colors:['" . $this->gapwp->config->options['theme_color'] . "','" . GAPWP_Tools::colourVariator( $this->gapwp->config->options['theme_color'], - 20 ) . "'],";
+			$color = $this->gapwp->config->options['theme_color'];
 		} else {
 			$css = "";
 			$color = "#3366CC";
@@ -79,13 +79,13 @@ final class GAPWP_Frontend_Widget extends WP_Widget {
 		}
 		switch ( $instance['display'] ) {
 			case '1' :
-				echo '<div id="ogadwp-widget"><div id="ogadwp-widgetchart"></div><div id="ogadwp-widgettotals"></div></div>';
+				echo '<div id="gapwp-widget"><div id="gapwp-widgetchart"></div><div id="gapwp-widgettotals"></div></div>';
 				break;
 			case '2' :
-				echo '<div id="ogadwp-widget"><div id="ogadwp-widgetchart"></div></div>';
+				echo '<div id="gapwp-widget"><div id="gapwp-widgetchart"></div></div>';
 				break;
 			case '3' :
-				echo '<div id="ogadwp-widget"><div id="ogadwp-widgettotals"></div></div>';
+				echo '<div id="gapwp-widget"><div id="gapwp-widgettotals"></div></div>';
 				break;
 		}
 		?>
@@ -93,22 +93,22 @@ final class GAPWP_Frontend_Widget extends WP_Widget {
 	google.charts.load('current', {'packages':['corechart']});
 	google.charts.setOnLoadCallback( GAPWPWidgetLoad );
 	function GAPWPWidgetLoad (){
-		jQuery.post("<?php echo admin_url( 'admin-ajax.php' ); ?>", {action: "ajax_frontwidget_report", ogadwp_number: "<?php echo $this->number; ?>", ogadwp_optionname: "<?php  echo $this->option_name; ?>" }, function(response){
+		jQuery.post("<?php echo admin_url( 'admin-ajax.php' ); ?>", {action: "ajax_frontwidget_report", gapwp_number: "<?php echo $this->number; ?>", gapwp_optionname: "<?php  echo $this->option_name; ?>" }, function(response){
 			if (!jQuery.isNumeric(response) && jQuery.isArray(response)){
-				if (jQuery("#ogadwp-widgetchart")[0]){
-					ogadwpFrontWidgetData = response[0];
-					ogadwp_drawFrontWidgetChart(ogadwpFrontWidgetData);
+				if (jQuery("#gapwp-widgetchart")[0]){
+					gapwpFrontWidgetData = response[0];
+					gapwp_drawFrontWidgetChart(gapwpFrontWidgetData);
 				}
-				if (jQuery("#ogadwp-widgettotals")[0]){
-					ogadwp_drawFrontWidgetTotals(response[1]);
+				if (jQuery("#gapwp-widgettotals")[0]){
+					gapwp_drawFrontWidgetTotals(response[1]);
 				}
 			}else{
-				jQuery("#ogadwp-widgetchart").css({"background-color":"#F7F7F7","height":"auto","padding-top":"50px","padding-bottom":"50px","color":"#000","text-align":"center"});
-				jQuery("#ogadwp-widgetchart").html("<?php __( "This report is unavailable", 'google-analytics-plus-wp' ); ?> ("+response+")");
+				jQuery("#gapwp-widgetchart").css({"background-color":"#F7F7F7","height":"auto","padding-top":"50px","padding-bottom":"50px","color":"#000","text-align":"center"});
+				jQuery("#gapwp-widgetchart").html("<?php __( "This report is unavailable", 'google-analytics-plus-wp' ); ?> ("+response+")");
 			}
 		});
 	}
-	function ogadwp_drawFrontWidgetChart(response) {
+	function gapwp_drawFrontWidgetChart(response) {
 		var data = google.visualization.arrayToDataTable(response);
 		var options = {
 			legend: { position: "none" },
@@ -120,21 +120,21 @@ final class GAPWP_Frontend_Widget extends WP_Widget {
 			hAxis: { textPosition: "none"},
 			vAxis: { textPosition: "none", minValue: 0, gridlines: { color: "transparent" }, baselineColor: "transparent"}
 		}
-		var chart = new google.visualization.AreaChart(document.getElementById("ogadwp-widgetchart"));
+		var chart = new google.visualization.AreaChart(document.getElementById("gapwp-widgetchart"));
 		<?php echo $formater; ?>
 		chart.draw(data, options);
 	}
-	function ogadwp_drawFrontWidgetTotals(response) {
+	function gapwp_drawFrontWidgetTotals(response) {
 		if ( null == response ){
 			response = 0;
 		}
-		jQuery("#ogadwp-widgettotals").html('<div class="ogadwp-left"><?php _e( "Period:", 'google-analytics-plus-wp' ); ?></div> <div class="ogadwp-right"><?php echo $periodtext; ?> </div><div class="ogadwp-left"><?php _e( "Sessions:", 'google-analytics-plus-wp' ); ?></div> <div class="ogadwp-right">'+response+'</div>');
+		jQuery("#gapwp-widgettotals").html('<div class="gapwp-left"><?php _e( "Period:", 'google-analytics-plus-wp' ); ?></div> <div class="gapwp-right"><?php echo $periodtext; ?> </div><div class="gapwp-left"><?php _e( "Sessions:", 'google-analytics-plus-wp' ); ?></div> <div class="gapwp-right">'+response+'</div>');
 	}
 </script>
 <?php
 		if ( 1 == $instance['give_credits'] ) :
 			?>
-<div style="text-align: right; width: 100%; font-size: 0.8em; clear: both; margin-right: 5px;"><?php _e( 'generated by', 'google-analytics-plus-wp' ); ?> <a href="https://deconf.com/open-google-analytics-dashboard-wordpress/?utm_source=ogadwp_report&utm_medium=link&utm_content=front_widget&utm_campaign=ogadwp" rel="nofollow" style="text-decoration: none; font-size: 1em;">GAPWP</a>&nbsp;
+<div style="text-align: right; width: 100%; font-size: 0.8em; clear: both; margin-right: 5px;"><?php _e( 'generated by', 'google-analytics-plus-wp' ); ?> <a href="https://deconf.com/open-google-analytics-dashboard-wordpress/?utm_source=gapwp_report&utm_medium=link&utm_content=front_widget&utm_campaign=gapwp" rel="nofollow" style="text-decoration: none; font-size: 1em;">GAPWP</a>&nbsp;
 </div>
 
 		<?php

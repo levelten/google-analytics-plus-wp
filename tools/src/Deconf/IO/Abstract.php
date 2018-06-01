@@ -124,7 +124,7 @@ abstract class Deconf_IO_Abstract
 //Intel_Df::watchdog('Deconf_IO_Abstract::makeRequest $request', print_r($request, 1));
   	// Add support for GAPWP Endpoint
     // TODO: disabled to prevent request to old gadwp.deconf.com endpoint
-  	//do_action('ogadwp_endpoint_support', $request);
+  	//do_action('gapwp_endpoint_support', $request);
 
     // First, check to see if we have a valid cached version.
     $cached = $this->getCachedRequest($request);

@@ -1,1 +1,1 @@
-jQuery(function(){jQuery("#ogadwp-widget *").tooltip({items:"[data-ogadwp]",content:function(){return jQuery(this).attr("data-ogadwp")}})});
+jQuery(function(){jQuery("#gapwp-widget *").tooltip({items:"[data-gapwp]",content:function(){return jQuery(this).attr("data-gapwp")}})});

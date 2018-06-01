@@ -15,13 +15,13 @@ if ( ! class_exists( 'GAPWP_Common_Ajax' ) ) {
 
 	final class GAPWP_Common_Ajax {
 
-		private $ogadwp;
+		private $gapwp;
 
 		public function __construct() {
-			$this->ogadwp = GAPWP();
+			$this->gapwp = GAPWP();
 
-			if ( GAPWP_Tools::check_roles( $this->ogadwp->config->options['access_back'] ) || GAPWP_Tools::check_roles( $this->ogadwp->config->options['access_front'] ) ) {
-				add_action( 'wp_ajax_ogadwp_set_error', array( $this, 'ajax_set_error' ) );
+			if ( GAPWP_Tools::check_roles( $this->gapwp->config->options['access_back'] ) || GAPWP_Tools::check_roles( $this->gapwp->config->options['access_front'] ) ) {
+				add_action( 'wp_ajax_gapwp_set_error', array( $this, 'ajax_set_error' ) );
 			}
 		}
 
@@ -31,7 +31,7 @@ if ( ! class_exists( 'GAPWP_Common_Ajax' ) ) {
 		 * @return json|int
 		 */
 		public function ajax_set_error() {
-			if ( ! isset( $_POST['ogadwp_security_set_error'] ) || ! ( wp_verify_nonce( $_POST['ogadwp_security_set_error'], 'ogadwp_backend_item_reports' ) || wp_verify_nonce( $_POST['ogadwp_security_set_error'], 'ogadwp_frontend_item_reports' ) ) ) {
+			if ( ! isset( $_POST['gapwp_security_set_error'] ) || ! ( wp_verify_nonce( $_POST['gapwp_security_set_error'], 'gapwp_backend_item_reports' ) || wp_verify_nonce( $_POST['gapwp_security_set_error'], 'gapwp_frontend_item_reports' ) ) ) {
 				wp_die( - 40 );
 			}
 			$timeout = 24 * 60 * 60;

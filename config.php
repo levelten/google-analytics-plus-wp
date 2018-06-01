@@ -162,7 +162,7 @@ if ( ! class_exists( 'GAPWP_Config' ) ) {
 		public function set_plugin_options( $network_settings = false ) {
 			// Handle Network Mode
 			$options = $this->options;
-			$get_network_options = get_site_option( 'ogadwp_network_options' );
+			$get_network_options = get_site_option( 'gapwp_network_options' );
 			$old_network_options = (array) json_decode( $get_network_options );
 
 			if ( is_multisite() ) {
@@ -188,10 +188,10 @@ if ( ! class_exists( 'GAPWP_Config' ) ) {
 						}
 					}
 					$merged_options = array_merge( $old_network_options, $network_options );
-					update_site_option( 'ogadwp_network_options', json_encode( $this->validate_data( $merged_options ) ) );
+					update_site_option( 'gapwp_network_options', json_encode( $this->validate_data( $merged_options ) ) );
 				}
 			}
-			update_option( 'ogadwp_options', json_encode( $this->validate_data( $options ) ) );
+			update_option( 'gapwp_options', json_encode( $this->validate_data( $options ) ) );
 		}
 
 		private function get_plugin_options() {
@@ -200,15 +200,15 @@ if ( ! class_exists( 'GAPWP_Config' ) ) {
 			 */
 			global $blog_id;
 
-			if ( ! get_option( 'ogadwp_options' ) ) {
+			if ( ! get_option( 'gapwp_options' ) ) {
 				GAPWP_Install::install();
 			}
-			$this->options = (array) json_decode( get_option( 'ogadwp_options' ) );
+			$this->options = (array) json_decode( get_option( 'gapwp_options' ) );
 			// Maintain Compatibility
 			$this->maintain_compatibility();
 			// Handle Network Mode
 			if ( is_multisite() ) {
-				$get_network_options = get_site_option( 'ogadwp_network_options' );
+				$get_network_options = get_site_option( 'gapwp_network_options' );
 				$network_options = (array) json_decode( $get_network_options );
 				if ( isset( $network_options['network_mode'] ) && ( $network_options['network_mode'] ) ) {
 					if ( ! is_network_admin() && ! empty( $network_options['ga_profiles_list'] ) && isset( $network_options['network_tableid']->$blog_id ) ) {
@@ -225,15 +225,15 @@ if ( ! class_exists( 'GAPWP_Config' ) ) {
 		private function maintain_compatibility() {
 			$flag = false;
 
-			$prevver = get_option( 'ogadwp_version' );
+			$prevver = get_option( 'gapwp_version' );
 			if ( $prevver && GAPWP_CURRENT_VERSION != $prevver ) {
 				$flag = true;
-				update_option( 'ogadwp_version', GAPWP_CURRENT_VERSION );
-				update_option( 'ogadwp_got_updated', true );
+				update_option( 'gapwp_version', GAPWP_CURRENT_VERSION );
+				update_option( 'gapwp_got_updated', true );
 				GAPWP_Tools::clear_cache();
 				GAPWP_Tools::delete_cache( 'last_error' );
 				if ( is_multisite() ) { // Cleanup errors and cookies on the entire network
-					foreach ( GAPWP_Tools::get_sites( array( 'number' => apply_filters( 'ogadwp_sites_limit', 100 ) ) ) as $blog ) {
+					foreach ( GAPWP_Tools::get_sites( array( 'number' => apply_filters( 'gapwp_sites_limit', 100 ) ) ) as $blog ) {
 						switch_to_blog( $blog['blog_id'] );
 						GAPWP_Tools::delete_cache( 'gapi_errors' );
 						restore_current_blog();
@@ -442,7 +442,7 @@ if ( ! class_exists( 'GAPWP_Config' ) ) {
 				if ( $options ) {
 					$options = (array) json_decode( $options );
 					$options = GAPWP_Tools::array_keys_rename( $options, $batch );
-					update_site_option( 'ogadwp_network_options', json_encode( $this->validate_data( $options ) ) );
+					update_site_option( 'gapwp_network_options', json_encode( $this->validate_data( $options ) ) );
 					delete_site_option( 'gadash_network_options' );
 				}
 			}
@@ -451,7 +451,7 @@ if ( ! class_exists( 'GAPWP_Config' ) ) {
 			if ( $options ) {
 				$options = (array) json_decode( $options );
 				$options = GAPWP_Tools::array_keys_rename( $options, $batch );
-				update_option( 'ogadwp_options', json_encode( $this->validate_data( $options ) ) );
+				update_option( 'gapwp_options', json_encode( $this->validate_data( $options ) ) );
 				delete_option( 'gadash_options' );
 			}
 		}

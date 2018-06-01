@@ -15,12 +15,12 @@ if ( ! class_exists( 'GAPWP_Backend_Item_Reports' ) ) {
 
 	final class GAPWP_Backend_Item_Reports {
 
-		private $ogadwp;
+		private $gapwp;
 
 		public function __construct() {
-			$this->ogadwp = GAPWP();
+			$this->gapwp = GAPWP();
 
-			if ( GAPWP_Tools::check_roles( $this->ogadwp->config->options['access_back'] ) && 1 == $this->ogadwp->config->options['backend_item_reports'] ) {
+			if ( GAPWP_Tools::check_roles( $this->gapwp->config->options['access_back'] ) && 1 == $this->gapwp->config->options['backend_item_reports'] ) {
 				// Add custom column in Posts List
 				add_filter( 'manage_posts_columns', array( $this, 'add_columns' ) );
 
@@ -38,19 +38,19 @@ if ( ! class_exists( 'GAPWP_Backend_Item_Reports' ) ) {
 		public function add_icons( $column, $id ) {
 			global $wp_version;
 
-			if ( 'ogadwp_stats' != $column ) {
+			if ( 'gapwp_stats' != $column ) {
 				return;
 			}
 
 			if ( version_compare( $wp_version, '3.8.0', '>=' ) ) {
-				echo '<a id="ogadwp-' . $id . '" title="' . get_the_title( $id ) . '" href="#' . $id . '" class="ogadwp-icon dashicons-before dashicons-chart-area">&nbsp;</a>';
+				echo '<a id="gapwp-' . $id . '" title="' . get_the_title( $id ) . '" href="#' . $id . '" class="gapwp-icon dashicons-before dashicons-chart-area">&nbsp;</a>';
 			} else {
-				echo '<a id="ogadwp-' . $id . '" title="' . get_the_title( $id ) . '" href="#' . $id . '"><img class="ogadwp-icon-oldwp" src="' . GAPWP_URL . 'admin/images/ogadwp-icon.png"</a>';
+				echo '<a id="gapwp-' . $id . '" title="' . get_the_title( $id ) . '" href="#' . $id . '"><img class="gapwp-icon-oldwp" src="' . GAPWP_URL . 'admin/images/gapwp-icon.png"</a>';
 			}
 		}
 
 		public function add_columns( $columns ) {
-			return array_merge( $columns, array( 'ogadwp_stats' => __( 'Analytics', 'google-analytics-plus-wp' ) ) );
+			return array_merge( $columns, array( 'gapwp_stats' => __( 'Analytics', 'google-analytics-plus-wp' ) ) );
 		}
 	}
 }

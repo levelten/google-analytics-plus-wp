@@ -15,10 +15,10 @@ if ( ! class_exists( 'GAPWP_Frontend_Setup' ) ) {
 
 	final class GAPWP_Frontend_Setup {
 
-		private $ogadwp;
+		private $gapwp;
 
 		public function __construct() {
-			$this->ogadwp = GAPWP();
+			$this->gapwp = GAPWP();
 
 			// Styles & Scripts
 			add_action( 'wp_enqueue_scripts', array( $this, 'load_styles_scripts' ) );
@@ -38,15 +38,15 @@ if ( ! class_exists( 'GAPWP_Frontend_Setup' ) ) {
 			/*
 			 * Item reports Styles & Scripts
 			 */
-			if ( GAPWP_Tools::check_roles( $this->ogadwp->config->options['access_front'] ) && $this->ogadwp->config->options['frontend_item_reports'] ) {
+			if ( GAPWP_Tools::check_roles( $this->gapwp->config->options['access_front'] ) && $this->gapwp->config->options['frontend_item_reports'] ) {
 
-				wp_enqueue_style( 'ogadwp-nprogress', GAPWP_URL . 'common/nprogress/nprogress.css', null, GAPWP_CURRENT_VERSION );
+				wp_enqueue_style( 'gapwp-nprogress', GAPWP_URL . 'common/nprogress/nprogress.css', null, GAPWP_CURRENT_VERSION );
 
-				wp_enqueue_style( 'ogadwp-frontend-item-reports', GAPWP_URL . 'front/css/item-reports.css', null, GAPWP_CURRENT_VERSION );
+				wp_enqueue_style( 'gapwp-frontend-item-reports', GAPWP_URL . 'front/css/item-reports.css', null, GAPWP_CURRENT_VERSION );
 
 				$country_codes = GAPWP_Tools::get_countrycodes();
-				if ( $this->ogadwp->config->options['ga_target_geomap'] && isset( $country_codes[$this->ogadwp->config->options['ga_target_geomap']] ) ) {
-					$region = $this->ogadwp->config->options['ga_target_geomap'];
+				if ( $this->gapwp->config->options['ga_target_geomap'] && isset( $country_codes[$this->gapwp->config->options['ga_target_geomap']] ) ) {
+					$region = $this->gapwp->config->options['ga_target_geomap'];
 				} else {
 					$region = false;
 				}
@@ -55,14 +55,14 @@ if ( ! class_exists( 'GAPWP_Frontend_Setup' ) ) {
 
 				wp_register_script( 'googlecharts', 'https://www.gstatic.com/charts/loader.js', array(), null );
 
-				wp_enqueue_script( 'ogadwp-nprogress', GAPWP_URL . 'common/nprogress/nprogress.js', array( 'jquery' ), GAPWP_CURRENT_VERSION );
+				wp_enqueue_script( 'gapwp-nprogress', GAPWP_URL . 'common/nprogress/nprogress.js', array( 'jquery' ), GAPWP_CURRENT_VERSION );
 
-				wp_enqueue_script( 'ogadwp-frontend-item-reports', GAPWP_URL . 'common/js/reports5.js', array( 'ogadwp-nprogress', 'googlecharts', 'jquery', 'jquery-ui-dialog' ), GAPWP_CURRENT_VERSION, true );
+				wp_enqueue_script( 'gapwp-frontend-item-reports', GAPWP_URL . 'common/js/reports5.js', array( 'gapwp-nprogress', 'googlecharts', 'jquery', 'jquery-ui-dialog' ), GAPWP_CURRENT_VERSION, true );
 
 				/* @formatter:off */
-				wp_localize_script( 'ogadwp-frontend-item-reports', 'ogadwpItemData', array(
+				wp_localize_script( 'gapwp-frontend-item-reports', 'gapwpItemData', array(
 					'ajaxurl' => admin_url( 'admin-ajax.php' ),
-					'security' => wp_create_nonce( 'ogadwp_frontend_item_reports' ),
+					'security' => wp_create_nonce( 'gapwp_frontend_item_reports' ),
 					'dateList' => array(
 						'today' => __( "Today", 'google-analytics-plus-wp' ),
 						'yesterday' => __( "Yesterday", 'google-analytics-plus-wp' ),
@@ -117,9 +117,9 @@ if ( ! class_exists( 'GAPWP_Frontend_Setup' ) ) {
 							__( "Exit Rate", 'google-analytics-plus-wp' ),
 							__( "Precision: ", 'google-analytics-plus-wp' ), //29
 					),
-					'colorVariations' => GAPWP_Tools::variations( $this->ogadwp->config->options['theme_color'] ),
+					'colorVariations' => GAPWP_Tools::variations( $this->gapwp->config->options['theme_color'] ),
 					'region' => $region,
-					'mapsApiKey' => apply_filters( 'ogadwp_maps_api_key', $this->ogadwp->config->options['maps_api_key'] ),
+					'mapsApiKey' => apply_filters( 'gapwp_maps_api_key', $this->gapwp->config->options['maps_api_key'] ),
 					'language' => get_bloginfo( 'language' ),
 					'filter' => $_SERVER["REQUEST_URI"],
 					'viewList' => false,

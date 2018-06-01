@@ -15,7 +15,7 @@ if ( ! class_exists( 'GAPWP_Tracking' ) ) {
 
 	class GAPWP_Tracking {
 
-		private $ogadwp;
+		private $gapwp;
 
 		public $analytics;
 
@@ -24,7 +24,7 @@ if ( ! class_exists( 'GAPWP_Tracking' ) ) {
 		public $tagmanager;
 
 		public function __construct() {
-			$this->ogadwp = GAPWP();
+			$this->gapwp = GAPWP();
 
 			$this->init();
 		}
@@ -33,47 +33,47 @@ if ( ! class_exists( 'GAPWP_Tracking' ) ) {
 			GAPWP_Tools::doing_it_wrong( __METHOD__, __( "This method is deprecated, read the documentation!", 'google-analytics-plus-wp' ), '5.0' );
 		}
 
-		public static function ogadwp_user_optout( $atts, $content = "" ) {
+		public static function gapwp_user_optout( $atts, $content = "" ) {
 			if ( ! isset( $atts['html_tag'] ) ) {
 				$atts['html_tag'] = 'a';
 			}
 			if ( 'a' == $atts['html_tag'] ) {
-				return '<a href="#" class="ogadwp_useroptout" onclick="gaOptout()">' . esc_html( $content ) . '</a>';
+				return '<a href="#" class="gapwp_useroptout" onclick="gaOptout()">' . esc_html( $content ) . '</a>';
 			} else if ( 'button' == $atts['html_tag'] ) {
-				return '<button class="ogadwp_useroptout" onclick="gaOptout()">' . esc_html( $content ) . '</button>';
+				return '<button class="gapwp_useroptout" onclick="gaOptout()">' . esc_html( $content ) . '</button>';
 			}
 		}
 
 		public function init() {
 			// excluded roles
-			if ( GAPWP_Tools::check_roles( $this->ogadwp->config->options['track_exclude'], true ) || ( $this->ogadwp->config->options['superadmin_tracking'] && current_user_can( 'manage_network' ) ) ) {
+			if ( GAPWP_Tools::check_roles( $this->gapwp->config->options['track_exclude'], true ) || ( $this->gapwp->config->options['superadmin_tracking'] && current_user_can( 'manage_network' ) ) ) {
 				return;
 			}
 
-			if ( 'universal' == $this->ogadwp->config->options['tracking_type'] && $this->ogadwp->config->options['tableid_jail'] ) {
+			if ( 'universal' == $this->gapwp->config->options['tracking_type'] && $this->gapwp->config->options['tableid_jail'] ) {
 
 				// Analytics
 				require_once 'tracking-analytics.php';
 
-				if ( 1 == $this->ogadwp->config->options['ga_with_gtag'] ) {
+				if ( 1 == $this->gapwp->config->options['ga_with_gtag'] ) {
 					$this->analytics = new GAPWP_Tracking_GlobalSiteTag();
 				} else {
 					$this->analytics = new GAPWP_Tracking_Analytics();
 				}
 
-				if ( $this->ogadwp->config->options['amp_tracking_analytics'] ) {
+				if ( $this->gapwp->config->options['amp_tracking_analytics'] ) {
 					$this->analytics_amp = new GAPWP_Tracking_Analytics_AMP();
 				}
 			}
 
-			if ( 'tagmanager' == $this->ogadwp->config->options['tracking_type'] && $this->ogadwp->config->options['web_containerid'] ) {
+			if ( 'tagmanager' == $this->gapwp->config->options['tracking_type'] && $this->gapwp->config->options['web_containerid'] ) {
 
 				// Tag Manager
 				require_once 'tracking-tagmanager.php';
 				$this->tagmanager = new GAPWP_Tracking_TagManager();
 			}
 
-			add_shortcode( 'ogadwp_useroptout', array( $this, 'ogadwp_user_optout' ) );
+			add_shortcode( 'gapwp_useroptout', array( $this, 'gapwp_user_optout' ) );
 		}
 	}
 }

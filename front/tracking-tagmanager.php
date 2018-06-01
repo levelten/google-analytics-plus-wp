@@ -15,26 +15,26 @@ if ( ! class_exists( 'GAPWP_Tracking_TagManager' ) ) {
 
 	class GAPWP_Tracking_TagManager {
 
-		private $ogadwp;
+		private $gapwp;
 
 		private $datalayer;
 
 		private $uaid;
 
 		public function __construct() {
-			$this->ogadwp = GAPWP();
+			$this->gapwp = GAPWP();
 
-			$profile = GAPWP_Tools::get_selected_profile( $this->ogadwp->config->options['ga_profiles_list'], $this->ogadwp->config->options['tableid_jail'] );
+			$profile = GAPWP_Tools::get_selected_profile( $this->gapwp->config->options['ga_profiles_list'], $this->gapwp->config->options['tableid_jail'] );
 
 			$this->uaid = esc_html( $profile[2] );
 
-			if ( $this->ogadwp->config->options['trackingcode_infooter'] ) {
+			if ( $this->gapwp->config->options['trackingcode_infooter'] ) {
 				add_action( 'wp_footer', array( $this, 'output' ), 99 );
 			} else {
 				add_action( 'wp_head', array( $this, 'output' ), 99 );
 			}
 
-			if ( $this->ogadwp->config->options['amp_tracking_tagmanager'] && $this->ogadwp->config->options['amp_containerid'] ) {
+			if ( $this->gapwp->config->options['amp_tracking_tagmanager'] && $this->gapwp->config->options['amp_containerid'] ) {
 				add_filter( 'amp_post_template_data', array( $this, 'amp_add_analytics_script' ) );
 				add_action( 'amp_post_template_footer', array( $this, 'amp_output' ) );
 			}
@@ -70,38 +70,38 @@ if ( ! class_exists( 'GAPWP_Tracking_TagManager' ) ) {
 		private function build_custom_dimensions() {
 			global $post;
 
-			if ( $this->ogadwp->config->options['tm_author_var'] && ( is_single() || is_page() ) ) {
+			if ( $this->gapwp->config->options['tm_author_var'] && ( is_single() || is_page() ) ) {
 				global $post;
 				$author_id = $post->post_author;
 				$author_name = get_the_author_meta( 'display_name', $author_id );
-				$this->add_var( 'ogadwpAuthor', esc_attr( $author_name ) );
+				$this->add_var( 'gapwpAuthor', esc_attr( $author_name ) );
 			}
 
-			if ( $this->ogadwp->config->options['tm_pubyear_var'] && is_single() ) {
+			if ( $this->gapwp->config->options['tm_pubyear_var'] && is_single() ) {
 				global $post;
 				$date = get_the_date( 'Y', $post->ID );
-				$this->add_var( 'ogadwpPublicationYear', (int) $date );
+				$this->add_var( 'gapwpPublicationYear', (int) $date );
 			}
 
-			if ( $this->ogadwp->config->options['tm_pubyearmonth_var'] && is_single() ) {
+			if ( $this->gapwp->config->options['tm_pubyearmonth_var'] && is_single() ) {
 				global $post;
 				$date = get_the_date( 'Y-m', $post->ID );
-				$this->add_var( 'ogadwpPublicationYearMonth', esc_attr( $date ) );
+				$this->add_var( 'gapwpPublicationYearMonth', esc_attr( $date ) );
 			}
 
-			if ( $this->ogadwp->config->options['tm_category_var'] && is_category() ) {
-				$this->add_var( 'ogadwpCategory', esc_attr( single_tag_title( '', false ) ) );
+			if ( $this->gapwp->config->options['tm_category_var'] && is_category() ) {
+				$this->add_var( 'gapwpCategory', esc_attr( single_tag_title( '', false ) ) );
 			}
-			if ( $this->ogadwp->config->options['tm_category_var'] && is_single() ) {
+			if ( $this->gapwp->config->options['tm_category_var'] && is_single() ) {
 				global $post;
 				$categories = get_the_category( $post->ID );
 				foreach ( $categories as $category ) {
-					$this->add_var( 'ogadwpCategory', esc_attr( $category->name ) );
+					$this->add_var( 'gapwpCategory', esc_attr( $category->name ) );
 					break;
 				}
 			}
 
-			if ( $this->ogadwp->config->options['tm_tag_var'] && is_single() ) {
+			if ( $this->gapwp->config->options['tm_tag_var'] && is_single() ) {
 				global $post;
 				$post_tags_list = '';
 				$post_tags_array = get_the_tags( $post->ID );
@@ -112,16 +112,16 @@ if ( ! class_exists( 'GAPWP_Tracking_TagManager' ) ) {
 				}
 				$post_tags_list = rtrim( $post_tags_list, ', ' );
 				if ( $post_tags_list ) {
-					$this->add_var( 'ogadwpTag', esc_attr( $post_tags_list ) );
+					$this->add_var( 'gapwpTag', esc_attr( $post_tags_list ) );
 				}
 			}
 
-			if ( $this->ogadwp->config->options['tm_user_var'] ) {
+			if ( $this->gapwp->config->options['tm_user_var'] ) {
 				$usertype = is_user_logged_in() ? 'registered' : 'guest';
-				$this->add_var( 'ogadwpUser', $usertype );
+				$this->add_var( 'gapwpUser', $usertype );
 			}
 
-			do_action( 'ogadwp_tagmanager_datalayer', $this );
+			do_action( 'gapwp_tagmanager_datalayer', $this );
 		}
 
 		/**
@@ -141,11 +141,11 @@ if ( ! class_exists( 'GAPWP_Tracking_TagManager' ) ) {
 				$vars = "{}";
 			}
 
-			if ( ( $this->ogadwp->config->options['tm_optout'] || $this->ogadwp->config->options['tm_dnt_optout'] ) && ! empty( $this->uaid ) ) {
-				GAPWP_Tools::load_view( 'front/views/analytics-optout-code.php', array( 'uaid' => $this->uaid, 'gaDntOptout' => $this->ogadwp->config->options['tm_dnt_optout'], 'gaOptout' => $this->ogadwp->config->options['tm_optout'] ) );
+			if ( ( $this->gapwp->config->options['tm_optout'] || $this->gapwp->config->options['tm_dnt_optout'] ) && ! empty( $this->uaid ) ) {
+				GAPWP_Tools::load_view( 'front/views/analytics-optout-code.php', array( 'uaid' => $this->uaid, 'gaDntOptout' => $this->gapwp->config->options['tm_dnt_optout'], 'gaOptout' => $this->gapwp->config->options['tm_optout'] ) );
 			}
 
-			GAPWP_Tools::load_view( 'front/views/tagmanager-code.php', array( 'containerid' => $this->ogadwp->config->options['web_containerid'], 'vars' => $vars ) );
+			GAPWP_Tools::load_view( 'front/views/tagmanager-code.php', array( 'containerid' => $this->gapwp->config->options['web_containerid'], 'vars' => $vars ) );
 		}
 
 		/**
@@ -175,7 +175,7 @@ if ( ! class_exists( 'GAPWP_Tracking_TagManager' ) ) {
 				$json = json_encode( $vars, JSON_PRETTY_PRINT );
 			}
 
-			$amp_containerid = $this->ogadwp->config->options['amp_containerid'];
+			$amp_containerid = $this->gapwp->config->options['amp_containerid'];
 
 			$json = str_replace( array( '"&#91;', '&#93;"' ), array( '[', ']' ), $json ); // make verticalBoundaries a JavaScript array
 

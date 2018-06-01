@@ -7,7 +7,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  */
 ?>
-<amp-analytics type="googleanalytics" id="ogadwp-googleanalytics">
+<amp-analytics type="googleanalytics" id="gapwp-googleanalytics">
 	<script type="application/json">
 <?php echo $data['json']; ?>
 	</script>
