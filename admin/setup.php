@@ -39,9 +39,9 @@ if ( ! class_exists( 'GAPWP_Backend_Setup' ) ) {
 			global $wp_version;
 			if ( current_user_can( 'manage_options' ) ) {
 				include ( GAPWP_DIR . 'admin/settings.php' );
-				add_menu_page( __( "Google Analytics+", 'google-analytics-plus-wp' ), __( "Google Analytics+", 'google-analytics-plus-wp' ), 'manage_options', 'gapwp_settings', array( 'GAPWP_Settings', 'tracking_settings' ), version_compare( $wp_version, '3.8.0', '>=' ) ? 'dashicons-chart-area' : GAPWP_URL . 'admin/images/gapwp-icon.png' );
-				add_submenu_page( 'gapwp_settings', __( "Tracking Settings", 'google-analytics-plus-wp' ), __( "Tracking Code", 'google-analytics-plus-wp' ), 'manage_options', 'gapwp_settings', array( 'GAPWP_Settings', 'tracking_settings' ) );
-				add_submenu_page( 'gapwp_settings', __( "Reporting API Settings", 'google-analytics-plus-wp' ), __( "Reporting API", 'google-analytics-plus-wp' ), 'manage_options', 'gapwp_gapi_settings', array( 'GAPWP_Settings', 'gapi_settings' ) );
+				add_menu_page( __( "Google Analytics+", 'google-analytics-plus-wp' ), __( "Google Analytics+", 'google-analytics-plus-wp' ), 'manage_options', 'gapwp_settings', array( 'GAPWP_Settings', 'general_settings' ), version_compare( $wp_version, '3.8.0', '>=' ) ? 'dashicons-chart-area' : GAPWP_URL . 'admin/images/gapwp-icon.png' );
+				add_submenu_page( 'gapwp_settings', __( "General Settings", 'google-analytics-plus-wp' ), __( "General Settings", 'google-analytics-plus-wp' ), 'manage_options', 'gapwp_settings', array( 'GAPWP_Settings', 'general_settings' ) );
+				add_submenu_page( 'gapwp_settings', __( "Tracking Settings", 'google-analytics-plus-wp' ), __( "Tracking Code", 'google-analytics-plus-wp' ), 'manage_options', 'gapwp_tracking_settings', array( 'GAPWP_Settings', 'tracking_settings' ) );
 				add_submenu_page( 'gapwp_settings', __( "Backend Settings", 'google-analytics-plus-wp' ), __( "Backend Settings", 'google-analytics-plus-wp' ), 'manage_options', 'gapwp_backend_settings', array( 'GAPWP_Settings', 'backend_settings' ) );
 				add_submenu_page( 'gapwp_settings', __( "Frontend Settings", 'google-analytics-plus-wp' ), __( "Frontend Settings", 'google-analytics-plus-wp' ), 'manage_options', 'gapwp_frontend_settings', array( 'GAPWP_Settings', 'frontend_settings' ) );
 				add_submenu_page( 'gapwp_settings', __( "Errors & Debug", 'google-analytics-plus-wp' ), __( "Errors & Debug", 'google-analytics-plus-wp' ), 'manage_options', 'gapwp_errors_debugging', array( 'GAPWP_Settings', 'errors_debugging' ) );
@@ -62,8 +62,8 @@ if ( ! class_exists( 'GAPWP_Backend_Setup' ) ) {
 			global $wp_version;
 			if ( current_user_can( 'manage_network' ) ) {
 				include ( GAPWP_DIR . 'admin/settings.php' );
-				add_menu_page( __( "Google Analytics+", 'google-analytics-plus-wp' ), "Google Analytics+", 'manage_network', 'gapwp_settings', array( 'GAPWP_Settings', 'gapi_settings_network' ), version_compare( $wp_version, '3.8.0', '>=' ) ? 'dashicons-chart-area' : GAPWP_URL . 'admin/images/gapwp-icon.png' );
-				add_submenu_page( 'gapwp_settings', __( "General Settings", 'google-analytics-plus-wp' ), __( "General Settings", 'google-analytics-plus-wp' ), 'manage_network', 'gapwp_settings', array( 'GAPWP_Settings', 'gapi_settings_network' ) );
+				add_menu_page( __( "Google Analytics+", 'google-analytics-plus-wp' ), "Google Analytics+", 'manage_network', 'gapwp_settings', array( 'GAPWP_Settings', 'general_settings_network' ), version_compare( $wp_version, '3.8.0', '>=' ) ? 'dashicons-chart-area' : GAPWP_URL . 'admin/images/gapwp-icon.png' );
+				add_submenu_page( 'gapwp_settings', __( "General Settings", 'google-analytics-plus-wp' ), __( "General Settings", 'google-analytics-plus-wp' ), 'manage_network', 'gapwp_settings', array( 'GAPWP_Settings', 'general_settings_network' ) );
 				add_submenu_page( 'gapwp_settings', __( "Errors & Debug", 'google-analytics-plus-wp' ), __( "Errors & Debug", 'google-analytics-plus-wp' ), 'manage_network', 'gapwp_errors_debugging', array( 'GAPWP_Settings', 'errors_debugging' ) );
 			}
 		}

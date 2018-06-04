@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: Google Analytics+ for WP (GA+WP)
- * Plugin URI: https://deconf.com
+ * Plugin Name: Google Analytics+ for WordPress (GA+WP)
+ * Plugin URI: https://intelligencewp.com/google-analytics-plus-wp
  * Description: Displays Google Analytics Reports and Real-Time Statistics in your dashboard. Automatically inserts the tracking code in every page of your website.
  * Author: LevelTen
  * Version: 5.4.0.0-dev
- * Author URI: https://deconf.com
+ * Author URI: https://getlevelten.com
  * Text Domain: google-analytics-plus-wp
  * Domain Path: /languages
  *

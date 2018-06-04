@@ -1,4 +1,4 @@
-=== Google Analytics+ for WP (GA+WP) ===
+=== Google Analytics+ for WordPress (GA+WP) ===
 Contributors: tomdude,deconf
 Tags: analytics,google analytics,google analytics dashboard,google analytics plugin,google analytics widget,gtag
 Requires at least: 3.5
@@ -111,13 +111,11 @@ This plugin is fully compatible with multisite network installs, allowing three 
 - Mode 3: network deactivated using multiple Google Analytics accounts
 
 > <strong>Google Analytics+ for WP on GitHub</strong><br>
-> You can submit feature requests or bugs on [Google Analytics+ for WP](https://github.com/levelten/google-analytics-plus-wp) repository.
+> You can submit feature requests or bugs on [Google Analytics+ for WordPress](https://github.com/levelten/google-analytics-plus-wp) repository.
 
-= Further reading =
+== Credits ==
 
-* Homepage of [Google Analytics+ for WP](https://deconf.com/google-analytics-dashboard-wordpress/)
-* Other [WordPress Plugins](https://deconf.com/wordpress/) by same author
-* [Google Analytics | Partners](https://www.google.com/analytics/partners/company/5127525902581760/gadp/5629499534213120/app/5707702298738688/listing/5639274879778816) Gallery
+This plugin was originally created by [Alin Marcu](https://deconf.com) as the Google Analytics Dashboard for WordPress (GADWP)
 
 == Installation ==
 
@@ -170,7 +168,9 @@ Google Analytics+ for WP it's released under the GPLv2, you can use it free of c
 
 == Changelog ==
 
-[GAPWP v5.3 release notes](https://deconf.com/adding-gtag-js-to-your-site/)
+= 5.4 =
+* Migrated auth process to prevent Google Analytics data being shared with 3rd parties
+* Enabled Google Analytics tracking without requiring GAPI authentication
 
 = 5.3.2 =
 * Bug Fixes:	

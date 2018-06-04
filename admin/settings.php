@@ -110,7 +110,7 @@ final class GAPWP_Settings {
     }
 
 		if ( ! $gapwp->config->options['tableid_jail'] && ! $gapwp->config->options['tracking_id']) {
-			$message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'google-analytics-plus-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'gapwp_errors_debugging', false ), __( 'Errors & Debug', 'google-analytics-plus-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'gapwp_gapi_settings', false ), __( 'authorize the plugin', 'google-analytics-plus-wp' ) ) ) );
+			$message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'google-analytics-plus-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'gapwp_errors_debugging', false ), __( 'Errors & Debug', 'google-analytics-plus-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'gapwp_general_settings', false ), __( 'authorize the plugin', 'google-analytics-plus-wp' ) ) ) );
 		}
 		return $message;
 	}
@@ -1265,7 +1265,7 @@ final class GAPWP_Settings {
 		self::output_sidebar();
 	}
 
-	public static function gapi_settings() {
+	public static function general_settings() {
 		$gapwp = GAPWP();
 
 		if ( ! current_user_can( 'manage_options' ) ) {
@@ -1581,7 +1581,7 @@ final class GAPWP_Settings {
 	}
 
 	// Network Settings
-	public static function gapi_settings_network() {
+	public static function general_settings_network() {
 		$gapwp = GAPWP();
 
 		if ( ! current_user_can( 'manage_network_options' ) ) {

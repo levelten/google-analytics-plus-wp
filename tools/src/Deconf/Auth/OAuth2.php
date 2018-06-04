@@ -109,7 +109,7 @@ class Deconf_Auth_OAuth2 extends Deconf_Auth_Abstract
         $arguments
     );
     $request->disableGzip();
-//Intel_Df::watchdog('Deconf_Auth_OAuth2::authenticate() $request', print_r($request, 1));
+
     $response = $this->client->getIo()->makeRequest($request);
 
     if ($response->getResponseHttpCode() == 200) {
