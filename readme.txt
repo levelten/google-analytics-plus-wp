@@ -3,7 +3,7 @@ Contributors: tomdude,deconf
 Tags: analytics,google analytics,google analytics dashboard,google analytics plugin,google analytics widget,gtag
 Requires at least: 3.5
 Tested up to: 4.9.6
-Stable tag: 5.4.0.0-dev
+Stable tag: 5.4.0
 Requires PHP: 5.2.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -11,7 +11,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Connects Google Analytics with your WordPress site. Displays stats to help you understand your users and site content on a whole new level!
 
 == Description ==
-This Google Analytics for WordPress plugin enables you to track your site using the latest Google Analytics tracking code and allows you to view key Google Analytics stats in your WordPress install.
+Google Analytics+ for WordPress enables you to easily setup and configure Google Analytics tracking on your site. It also generates reports of essential metrics right in your WordPress install.
 
 In addition to a set of general Google Analytics stats, in-depth Page reports and in-depth Post reports allow further segmentation of your analytics data, providing performance details for each post or page from your website.
 
@@ -142,7 +142,8 @@ You can submit pull requests, feature requests and bug reports on [our GitHub re
 
 = Documentation, Tutorials and FAQ =
 
-For documentation, tutorials, FAQ and videos check out: [Google Analytics+ for WP documentation](https://deconf.com/google-analytics-dashboard-wordpress/).
+For documentation, tutorials, FAQ and videos check out: [Google Analytics+ for WP documentation](https://intelligencewp.com/google-analytics-plus-wordpress/).
+For documentation, tutorials, FAQ and videos check out: [Google Analytics+ for WP documentation](https://intelligencewp.com/google-analytics-plus-wordpress/).
 
 == Screenshots ==
 
@@ -243,5 +244,3 @@ Google Analytics+ for WP it's released under the GPLv2, you can use it free of c
 	* analytics icon disappears from post list after quick edit, props by [karex](https://github.com/karex)
 	* fix for inline SVG links, props by [Andrew Minion](https://github.com/macbookandrew)
 	* fixes a bug on affiliate events tracking
-
-The full changelog is [available here](https://deconf.com/changelog-google-analytics-plus-wp/).

@@ -1,7 +1,5 @@
 <?php
 /**
- * Author: Alin Marcu
- * Author URI: https://deconf.com
  * Copyright 2013 Alin Marcu
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -52,7 +50,7 @@ final class GAPWP_Settings {
 				if ( empty( $new_options['track_exclude'] ) ) {
 					$new_options['track_exclude'] = array();
 				}
-			} elseif ( 'backend' == $who ) {
+			} elseif ( 'reporting' == $who ) {
 				$options['switch_profile'] = 0;
 				$options['backend_item_reports'] = 0;
 				$options['dashboard_widget'] = 0;
@@ -60,7 +58,6 @@ final class GAPWP_Settings {
 				if ( empty( $new_options['access_back'] ) ) {
 					$new_options['access_back'][] = 'administrator';
 				}
-			} elseif ( 'frontend' == $who ) {
 				$options['frontend_item_reports'] = 0;
 				if ( empty( $new_options['access_front'] ) ) {
 					$new_options['access_front'][] = 'administrator';
@@ -92,7 +89,7 @@ final class GAPWP_Settings {
 		echo '</h2>';
 	}
 
-	private static function global_notices( $who, &$validation_error = 0 ) {
+	private static function global_notices( $who, &$validation_error = 0, $options = array() ) {
 	  $gapwp = GAPWP();
 	  $message = '';
 
@@ -101,10 +98,10 @@ final class GAPWP_Settings {
         $message .= "<div class='error' id='gapwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-plus-wp' ) . "</p></div>";
         $validation_error = 1;
       }
-      if ( ! $validation_error) {
+      if ( ! $validation_error && empty($options['disable_settings_saved_msgs'])) {
         $message .= "<div class='updated' id='gapwp-autodismiss'><p>" . __( "Settings saved.", 'google-analytics-plus-wp' ) . "</p></div>";
       }
-      else {
+      elseif ( empty($options['disable_settings_saved_msgs']) ) {
         $message .= "<div class='error' id='gapwp-autodismiss'><p>" . __( "Settings not saved.", 'google-analytics-plus-wp' ) . "</p></div>";
       }
     }
@@ -113,290 +110,6 @@ final class GAPWP_Settings {
 			$message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'google-analytics-plus-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'gapwp_errors_debugging', false ), __( 'Errors & Debug', 'google-analytics-plus-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'gapwp_general_settings', false ), __( 'authorize the plugin', 'google-analytics-plus-wp' ) ) ) );
 		}
 		return $message;
-	}
-
-	public static function frontend_settings() {
-		$gapwp = GAPWP();
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return;
-		}
-
-		$message = '';
-    $validation_error = 0;
-
-		$message .= self::global_notices( 'frontend',  $validation_error);
-		$options = self::update_options( 'frontend', $validation_error );
-
-
-		/*
-		if ( isset( $_POST['options']['gapwp_hidden'] ) ) {
-			$message = "<div class='updated' id='gapwp-autodismiss'><p>" . __( "Settings saved.", 'google-analytics-plus-wp' ) . "</p></div>";
-			if ( ! ( isset( $_POST['gapwp_security'] ) && wp_verify_nonce( $_POST['gapwp_security'], 'gapwp_form' ) ) ) {
-				$message = "<div class='error' id='gapwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-plus-wp' ) . "</p></div>";
-			}
-		}
-		if ( ! $gapwp->config->options['tableid_jail'] || ! $gapwp->config->options['token'] ) {
-			$message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'google-analytics-plus-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'gapwp_errors_debugging', false ), __( 'Errors & Debug', 'google-analytics-plus-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'gapwp_settings', false ), __( 'authorize the plugin', 'google-analytics-plus-wp' ) ) ) );
-		}
-		*/
-		?>
-<form name="gapwp_form" method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
-	<div class="wrap">
-	<?php echo "<h2>" . __( "Google Analytics Frontend Settings", 'google-analytics-plus-wp' ) . "</h2>"; ?><hr>
-	</div>
-	<div id="poststuff" class="gapwp">
-		<div id="post-body" class="metabox-holder columns-2">
-			<div id="post-body-content">
-				<div class="settings-wrapper">
-					<div class="inside">
-					<?php if (isset($message)) echo $message; ?>
-						<table class="gapwp-settings-options">
-							<tr>
-								<td colspan="2"><?php echo "<h2>" . __( "Permissions", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
-							</tr>
-							<tr>
-								<td class="roles gapwp-settings-title">
-									<label for="access_front"><?php _e("Show stats to:", 'google-analytics-plus-wp' ); ?>
-									</label>
-								</td>
-								<td class="gapwp-settings-roles">
-									<table>
-										<tr>
-										<?php if ( ! isset( $wp_roles ) ) : ?>
-											<?php $wp_roles = new WP_Roles(); ?>
-										<?php endif; ?>
-										<?php $i = 0; ?>
-										<?php foreach ( $wp_roles->role_names as $role => $name ) : ?>
-											<?php if ( 'subscriber' != $role ) : ?>
-												<?php $i++; ?>
-												<td>
-												<label>
-													<input type="checkbox" name="options[access_front][]" value="<?php echo $role; ?>" <?php if ( in_array($role,$options['access_front']) || 'administrator' == $role ) echo 'checked="checked"'; if ( 'administrator' == $role ) echo 'disabled="disabled"';?> /><?php echo $name; ?>
-												  </label>
-											</td>
-											<?php endif; ?>
-											<?php if ( 0 == $i % 4 ) : ?>
-										 </tr>
-										<tr>
-											<?php endif; ?>
-										<?php endforeach; ?>
-									</table>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2" class="gapwp-settings-title">
-									<div class="button-primary gapwp-settings-switchoo">
-										<input type="checkbox" name="options[frontend_item_reports]" value="1" class="gapwp-settings-switchoo-checkbox" id="frontend_item_reports" <?php checked( $options['frontend_item_reports'], 1 ); ?>>
-										<label class="gapwp-settings-switchoo-label" for="frontend_item_reports">
-											<div class="gapwp-settings-switchoo-inner"></div>
-											<div class="gapwp-settings-switchoo-switch"></div>
-										</label>
-									</div>
-									<div class="switch-desc"><?php echo " ".__("enable web page reports on frontend", 'google-analytics-plus-wp' );?></div>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<hr>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2" class="submit">
-									<input type="submit" name="Submit" class="button button-primary" value="<?php _e('Save Changes', 'google-analytics-plus-wp' ) ?>" />
-								</td>
-							</tr>
-						</table>
-						<input type="hidden" name="options[gapwp_hidden]" value="Y">
-						<?php wp_nonce_field('gapwp_form','gapwp_security');?>
-
-
-
-
-
-
-</form>
-<?php
-		self::output_sidebar();
-	}
-
-	public static function backend_settings() {
-		$gapwp = GAPWP();
-		if ( ! current_user_can( 'manage_options' ) ) {
-			return;
-		}
-		$message = '';
-    $validation_error = 0;
-
-		$message .= self::global_notices( 'backend',  $validation_error);
-		$options = self::update_options( 'backend', $validation_error );
-		/*
-		if ( isset( $_POST['options']['gapwp_hidden'] ) ) {
-			$message = "<div class='updated' id='gapwp-autodismiss'><p>" . __( "Settings saved.", 'google-analytics-plus-wp' ) . "</p></div>";
-			if ( ! ( isset( $_POST['gapwp_security'] ) && wp_verify_nonce( $_POST['gapwp_security'], 'gapwp_form' ) ) ) {
-				$message = "<div class='error' id='gapwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-plus-wp' ) . "</p></div>";
-			}
-		}
-		if ( ! $gapwp->config->options['tableid_jail'] || ! $gapwp->config->options['token'] ) {
-			$message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'google-analytics-plus-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'gapwp_errors_debugging', false ), __( 'Errors & Debug', 'google-analytics-plus-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'gapwp_settings', false ), __( 'authorize the plugin', 'google-analytics-plus-wp' ) ) ) );
-		}
-		*/
-		?>
-<form name="gapwp_form" method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
-	<div class="wrap">
-			<?php echo "<h2>" . __( "Google Analytics Backend Settings", 'google-analytics-plus-wp' ) . "</h2>"; ?><hr>
-	</div>
-	<div id="poststuff" class="gapwp">
-		<div id="post-body" class="metabox-holder columns-2">
-			<div id="post-body-content">
-				<div class="settings-wrapper">
-					<div class="inside">
-					<?php if (isset($message)) echo $message; ?>
-						<table class="gapwp-settings-options">
-							<tr>
-								<td colspan="2"><?php echo "<h2>" . __( "Permissions", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
-							</tr>
-							<tr>
-								<td class="roles gapwp-settings-title">
-									<label for="access_back"><?php _e("Show stats to:", 'google-analytics-plus-wp' ); ?>
-									</label>
-								</td>
-								<td class="gapwp-settings-roles">
-									<table>
-										<tr>
-										<?php if ( ! isset( $wp_roles ) ) : ?>
-											<?php $wp_roles = new WP_Roles(); ?>
-										<?php endif; ?>
-										<?php $i = 0; ?>
-										<?php foreach ( $wp_roles->role_names as $role => $name ) : ?>
-											<?php if ( 'subscriber' != $role ) : ?>
-												<?php $i++; ?>
-											<td>
-												<label>
-													<input type="checkbox" name="options[access_back][]" value="<?php echo $role; ?>" <?php if ( in_array($role,$options['access_back']) || 'administrator' == $role ) echo 'checked="checked"'; if ( 'administrator' == $role ) echo 'disabled="disabled"';?> /> <?php echo $name; ?>
-												</label>
-											</td>
-											<?php endif; ?>
-											<?php if ( 0 == $i % 4 ) : ?>
-										</tr>
-										<tr>
-											<?php endif; ?>
-										<?php endforeach; ?>
-
-
-
-
-
-
-									</table>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2" class="gapwp-settings-title">
-									<div class="button-primary gapwp-settings-switchoo">
-										<input type="checkbox" name="options[switch_profile]" value="1" class="gapwp-settings-switchoo-checkbox" id="switch_profile" <?php checked( $options['switch_profile'], 1 ); ?>>
-										<label class="gapwp-settings-switchoo-label" for="switch_profile">
-											<div class="gapwp-settings-switchoo-inner"></div>
-											<div class="gapwp-settings-switchoo-switch"></div>
-										</label>
-									</div>
-									<div class="switch-desc"><?php _e ( "enable Switch View functionality", 'google-analytics-plus-wp' );?></div>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2" class="gapwp-settings-title">
-									<div class="button-primary gapwp-settings-switchoo">
-										<input type="checkbox" name="options[backend_item_reports]" value="1" class="gapwp-settings-switchoo-checkbox" id="backend_item_reports" <?php checked( $options['backend_item_reports'], 1 ); ?>>
-										<label class="gapwp-settings-switchoo-label" for="backend_item_reports">
-											<div class="gapwp-settings-switchoo-inner"></div>
-											<div class="gapwp-settings-switchoo-switch"></div>
-										</label>
-									</div>
-									<div class="switch-desc"><?php _e ( "enable reports on Posts List and Pages List", 'google-analytics-plus-wp' );?></div>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2" class="gapwp-settings-title">
-									<div class="button-primary gapwp-settings-switchoo">
-										<input type="checkbox" name="options[dashboard_widget]" value="1" class="gapwp-settings-switchoo-checkbox" id="dashboard_widget" <?php checked( $options['dashboard_widget'], 1 ); ?>>
-										<label class="gapwp-settings-switchoo-label" for="dashboard_widget">
-											<div class="gapwp-settings-switchoo-inner"></div>
-											<div class="gapwp-settings-switchoo-switch"></div>
-										</label>
-									</div>
-									<div class="switch-desc"><?php _e ( "enable the main Dashboard Widget", 'google-analytics-plus-wp' );?></div>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<hr><?php echo "<h2>" . __( "Real-Time Settings", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
-							</tr>
-							<?php if ( $options['user_api'] ) : ?>
-							<tr>
-								<td colspan="2" class="gapwp-settings-title">
-									<div class="button-primary gapwp-settings-switchoo">
-										<input type="checkbox" name="options[backend_realtime_report]" value="1" class="gapwp-settings-switchoo-checkbox" id="backend_realtime_report" <?php checked( $options['backend_realtime_report'], 1 ); ?>>
-										<label class="gapwp-settings-switchoo-label" for="backend_realtime_report">
-											<div class="gapwp-settings-switchoo-inner"></div>
-											<div class="gapwp-settings-switchoo-switch"></div>
-										</label>
-									</div>
-									<div class="switch-desc"><?php _e ( "enable Real-Time report (requires access to Real-Time Reporting API)", 'google-analytics-plus-wp' );?></div>
-								</td>
-							</tr>
-							<?php endif; ?>
-							<tr>
-								<td colspan="2" class="gapwp-settings-title"> <?php _e("Maximum number of pages to display on real-time tab:", 'google-analytics-plus-wp'); ?>
-									<input type="number" name="options[ga_realtime_pages]" id="ga_realtime_pages" value="<?php echo (int)$options['ga_realtime_pages']; ?>" size="3">
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<hr><?php echo "<h2>" . __( "Location Settings", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
-							</tr>
-							<tr>
-								<td colspan="2" class="gapwp-settings-title">
-									<?php echo __("Target Geo Map to country:", 'google-analytics-plus-wp'); ?>
-									<input type="text" style="text-align: center;" name="options[ga_target_geomap]" value="<?php echo esc_attr($options['ga_target_geomap']); ?>" size="3">
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2" class="gapwp-settings-title">
-									<?php echo __("Maps API Key:", 'google-analytics-plus-wp'); ?>
-									<input type="text" style="text-align: center;" name="options[maps_api_key]" value="<?php echo esc_attr($options['maps_api_key']); ?>" size="50">
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<hr><?php echo "<h2>" . __( "404 Errors Report", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
-							</tr>
-							<tr>
-								<td colspan="2" class="gapwp-settings-title">
-									<?php echo __("404 Page Title contains:", 'google-analytics-plus-wp'); ?>
-									<input type="text" style="text-align: center;" name="options[pagetitle_404]" value="<?php echo esc_attr($options['pagetitle_404']); ?>" size="20">
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2">
-									<hr>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="2" class="submit">
-									<input type="submit" name="Submit" class="button button-primary" value="<?php _e('Save Changes', 'google-analytics-plus-wp' ) ?>" />
-								</td>
-							</tr>
-						</table>
-						<input type="hidden" name="options[gapwp_hidden]" value="Y">
-						<?php wp_nonce_field('gapwp_form','gapwp_security'); ?>
-
-
-
-
-
-
-</form>
-<?php
-		self::output_sidebar();
 	}
 
 	public static function tracking_settings() {
@@ -430,7 +143,7 @@ final class GAPWP_Settings {
 		?>
 <form name="gapwp_form" method="post" action="<?php  esc_url($_SERVER['REQUEST_URI']); ?>">
 	<div class="wrap">
-			<?php echo "<h2>" . __( "Google Analytics Tracking Code", 'google-analytics-plus-wp' ) . "</h2>"; ?>
+			<?php echo "<h2>" . __( "Google Analytics+ Tracking Settings", 'google-analytics-plus-wp' ) . "</h2>"; ?>
 	</div>
 	<div id="poststuff" class="gapwp">
 		<div id="post-body" class="metabox-holder columns-2">
@@ -483,7 +196,7 @@ final class GAPWP_Settings {
                         <input type="text" name="options[tracking_id]" value="<?php echo esc_attr($options['tracking_id']); ?>" size="15">
                       </td>
                     </tr>
-									  <?php endif ?>
+									  <?php endif; ?>
 									</td>
 								</tr>
 								<tr>
@@ -1153,13 +866,7 @@ final class GAPWP_Settings {
 						</table>
 						<input type="hidden" name="options[gapwp_hidden]" value="Y">
 						<?php wp_nonce_field('gapwp_form','gapwp_security'); ?>
-
-
-
-
-
-
-</form>
+          </form>
 <?php
 		self::output_sidebar();
 	}
@@ -1183,7 +890,7 @@ final class GAPWP_Settings {
 		*/
 		?>
 <div class="wrap">
-		<?php echo "<h2>" . __( "Google Analytics Errors & Debugging", 'google-analytics-plus-wp' ) . "</h2>"; ?>
+		<?php echo "<h2>" . __( "Google Analytics+ Errors & Debugging", 'google-analytics-plus-wp' ) . "</h2>"; ?>
 </div>
 <div id="poststuff" class="gapwp">
 	<div id="post-body" class="metabox-holder columns-2">
@@ -1273,7 +980,7 @@ final class GAPWP_Settings {
 		}
 
 		$options = self::update_options( 'general' );
-		printf( '<div id="gapi-warning" class="updated"><p>%1$s <a href="https://deconf.com/google-analytics-dashboard-wordpress/?utm_source=gapwp_config&utm_medium=link&utm_content=general_screen&utm_campaign=gapwp">%2$s</a></p></div>', __( 'Loading the required libraries. If this results in a blank screen or a fatal error, try this solution:', 'google-analytics-plus-wp' ), __( 'Library conflicts between WordPress plugins', 'google-analytics-plus-wp' ) );
+		printf( '<div id="gapi-warning" class="updated"><p>%1$s <a href="https://intelligencewp.com/google-analytics-plus-wordpress/?utm_source=gapwp_config&utm_medium=link&utm_content=general_screen&utm_campaign=gapwp">%2$s</a></p></div>', __( 'Loading the required libraries. If this results in a blank screen or a fatal error, try this solution:', 'google-analytics-plus-wp' ), __( 'Library conflicts between WordPress plugins', 'google-analytics-plus-wp' ) );
 		if ( null === $gapwp->gapi_controller ) {
 			$gapwp->gapi_controller = new GAPWP_GAPI_Controller();
 		}
@@ -1383,7 +1090,7 @@ final class GAPWP_Settings {
 				$message = "<div class='error' id='gapwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-plus-wp' ) . "</p></div>";
 			}
 		}
-		if ( isset( $_POST['options']['gapwp_hidden'] ) && ! isset( $_POST['Clear'] ) && ! isset( $_POST['Reset'] ) && ! isset( $_POST['Reset_Err'] ) ) {
+		if ( isset( $_POST['options']['gapwp_hidden'] ) && !empty( $_POST['Submit'] ) && ! isset( $_POST['Clear'] ) && ! isset( $_POST['Reset'] ) && ! isset( $_POST['Reset_Err'] ) ) {
 			$message = "<div class='updated' id='gapwp-autodismiss'><p>" . __( "Settings saved.", 'google-analytics-plus-wp' ) . "</p></div>";
 			if ( ! ( isset( $_POST['gapwp_security'] ) && wp_verify_nonce( $_POST['gapwp_security'], 'gapwp_form' ) ) ) {
 				$message = "<div class='error' id='gapwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-plus-wp' ) . "</p></div>";
@@ -1400,18 +1107,32 @@ final class GAPWP_Settings {
 			}
 		}
 
-		if (!isset($_POST['setup_mode'])) {
+    if (!empty( $_POST['Submit'] ) && isset( $_POST['setup_mode'] ) ) {
+      if ($_POST['setup_mode'] == 'gapi') {
+        if ($options['tracking_type'] == 'disabled') {
+          $gapwp->config->options['tracking_type'] = 'universal';
+          self::update_options( 'tracking' );
+        }
+      }
+      elseif ($_POST['setup_mode'] == 'gapi') {
+        if ($options['tracking_type'] != 'disabled') {
+          $gapwp->config->options['tracking_type'] = 'disabled';
+          self::update_options( 'tracking' );
+        }
+      }
+    }
+		if ( !isset($_POST['setup_mode']) ) {
       $_POST['setup_mode'] = '';
       if ($options['token'] || isset($_POST['Reset'])) {
-        $_POST['setup_mode'] = 'gapi';
+        $_POST['setup_mode'] = ($options['tracking_type'] == 'disabled') ? 'gapi-' : 'gapi';
       }
-      if ($_GET['setup_mode']) {
+      if (isset($_GET['setup_mode'])) {
         $_POST['setup_mode'] = $_GET['setup_mode'];
       }
 		}
 		?>
 	<div class="wrap">
-	<?php echo "<h2>" . __( "Google Analytics Settings", 'google-analytics-plus-wp' ) . "</h2>"; ?>
+	<?php echo "<h2>" . __( "Google Analytics+ General Settings", 'google-analytics-plus-wp' ) . "</h2>"; ?>
 					<hr>
 					</div>
 					<div id="poststuff" class="gapwp">
@@ -1447,9 +1168,10 @@ final class GAPWP_Settings {
                             </label>
                           </td>
                           <td>
-                            <select id="setup_mode" name="setup_mode" onchange="this.form.submit()"<?php if ($options['token']) { echo ' disabled="disabled"'; } ?>>
-                              <option value="" <?php selected( $_POST['setup_mode'], '' ); ?>><?php _e("Tracking only", 'google-analytics-plus-wp');?></option>
+                            <select id="setup_mode" name="setup_mode" onchange="this.form.submit()"<?php if ($options['token']) { echo ' xdisabled="disabled"'; } ?>>
+                              <option value="" <?php selected( $_POST['setup_mode'], '' ); ?><?php if ($options['token']) { echo ' disabled="disabled"'; } ?>><?php _e("Tracking only", 'google-analytics-plus-wp');?></option>
                               <option value="gapi" <?php selected( $_POST['setup_mode'], 'gapi' ); ?>><?php _e("Tracking & Reporting API", 'google-analytics-plus-wp');?></option>
+                              <option value="gapi-" <?php selected( $_POST['setup_mode'], 'gapi-' ); ?>><?php _e("Reporting API only", 'google-analytics-plus-wp');?></option>
                             </select>
                           </td>
                         </tr>
@@ -1503,11 +1225,13 @@ final class GAPWP_Settings {
                               <?php echo "<h3>" . __( "Google Analytics API Authorization", 'google-analytics-plus-wp' ) . "</h3>";?>
                             </td>
                           </tr>
+                          <php if (0): // TODO: create doc ?>
                           <tr>
                             <td colspan="2" class="gapwp-settings-info">
-                              <?php printf(__('You need to create a %1$s and watch this %2$s before proceeding to authorization.', 'google-analytics-plus-wp'), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/creating-a-google-analytics-account/?utm_source=gapwp_config&utm_medium=link&utm_content=top_tutorial&utm_campaign=gapwp', __("free analytics account", 'google-analytics-plus-wp')), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/google-analytics-dashboard-wordpress/?utm_source=gapwp_config&utm_medium=link&utm_content=top_video&utm_campaign=gapwp', __("video tutorial", 'google-analytics-plus-wp')));?>
+                              <?php printf(__('You need to create a %1$s and watch this %2$s before proceeding to authorization.', 'google-analytics-plus-wp'), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://intelligencewp.com/creating-a-google-analytics-account/?utm_source=gapwp_config&utm_medium=link&utm_content=top_tutorial&utm_campaign=gapwp', __("free analytics account", 'google-analytics-plus-wp')), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://intelligencewp.com/google-analytics-plus-wordpress/?utm_source=gapwp_config&utm_medium=link&utm_content=top_video&utm_campaign=gapwp', __("video tutorial", 'google-analytics-plus-wp')));?>
                             </td>
                           </tr>
+                          <php endif; ?>
                           <?php if (! $options['token'] || ($options['user_api']  && ! $options['network_mode'])) : ?>
                             <tr>
                               <td colspan="2" class="gapwp-settings-info">
@@ -1618,7 +1342,6 @@ final class GAPWP_Settings {
 										</form>
 				<?php self::output_sidebar(); ?>
 				<?php return; ?>
-
 											</table>
 										</form>
 			<?php endif; ?>
@@ -1638,7 +1361,7 @@ final class GAPWP_Settings {
 		/*
 		 * Include GAPI
 		 */
-		echo '<div id="gapi-warning" class="updated"><p>' . __( 'Loading the required libraries. If this results in a blank screen or a fatal error, try this solution:', 'google-analytics-plus-wp' ) . ' <a href="https://deconf.com/google-analytics-dashboard-wordpress/?utm_source=gapwp_config&utm_medium=link&utm_content=general_screen&utm_campaign=gapwp">Library conflicts between WordPress plugins</a></p></div>';
+		echo '<div id="gapi-warning" class="updated"><p>' . __( 'Loading the required libraries. If this results in a blank screen or a fatal error, try this solution:', 'google-analytics-plus-wp' ) . ' <a href="https://intelligencewp.com/google-analytics-plus-wordpress/?utm_source=gapwp_config&utm_medium=link&utm_content=general_screen&utm_campaign=gapwp">Library conflicts between WordPress plugins</a></p></div>';
 
 		if ( null === $gapwp->gapi_controller ) {
 			$gapwp->gapi_controller = new GAPWP_GAPI_Controller();
@@ -1784,184 +1507,412 @@ final class GAPWP_Settings {
 																<input type="hidden" name="options[gapwp_hidden]" value="Y">
 						<?php wp_nonce_field('gapwp_form','gapwp_security'); ?>
 						<table class="gapwp-settings-options">
-																	<tr>
-																		<td colspan="2">
-								<?php echo "<h2>" . __( "Network Setup", 'google-analytics-plus-wp' ) . "</h2>"; ?>
+							<tr>
+								<td colspan="2">
+						  		<?php echo "<h2>" . __( "Network Setup", 'google-analytics-plus-wp' ) . "</h2>"; ?>
 								</td>
-																	</tr>
-																	<tr>
-																		<td colspan="2" class="gapwp-settings-title">
-																			<div class="button-primary gapwp-settings-switchoo">
-																				<input type="checkbox" name="options[network_mode]" value="1" class="gapwp-settings-switchoo-checkbox" id="network_mode" <?php checked( $options['network_mode'], 1); ?> onchange="this.form.submit()">
-																				<label class="gapwp-settings-switchoo-label" for="network_mode">
-																					<div class="gapwp-settings-switchoo-inner"></div>
-																					<div class="gapwp-settings-switchoo-switch"></div>
-																				</label>
-																			</div>
-																			<div class="switch-desc"><?php echo " ".__("use a single Google Analytics account for the entire network", 'google-analytics-plus-wp' );?></div>
-																		</td>
-																	</tr>
+							</tr>
+              <tr>
+                <td colspan="2" class="gapwp-settings-title">
+                  <div class="button-primary gapwp-settings-switchoo">
+                    <input type="checkbox" name="options[network_mode]" value="1" class="gapwp-settings-switchoo-checkbox" id="network_mode" <?php checked( $options['network_mode'], 1); ?> onchange="this.form.submit()">
+                    <label class="gapwp-settings-switchoo-label" for="network_mode">
+                      <div class="gapwp-settings-switchoo-inner"></div>
+                      <div class="gapwp-settings-switchoo-switch"></div>
+                    </label>
+                  </div>
+                  <div class="switch-desc"><?php echo " ".__("use a single Google Analytics account for the entire network", 'google-analytics-plus-wp' );?></div>
+                </td>
+              </tr>
 							<?php if ($options['network_mode']) : ?>
 							<tr>
-																		<td colspan="2">
-																			<hr>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td colspan="2"><?php echo "<h2>" . __( "Plugin Authorization", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
-																	</tr>
-																	<tr>
-																		<td colspan="2" class="gapwp-settings-info">
-								<?php printf(__('You need to create a %1$s and watch this %2$s before proceeding to authorization.', 'google-analytics-plus-wp'), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/creating-a-google-analytics-account/?utm_source=gapwp_config&utm_medium=link&utm_content=top_tutorial&utm_campaign=gapwp', __("free analytics account", 'google-analytics-plus-wp')), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/google-analytics-dashboard-wordpress/?utm_source=gapwp_config&utm_medium=link&utm_content=top_video&utm_campaign=gapwp', __("video tutorial", 'google-analytics-plus-wp')));?>
+                <td colspan="2">
+                  <hr>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2"><?php echo "<h2>" . __( "Plugin Authorization", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
+              </tr>
+              <?php if (0) : // TODO: create doc ?>
+              <tr>
+							  <td colspan="2" class="gapwp-settings-info">
+								  <?php printf(__('You need to create a %1$s and watch this %2$s before proceeding to authorization.', 'google-analytics-plus-wp'), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://intelligencewp.com/creating-a-google-analytics-account/?utm_source=gapwp_config&utm_medium=link&utm_content=top_tutorial&utm_campaign=gapwp', __("free analytics account", 'google-analytics-plus-wp')), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://intelligencewp.com/google-analytics-plus-wordpress/?utm_source=gapwp_config&utm_medium=link&utm_content=top_video&utm_campaign=gapwp', __("video tutorial", 'google-analytics-plus-wp')));?>
 								</td>
-																	</tr>
-								<?php if ( ! $options['token'] || $options['user_api'] ) : ?>
-								<tr>
-																		<td colspan="2" class="gapwp-settings-info">
-																			<input name="options[user_api]" type="checkbox" id="user_api" value="1" <?php checked( $options['user_api'], 1 ); ?> onchange="this.form.submit()" /><?php echo " ".__("developer mode (requires advanced API knowledge)", 'google-analytics-plus-wp' );?>
-								</td>
-																	</tr>
-								<?php endif; ?>
+							</tr>
+							<?php endif; ?>
+							<?php if ( ! $options['token'] || $options['user_api'] ) : ?>
+                <tr>
+                  <td colspan="2" class="gapwp-settings-info">
+                    <input name="options[user_api]" type="checkbox" id="user_api" value="1" <?php checked( $options['user_api'], 1 ); ?> onchange="this.form.submit()" /><?php echo " ".__("developer mode (requires advanced API knowledge)", 'google-analytics-plus-wp' );?>
+                  </td>
+                </tr>
+							<?php endif; ?>
 							<?php if ( $options['user_api'] ) : ?>
-							<tr>
-																		<td class="gapwp-settings-title">
-																			<label for="options[client_id]"><?php _e("Client ID:", 'google-analytics-plus-wp'); ?>
-									</label>
-																		</td>
-																		<td>
-																			<input type="text" name="options[client_id]" value="<?php echo esc_attr($options['client_id']); ?>" size="40" required="required">
-																		</td>
-																	</tr>
-																	<tr>
-																		<td class="gapwp-settings-title">
-																			<label for="options[client_secret]"><?php _e("Client Secret:", 'google-analytics-plus-wp'); ?>
-									</label>
-																		</td>
-																		<td>
-																			<input type="text" name="options[client_secret]" value="<?php echo esc_attr($options['client_secret']); ?>" size="40" required="required">
-																			<input type="hidden" name="options[gapwp_hidden]" value="Y">
-																			<?php wp_nonce_field('gapwp_form','gapwp_security'); ?>
-								</td>
-																	</tr>
+                <tr>
+                  <td class="gapwp-settings-title">
+                    <label for="options[client_id]"><?php _e("Client ID:", 'google-analytics-plus-wp'); ?>
+                    </label>
+                  </td>
+                  <td>
+                    <input type="text" name="options[client_id]" value="<?php echo esc_attr($options['client_id']); ?>" size="40" required="required">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="gapwp-settings-title">
+                    <label for="options[client_secret]"><?php _e("Client Secret:", 'google-analytics-plus-wp'); ?>
+                    </label>
+                  </td>
+                  <td>
+                    <input type="text" name="options[client_secret]" value="<?php echo esc_attr($options['client_secret']); ?>" size="40" required="required">
+                    <input type="hidden" name="options[gapwp_hidden]" value="Y">
+                    <?php wp_nonce_field('gapwp_form','gapwp_security'); ?>
+                  </td>
+                </tr>
 							<?php endif; ?>
 							<?php if ( $options['token'] ) : ?>
 							<tr>
-																		<td colspan="2">
-																			<input type="submit" name="Reset" class="button button-secondary" value="<?php _e( "Clear Authorization", 'google-analytics-plus-wp' ); ?>" />
-																			<input type="submit" name="Clear" class="button button-secondary" value="<?php _e( "Clear Cache", 'google-analytics-plus-wp' ); ?>" />
-																			<input type="submit" name="Refresh" class="button button-secondary" value="<?php _e( "Refresh Properties", 'google-analytics-plus-wp' ); ?>" />
-																		</td>
-																	</tr>
-																	<tr>
-																		<td colspan="2">
-																			<hr>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td colspan="2">
+                <td colspan="2">
+                  <input type="submit" name="Reset" class="button button-secondary" value="<?php _e( "Clear Authorization", 'google-analytics-plus-wp' ); ?>" />
+                  <input type="submit" name="Clear" class="button button-secondary" value="<?php _e( "Clear Cache", 'google-analytics-plus-wp' ); ?>" />
+                  <input type="submit" name="Refresh" class="button button-secondary" value="<?php _e( "Refresh Properties", 'google-analytics-plus-wp' ); ?>" />
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <hr>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
 								<?php echo "<h2>" . __( "Properties/Views Settings", 'google-analytics-plus-wp' ) . "</h2>"; ?>
 								</td>
-																	</tr>
+							</tr>
 							<?php if ( isset( $options['network_tableid'] ) ) : ?>
 								<?php $options['network_tableid'] = json_decode( json_encode( $options['network_tableid'] ), false ); ?>
-							<?php endif; ?>
-							<?php foreach ( GAPWP_Tools::get_sites( array( 'number' => apply_filters( 'gapwp_sites_limit', 100 ) ) ) as $blog ) : ?>
-							<tr>
-																		<td class="gapwp-settings-title-s">
-																			<label for="network_tableid"><?php echo '<strong>'.$blog['domain'].$blog['path'].'</strong>: ';?></label>
-																		</td>
-																		<td>
-																			<select id="network_tableid" <?php disabled(!empty($options['ga_profiles_list']),false);?> name="options[network_tableid][<?php echo $blog['blog_id'];?>]">
-									<?php if ( ! empty( $options['ga_profiles_list'] ) ) : ?>
-										<?php foreach ( $options['ga_profiles_list'] as $items ) : ?>
-											<?php if ( $items[3] ) : ?>
-												<?php $temp_id = $blog['blog_id']; ?>
-												<option value="<?php echo esc_attr( $items[1] );?>" <?php selected( $items[1], isset( $options['network_tableid']->$temp_id ) ? $options['network_tableid']->$temp_id : '');?> title="<?php echo __( "View Name:", 'google-analytics-plus-wp' ) . ' ' . esc_attr( $items[0] );?>">
-													 <?php echo esc_html( GAPWP_Tools::strip_protocol( $items[3] ) );?> &#8658; <?php echo esc_attr( $items[0] );?>
-												</option>
-											<?php endif; ?>
-										<?php endforeach; ?>
-									<?php else : ?>
-												<option value="">
-													<?php _e( "Property not found", 'google-analytics-plus-wp' );?>
-												</option>
-									<?php endif; ?>
-									</select>
-																			<br />
-																		</td>
-																	</tr>
-							<?php endforeach; ?>
-							<tr>
-																		<td colspan="2">
-																			<h2><?php echo _e( "Automatic Updates", 'google-analytics-plus-wp' );?></h2>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td colspan="2" class="gapwp-settings-title">
-																			<div class="button-primary gapwp-settings-switchoo">
-																				<input type="checkbox" name="options[automatic_updates_minorversion]" value="1" class="gapwp-settings-switchoo-checkbox" id="automatic_updates_minorversion" <?php checked( $options['automatic_updates_minorversion'], 1 ); ?>>
-																				<label class="gapwp-settings-switchoo-label" for="automatic_updates_minorversion">
-																					<div class="gapwp-settings-switchoo-inner"></div>
-																					<div class="gapwp-settings-switchoo-switch"></div>
-																				</label>
-																			</div>
-																			<div class="switch-desc"><?php echo " ".__( "automatic updates for minor versions (security and maintenance releases only)", 'google-analytics-plus-wp' );?></div>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td colspan="2">
-																			<hr><?php echo "<h2>" . __( "Exclude Tracking", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
-																	</tr>
-																	<tr>
-																		<td colspan="2" class="gapwp-settings-title">
-																			<div class="button-primary gapwp-settings-switchoo">
-																				<input type="checkbox" name="options[superadmin_tracking]" value="1" class="gapwp-settings-switchoo-checkbox" id="superadmin_tracking"<?php checked( $options['superadmin_tracking'], 1); ?>">
-																				<label class="gapwp-settings-switchoo-label" for="superadmin_tracking">
-																					<div class="gapwp-settings-switchoo-inner"></div>
-																					<div class="gapwp-settings-switchoo-switch"></div>
-																				</label>
-																			</div>
-																			<div class="switch-desc"><?php echo " ".__("exclude Super Admin tracking for the entire network", 'google-analytics-plus-wp' );?></div>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td colspan="2">
-																			<hr>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td colspan="2" class="submit">
-																			<input type="submit" name="Submit" class="button button-primary" value="<?php _e('Save Changes', 'google-analytics-plus-wp' ) ?>" />
-																		</td>
-																	</tr>
+							  <?php endif; ?>
+							  <?php foreach ( GAPWP_Tools::get_sites( array( 'number' => apply_filters( 'gapwp_sites_limit', 100 ) ) ) as $blog ) : ?>
+							    <tr>
+                    <td class="gapwp-settings-title-s">
+                      <label for="network_tableid"><?php echo '<strong>'.$blog['domain'].$blog['path'].'</strong>: ';?></label>
+                    </td>
+                    <td>
+                      <select id="network_tableid" <?php disabled(!empty($options['ga_profiles_list']),false);?> name="options[network_tableid][<?php echo $blog['blog_id'];?>]">
+                        <?php if ( ! empty( $options['ga_profiles_list'] ) ) : ?>
+                          <?php foreach ( $options['ga_profiles_list'] as $items ) : ?>
+                            <?php if ( $items[3] ) : ?>
+                              <?php $temp_id = $blog['blog_id']; ?>
+                              <option value="<?php echo esc_attr( $items[1] );?>" <?php selected( $items[1], isset( $options['network_tableid']->$temp_id ) ? $options['network_tableid']->$temp_id : '');?> title="<?php echo __( "View Name:", 'google-analytics-plus-wp' ) . ' ' . esc_attr( $items[0] );?>">
+                                 <?php echo esc_html( GAPWP_Tools::strip_protocol( $items[3] ) );?> &#8658; <?php echo esc_attr( $items[0] );?>
+                              </option>
+                            <?php endif; ?>
+                          <?php endforeach; ?>
+                        <?php else : ?>
+                          <option value="">
+                            <?php _e( "Property not found", 'google-analytics-plus-wp' );?>
+                          </option>
+									      <?php endif; ?>
+									    </select>
+                      <br />
+                    </td>
+                  </tr>
+							  <?php endforeach; ?>
+							  <tr>
+                  <td colspan="2">
+                    <h2><?php echo _e( "Automatic Updates", 'google-analytics-plus-wp' );?></h2>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="gapwp-settings-title">
+                    <div class="button-primary gapwp-settings-switchoo">
+                      <input type="checkbox" name="options[automatic_updates_minorversion]" value="1" class="gapwp-settings-switchoo-checkbox" id="automatic_updates_minorversion" <?php checked( $options['automatic_updates_minorversion'], 1 ); ?>>
+                      <label class="gapwp-settings-switchoo-label" for="automatic_updates_minorversion">
+                        <div class="gapwp-settings-switchoo-inner"></div>
+                        <div class="gapwp-settings-switchoo-switch"></div>
+                      </label>
+                    </div>
+                    <div class="switch-desc"><?php echo " ".__( "automatic updates for minor versions (security and maintenance releases only)", 'google-analytics-plus-wp' );?></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <hr><?php echo "<h2>" . __( "Exclude Tracking", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="gapwp-settings-title">
+                    <div class="button-primary gapwp-settings-switchoo">
+                      <input type="checkbox" name="options[superadmin_tracking]" value="1" class="gapwp-settings-switchoo-checkbox" id="superadmin_tracking"<?php checked( $options['superadmin_tracking'], 1); ?>">
+                      <label class="gapwp-settings-switchoo-label" for="superadmin_tracking">
+                        <div class="gapwp-settings-switchoo-inner"></div>
+                        <div class="gapwp-settings-switchoo-switch"></div>
+                      </label>
+                    </div>
+                    <div class="switch-desc"><?php echo " ".__("exclude Super Admin tracking for the entire network", 'google-analytics-plus-wp' );?></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <hr>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="submit">
+                    <input type="submit" name="Submit" class="button button-primary" value="<?php _e('Save Changes', 'google-analytics-plus-wp' ) ?>" />
+                  </td>
+                </tr>
 							<?php else : ?>
 							<tr>
-																		<td colspan="2">
-																			<hr>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td colspan="2">
-																			<input type="submit" name="Authorize" class="button button-secondary" id="authorize" value="<?php _e( "Authorize Plugin", 'google-analytics-plus-wp' ); ?>" />
-																			<input type="submit" name="Clear" class="button button-secondary" value="<?php _e( "Clear Cache", 'google-analytics-plus-wp' ); ?>" />
-																		</td>
-																	</tr>
+                <td colspan="2">
+                  <hr>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <input type="submit" name="Authorize" class="button button-secondary" id="authorize" value="<?php _e( "Authorize Plugin", 'google-analytics-plus-wp' ); ?>" />
+                  <input type="submit" name="Clear" class="button button-secondary" value="<?php _e( "Clear Cache", 'google-analytics-plus-wp' ); ?>" />
+                </td>
+              </tr>
 							<?php endif; ?>
 							<tr>
-																		<td colspan="2">
-																			<hr>
-																		</td>
-																	</tr>
-																</table>
-															</form>
+                <td colspan="2">
+                  <hr>
+                </td>
+              </tr>
+            </table>
+          </form>
 		<?php self::output_sidebar(); ?>
 				<?php return; ?>
 			<?php endif;?>
 						</table>
-															</form>
+					</form>
 		<?php endif; ?>
 		<?php
 
+		self::output_sidebar();
+	}
+
+	public static function reporting_settings() {
+		$gapwp = GAPWP();
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+		$message = '';
+    $validation_error = 0;
+
+		$message .= self::global_notices( 'reporting',  $validation_error);
+		$options = self::update_options( 'reporting', $validation_error );
+		/*
+		if ( isset( $_POST['options']['gapwp_hidden'] ) ) {
+			$message = "<div class='updated' id='gapwp-autodismiss'><p>" . __( "Settings saved.", 'google-analytics-plus-wp' ) . "</p></div>";
+			if ( ! ( isset( $_POST['gapwp_security'] ) && wp_verify_nonce( $_POST['gapwp_security'], 'gapwp_form' ) ) ) {
+				$message = "<div class='error' id='gapwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-plus-wp' ) . "</p></div>";
+			}
+		}
+		if ( ! $gapwp->config->options['tableid_jail'] || ! $gapwp->config->options['token'] ) {
+			$message = sprintf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Something went wrong, check %1$s or %2$s.', 'google-analytics-plus-wp' ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'gapwp_errors_debugging', false ), __( 'Errors & Debug', 'google-analytics-plus-wp' ) ), sprintf( '<a href="%1$s">%2$s</a>', menu_page_url( 'gapwp_settings', false ), __( 'authorize the plugin', 'google-analytics-plus-wp' ) ) ) );
+		}
+		*/
+		?>
+<form name="gapwp_form" method="post" action="<?php echo esc_url($_SERVER['REQUEST_URI']); ?>">
+	<div class="wrap">
+			<?php echo "<h2>" . __( "Google Analytics+ Reporting Settings", 'google-analytics-plus-wp' ) . "</h2>"; ?><hr>
+	</div>
+	<div id="poststuff" class="gapwp">
+		<div id="post-body" class="metabox-holder columns-2">
+			<div id="post-body-content">
+				<div class="settings-wrapper">
+					<div class="inside">
+					<?php if (isset($message)) echo $message; ?>
+						<table class="gapwp-settings-options">
+							<tr>
+								<td colspan="2"><?php echo "<h2>" . __( "Backend Reports", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
+							</tr>
+							<tr>
+								<td class="roles gapwp-settings-title">
+									<label for="access_back"><?php _e("Show stats to:", 'google-analytics-plus-wp' ); ?>
+									</label>
+								</td>
+								<td class="gapwp-settings-roles">
+									<table>
+										<tr>
+										<?php if ( ! isset( $wp_roles ) ) : ?>
+											<?php $wp_roles = new WP_Roles(); ?>
+										<?php endif; ?>
+										<?php $i = 0; ?>
+										<?php foreach ( $wp_roles->role_names as $role => $name ) : ?>
+											<?php if ( 'subscriber' != $role ) : ?>
+												<?php $i++; ?>
+											<td>
+												<label>
+													<input type="checkbox" name="options[access_back][]" value="<?php echo $role; ?>" <?php if ( in_array($role,$options['access_back']) || 'administrator' == $role ) echo 'checked="checked"'; if ( 'administrator' == $role ) echo 'disabled="disabled"';?> /> <?php echo $name; ?>
+												</label>
+											</td>
+											<?php endif; ?>
+											<?php if ( 0 == $i % 4 ) : ?>
+										</tr>
+										<tr>
+											<?php endif; ?>
+										<?php endforeach; ?>
+
+
+
+
+
+
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="gapwp-settings-title">
+									<div class="button-primary gapwp-settings-switchoo">
+										<input type="checkbox" name="options[switch_profile]" value="1" class="gapwp-settings-switchoo-checkbox" id="switch_profile" <?php checked( $options['switch_profile'], 1 ); ?>>
+										<label class="gapwp-settings-switchoo-label" for="switch_profile">
+											<div class="gapwp-settings-switchoo-inner"></div>
+											<div class="gapwp-settings-switchoo-switch"></div>
+										</label>
+									</div>
+									<div class="switch-desc"><?php _e ( "enable Switch View functionality", 'google-analytics-plus-wp' );?></div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="gapwp-settings-title">
+									<div class="button-primary gapwp-settings-switchoo">
+										<input type="checkbox" name="options[backend_item_reports]" value="1" class="gapwp-settings-switchoo-checkbox" id="backend_item_reports" <?php checked( $options['backend_item_reports'], 1 ); ?>>
+										<label class="gapwp-settings-switchoo-label" for="backend_item_reports">
+											<div class="gapwp-settings-switchoo-inner"></div>
+											<div class="gapwp-settings-switchoo-switch"></div>
+										</label>
+									</div>
+									<div class="switch-desc"><?php _e ( "enable reports on Posts List and Pages List", 'google-analytics-plus-wp' );?></div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="gapwp-settings-title">
+									<div class="button-primary gapwp-settings-switchoo">
+										<input type="checkbox" name="options[dashboard_widget]" value="1" class="gapwp-settings-switchoo-checkbox" id="dashboard_widget" <?php checked( $options['dashboard_widget'], 1 ); ?>>
+										<label class="gapwp-settings-switchoo-label" for="dashboard_widget">
+											<div class="gapwp-settings-switchoo-inner"></div>
+											<div class="gapwp-settings-switchoo-switch"></div>
+										</label>
+									</div>
+									<div class="switch-desc"><?php _e ( "enable the main Dashboard Widget", 'google-analytics-plus-wp' );?></div>
+								</td>
+							</tr>
+
+							<tr>
+								<td colspan="2"><?php echo "<h2>" . __( "Frontend Reports", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
+							</tr>
+							<tr>
+								<td class="roles gapwp-settings-title">
+									<label for="access_front"><?php _e("Show stats to:", 'google-analytics-plus-wp' ); ?>
+									</label>
+								</td>
+								<td class="gapwp-settings-roles">
+									<table>
+										<tr>
+										<?php if ( ! isset( $wp_roles ) ) : ?>
+											<?php $wp_roles = new WP_Roles(); ?>
+										<?php endif; ?>
+										<?php $i = 0; ?>
+										<?php foreach ( $wp_roles->role_names as $role => $name ) : ?>
+											<?php if ( 'subscriber' != $role ) : ?>
+												<?php $i++; ?>
+												<td>
+												<label>
+													<input type="checkbox" name="options[access_front][]" value="<?php echo $role; ?>" <?php if ( in_array($role,$options['access_front']) || 'administrator' == $role ) echo 'checked="checked"'; if ( 'administrator' == $role ) echo 'disabled="disabled"';?> /><?php echo $name; ?>
+												  </label>
+											</td>
+											<?php endif; ?>
+											<?php if ( 0 == $i % 4 ) : ?>
+										 </tr>
+										<tr>
+											<?php endif; ?>
+										<?php endforeach; ?>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="gapwp-settings-title">
+									<div class="button-primary gapwp-settings-switchoo">
+										<input type="checkbox" name="options[frontend_item_reports]" value="1" class="gapwp-settings-switchoo-checkbox" id="frontend_item_reports" <?php checked( $options['frontend_item_reports'], 1 ); ?>>
+										<label class="gapwp-settings-switchoo-label" for="frontend_item_reports">
+											<div class="gapwp-settings-switchoo-inner"></div>
+											<div class="gapwp-settings-switchoo-switch"></div>
+										</label>
+									</div>
+									<div class="switch-desc"><?php echo " ".__("enable web page reports on frontend", 'google-analytics-plus-wp' );?></div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<hr>
+								</td>
+							</tr>
+
+
+							<tr>
+								<td colspan="2">
+									<hr><?php echo "<h2>" . __( "Real-Time Settings", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
+							</tr>
+							<?php if ( $options['user_api'] ) : ?>
+							<tr>
+								<td colspan="2" class="gapwp-settings-title">
+									<div class="button-primary gapwp-settings-switchoo">
+										<input type="checkbox" name="options[backend_realtime_report]" value="1" class="gapwp-settings-switchoo-checkbox" id="backend_realtime_report" <?php checked( $options['backend_realtime_report'], 1 ); ?>>
+										<label class="gapwp-settings-switchoo-label" for="backend_realtime_report">
+											<div class="gapwp-settings-switchoo-inner"></div>
+											<div class="gapwp-settings-switchoo-switch"></div>
+										</label>
+									</div>
+									<div class="switch-desc"><?php _e ( "enable Real-Time report (requires access to Real-Time Reporting API)", 'google-analytics-plus-wp' );?></div>
+								</td>
+							</tr>
+							<?php endif; ?>
+							<tr>
+								<td colspan="2" class="gapwp-settings-title"> <?php _e("Maximum number of pages to display on real-time tab:", 'google-analytics-plus-wp'); ?>
+									<input type="number" name="options[ga_realtime_pages]" id="ga_realtime_pages" value="<?php echo (int)$options['ga_realtime_pages']; ?>" size="3">
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<hr><?php echo "<h2>" . __( "Location Settings", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
+							</tr>
+							<tr>
+								<td colspan="2" class="gapwp-settings-title">
+									<?php echo __("Target Geo Map to country:", 'google-analytics-plus-wp'); ?>
+									<input type="text" style="text-align: center;" name="options[ga_target_geomap]" value="<?php echo esc_attr($options['ga_target_geomap']); ?>" size="3">
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="gapwp-settings-title">
+									<?php echo __("Maps API Key:", 'google-analytics-plus-wp'); ?>
+									<input type="text" style="text-align: center;" name="options[maps_api_key]" value="<?php echo esc_attr($options['maps_api_key']); ?>" size="50">
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<hr><?php echo "<h2>" . __( "404 Errors Report", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
+							</tr>
+							<tr>
+								<td colspan="2" class="gapwp-settings-title">
+									<?php echo __("404 Page Title contains:", 'google-analytics-plus-wp'); ?>
+									<input type="text" style="text-align: center;" name="options[pagetitle_404]" value="<?php echo esc_attr($options['pagetitle_404']); ?>" size="20">
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<hr>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" class="submit">
+									<input type="submit" name="Submit" class="button button-primary" value="<?php _e('Save Changes', 'google-analytics-plus-wp' ) ?>" />
+								</td>
+							</tr>
+						</table>
+						<input type="hidden" name="options[gapwp_hidden]" value="Y">
+						<?php wp_nonce_field('gapwp_form','gapwp_security'); ?>
+</form>
+<?php
 		self::output_sidebar();
 	}
 
@@ -1970,70 +1921,70 @@ final class GAPWP_Settings {
 
 		$gapwp = GAPWP();
 		?>
-				</div>
-													</div>
-												</div>
-												<div id="postbox-container-1" class="postbox-container">
-													<div class="meta-box-sortables">
-														<div class="postbox">
-															<h3>
-																<span><?php _e("Setup Tutorial & Demo",'google-analytics-plus-wp') ?></span>
-															</h3>
-															<div class="inside">
-																<a href="https://deconf.com/google-analytics-dashboard-wordpress/?utm_source=gapwp_config&utm_medium=link&utm_content=video&utm_campaign=gapwp" target="_blank"><img src="<?php echo plugins_url( 'images/google-analytics-plus.png' , __FILE__ );?>" width="100%" alt="" /></a>
-															</div>
-														</div>
-														<div class="postbox">
-															<h3>
-																<span><?php _e("Stay Updated",'google-analytics-plus-wp')?></span>
-															</h3>
-															<div class="inside">
-																<div class="gapwp-desc">
-																	<div class="g-ytsubscribe" data-channel="TheDeConf" data-layout="default" data-count="default"></div>
-																</div>
-																<br />
-																<div class="gapwp-desc">
-																	<div class="g-follow" data-annotation="bubble" data-height="24" data-href="//plus.google.com/u/0/114149166432576972465" data-rel="publisher"></div>
-																	<script src="https://apis.google.com/js/platform.js" async defer></script>
-																</div>
-																<br />
-																<div class="gapwp-desc">
-																	<a href="https://twitter.com/deconfcom" class="twitter-follow-button" data-show-screen-name="false"></a>
-																	<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-																</div>
-															</div>
-														</div>
-														<div class="postbox">
-															<h3>
-																<span><?php _e("Further Reading",'google-analytics-plus-wp')?></span>
-															</h3>
-															<div class="inside">
-																<div class="gapwp-title">
-																	<a href="https://deconf.com/clicky-web-analytics-review/?utm_source=gapwp_config&utm_medium=link&utm_content=clicky&utm_campaign=gapwp"><img src="<?php echo plugins_url( 'images/clicky.png' , __FILE__ ); ?>" /></a>
-																</div>
-																<div class="gapwp-desc">
-																	<?php printf(__('%s service with users tracking at IP level.', 'google-analytics-plus-wp'), sprintf('<a href="https://deconf.com/clicky-web-analytics-review/?utm_source=gapwp_config&utm_medium=link&utm_content=clicky&utm_campaign=gapwp">%s</a>', __('Web Analytics', 'google-analytics-plus-wp')));?>
-																</div>
-																<br />
-																<div class="gapwp-title">
-																	<a href="https://deconf.com/move-website-https-ssl/?utm_source=gapwp_config&utm_medium=link&utm_content=ssl&utm_campaign=gapwp"><img src="<?php echo plugins_url( 'images/ssl.png' , __FILE__ ); ?>" /></a>
-																</div>
-																<div class="gapwp-desc">
-																	<?php printf(__('%s by moving your website to HTTPS/SSL.', 'google-analytics-plus-wp'), sprintf('<a href="https://deconf.com/move-website-https-ssl/?utm_source=gapwp_config&utm_medium=link&utm_content=ssl&utm_campaign=gapwp">%s</a>', __('Improve search rankings', 'google-analytics-plus-wp')));?>
-																</div>
-																<br />
-																<div class="gapwp-title">
-																	<a href="http://wordpress.org/support/view/plugin-reviews/google-analytics-plus-wp#plugin-info"><img src="<?php echo plugins_url( 'images/star.png' , __FILE__ ); ?>" /></a>
-																</div>
-																<div class="gapwp-desc">
-																	<?php printf(__('Your feedback and review are both important, %s!', 'google-analytics-plus-wp'), sprintf('<a href="http://wordpress.org/support/view/plugin-reviews/google-analytics-plus-wp#plugin-info">%s</a>', __('rate this plugin', 'google-analytics-plus-wp')));?>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
+		    </div>
+      </div>
+    </div>
+    <div id="postbox-container-1" class="postbox-container">
+      <div class="meta-box-sortables">
+        <div class="postbox">
+          <h3>
+            <span><?php _e("Setup Tutorial & Demo",'google-analytics-plus-wp') ?></span>
+          </h3>
+          <div class="inside">
+            <a href="https://intelligencewp.com/google-analytics-plus-wordpress/?utm_source=gapwp_config&utm_medium=link&utm_content=video&utm_campaign=gapwp" target="_blank"><img src="<?php echo plugins_url( 'images/google-analytics-plus.png' , __FILE__ );?>" width="100%" alt="" /></a>
+          </div>
+        </div>
+        <div class="postbox">
+          <h3>
+            <span><?php _e("Tools",'google-analytics-plus-wp')?></span>
+          </h3>
+          <div class="inside">
+            <div class="gapwp-title">
+              <a href="https://ga-dev-tools.appspot.com/campaign-url-builder/"><span class="dashicons dashicons-chart-pie" style="font-size: 2.0em; text-decoration: none;"></span></a>
+            </div>
+            <div class="gapwp-desc">
+              <?php printf(__('%s - creates URLs for custom campaign tracking.', 'google-analytics-plus-wp'), sprintf('<a href="https://ga-dev-tools.appspot.com/campaign-url-builder/">%s</a>', __('Campaign URL Builder', 'google-analytics-plus-wp')));?>
+            </div>
+            <br />
+            <div class="gapwp-title">
+              <a href="https://chrome.google.com/webstore/detail/google-analytics-debugger/jnkmfdileelhofjcijamephohjechhna"><span class="dashicons dashicons-admin-tools" style="font-size: 2.0em; text-decoration: none;"></span></a>
+            </div>
+            <div class="gapwp-desc">
+              <?php printf(__('%s - Chrome extension enables you to view and troubleshoot tracking data.', 'google-analytics-plus-wp'), sprintf('<a href="https://chrome.google.com/webstore/detail/google-analytics-debugger/jnkmfdileelhofjcijamephohjechhna">%s</a>', __('Google Analytics Debugger', 'google-analytics-plus-wp')));?>
+            </div>
+            <br />
+            <div class="gapwp-title">
+              <a href="https://wordpress.org/plugins/intelligence/"><span class="dashicons dashicons-analytics" style="font-size: 2.0em; text-decoration: none;"></span></a>
+            </div>
+            <div class="gapwp-desc">
+              <?php printf(__('%s - Enhance Google Analtyics for content marketers.', 'google-analytics-plus-wp'), sprintf('<a href="https://wordpress.org/plugins/intelligence/">%s</a>', __('Intelligence plugin', 'google-analytics-plus-wp')));?>
+            </div>
+          </div>
+        </div>
+        <div class="postbox">
+          <h3>
+            <span><?php _e("Further Reading",'google-analytics-plus-wp')?></span>
+          </h3>
+          <div class="inside">
+            <div class="gapwp-title">
+              <a href="https://analytics.google.com/analytics/academy/"><span class="dashicons dashicons-welcome-learn-more" style="font-size: 2.0em; text-decoration: none;"></span></a>
+            </div>
+            <div class="gapwp-desc">
+              <?php printf(__('%s - Learn analytics with free online courses.', 'google-analytics-plus-wp'), sprintf('<a href="https://analytics.google.com/analytics/academy/">%s</a>', __('Google Analytics Academy', 'google-analytics-plus-wp')));?>
+            </div>
+            <br />
+            <div class="gapwp-title">
+              <a href="https://analytics.googleblog.com/"><span class="dashicons dashicons-admin-post" style="font-size: 2.0em; text-decoration: none;"></span></a>
+            </div>
+            <div class="gapwp-desc">
+              <?php printf(__('%s - Timely updates for getting the most out of GA.', 'google-analytics-plus-wp'), sprintf('<a href="https://analytics.googleblog.com/">%s</a>', __('Google Analytics Blog', 'google-analytics-plus-wp')));?>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <?php
 		// Dismiss the admin update notice
 		if ( version_compare( $wp_version, '4.2', '<' ) && current_user_can( 'manage_options' ) ) {

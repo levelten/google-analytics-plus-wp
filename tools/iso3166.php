@@ -1,7 +1,5 @@
 <?php
 /**
- * Author: Alin Marcu
- * Author URI: https://deconf.com
  * Copyright 2013 Alin Marcu
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -54,7 +52,7 @@ $country_codes = array(
 	'CF' => 'Central African Republic',
 	'CG' => 'Congo',
 	'CH' => 'Switzerland',
-	'CI' => 'Côte d?Ivoire',
+	'CI' => 'Cï¿½te d?Ivoire',
 	'CK' => 'Cook Islands',
 	'CL' => 'Chile',
 	'CM' => 'Cameroon',

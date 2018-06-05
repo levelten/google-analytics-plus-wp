@@ -1,7 +1,5 @@
 <?php
 /**
- * Author: Alin Marcu
- * Author URI: https://deconf.com
  * Copyright 2013 Alin Marcu
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -41,9 +39,8 @@ if ( ! class_exists( 'GAPWP_Backend_Setup' ) ) {
 				include ( GAPWP_DIR . 'admin/settings.php' );
 				add_menu_page( __( "Google Analytics+", 'google-analytics-plus-wp' ), __( "Google Analytics+", 'google-analytics-plus-wp' ), 'manage_options', 'gapwp_settings', array( 'GAPWP_Settings', 'general_settings' ), version_compare( $wp_version, '3.8.0', '>=' ) ? 'dashicons-chart-area' : GAPWP_URL . 'admin/images/gapwp-icon.png' );
 				add_submenu_page( 'gapwp_settings', __( "General Settings", 'google-analytics-plus-wp' ), __( "General Settings", 'google-analytics-plus-wp' ), 'manage_options', 'gapwp_settings', array( 'GAPWP_Settings', 'general_settings' ) );
-				add_submenu_page( 'gapwp_settings', __( "Tracking Settings", 'google-analytics-plus-wp' ), __( "Tracking Code", 'google-analytics-plus-wp' ), 'manage_options', 'gapwp_tracking_settings', array( 'GAPWP_Settings', 'tracking_settings' ) );
-				add_submenu_page( 'gapwp_settings', __( "Backend Settings", 'google-analytics-plus-wp' ), __( "Backend Settings", 'google-analytics-plus-wp' ), 'manage_options', 'gapwp_backend_settings', array( 'GAPWP_Settings', 'backend_settings' ) );
-				add_submenu_page( 'gapwp_settings', __( "Frontend Settings", 'google-analytics-plus-wp' ), __( "Frontend Settings", 'google-analytics-plus-wp' ), 'manage_options', 'gapwp_frontend_settings', array( 'GAPWP_Settings', 'frontend_settings' ) );
+				add_submenu_page( 'gapwp_settings', __( "Tracking Settings", 'google-analytics-plus-wp' ), __( "Tracking Settings", 'google-analytics-plus-wp' ), 'manage_options', 'gapwp_tracking_settings', array( 'GAPWP_Settings', 'tracking_settings' ) );
+				add_submenu_page( 'gapwp_settings', __( "Reporting Settings", 'google-analytics-plus-wp' ), __( "Reporting Settings", 'google-analytics-plus-wp' ), 'manage_options', 'gapwp_report_settings', array( 'GAPWP_Settings', 'reporting_settings' ) );
 				add_submenu_page( 'gapwp_settings', __( "Errors & Debug", 'google-analytics-plus-wp' ), __( "Errors & Debug", 'google-analytics-plus-wp' ), 'manage_options', 'gapwp_errors_debugging', array( 'GAPWP_Settings', 'errors_debugging' ) );
 				/*
 				add_submenu_page( 'gapwp_settings', __( "General Settings", 'google-analytics-plus-wp' ), __( "General Settings", 'google-analytics-plus-wp' ), 'manage_options', 'gapwp_settings', array( 'GAPWP_Settings', 'general_settings' ) );
@@ -375,7 +372,7 @@ if ( ! class_exists( 'GAPWP_Backend_Setup' ) ) {
 			if ( get_option( 'gapwp_got_updated' ) ) :
 				?>
 <div id="gapwp-notice" class="notice is-dismissible">
-	<p><?php echo sprintf( __('Google Analytics+ for WP has been updated to version %s.', 'google-analytics-plus-wp' ), GAPWP_CURRENT_VERSION).' '.sprintf( __('For details, check out %1$s.', 'google-analytics-plus-wp' ), sprintf(' <a href="https://deconf.com/google-analytics-dashboard-wordpress/?utm_source=gapwp_notice&utm_medium=link&utm_content=release_notice&utm_campaign=gapwp">%s</a>', __('the plugin documentation', 'google-analytics-plus-wp') ) ); ?></p>
+	<p><?php echo sprintf( __('Google Analytics+ for WP has been updated to version %s.', 'google-analytics-plus-wp' ), GAPWP_CURRENT_VERSION).' '.sprintf( __('For details, check out %1$s.', 'google-analytics-plus-wp' ), sprintf(' <a href="https://intelligencewp.com/google-analytics-plus-wordpress/?utm_source=gapwp_notice&utm_medium=link&utm_content=release_notice&utm_campaign=gapwp">%s</a>', __('the plugin documentation', 'google-analytics-plus-wp') ) ); ?></p>
 </div>
 
 			<?php
