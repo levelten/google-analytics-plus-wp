@@ -1334,8 +1334,9 @@ final class GAPWP_Settings {
 		}
 		if ( isset( $_POST['Reset'] ) ) {
 			if ( isset( $_POST['gapwp_security'] ) && wp_verify_nonce( $_POST['gapwp_security'], 'gapwp_form' ) ) {
-				$gapwp->gapi_controller->reset_token();
+				$gapwp->gapi_controller->reset_token( TRUE );
 				GAPWP_Tools::clear_cache();
+
 				$message = "<div class='updated' id='gapwp-autodismiss'><p>" . __( "Token Reseted and Revoked.", 'google-analytics-plus-wp' ) . "</p></div>";
 				$options = self::update_options( 'Reset' );
 			} else {
@@ -1398,6 +1399,16 @@ final class GAPWP_Settings {
 				$message = "<div class='error' id='gapwp-autodismiss'><p>" . __( "Cheating Huh?", 'google-analytics-plus-wp' ) . "</p></div>";
 			}
 		}
+
+		if (!isset($_POST['setup_mode'])) {
+      $_POST['setup_mode'] = '';
+      if ($options['token'] || isset($_POST['Reset'])) {
+        $_POST['setup_mode'] = 'gapi';
+      }
+      if ($_GET['setup_mode']) {
+        $_POST['setup_mode'] = $_GET['setup_mode'];
+      }
+		}
 		?>
 	<div class="wrap">
 	<?php echo "<h2>" . __( "Google Analytics Settings", 'google-analytics-plus-wp' ) . "</h2>"; ?>
@@ -1427,151 +1438,187 @@ final class GAPWP_Settings {
 											<table class="gapwp-settings-options">
 												<tr>
 													<td colspan="2">
-														<?php echo "<h2>" . __( "Google Analytics API Authorization", 'google-analytics-plus-wp' ) . "</h2>";?>
+														<?php echo "<h2>" . __( "Google Analytics Setup", 'google-analytics-plus-wp' ) . "</h2>";?>
 													</td>
 												</tr>
 												<tr>
-													<td colspan="2" class="gapwp-settings-info">
-														<?php printf(__('You need to create a %1$s and watch this %2$s before proceeding to authorization.', 'google-analytics-plus-wp'), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/creating-a-google-analytics-account/?utm_source=gapwp_config&utm_medium=link&utm_content=top_tutorial&utm_campaign=gapwp', __("free analytics account", 'google-analytics-plus-wp')), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/google-analytics-dashboard-wordpress/?utm_source=gapwp_config&utm_medium=link&utm_content=top_video&utm_campaign=gapwp', __("video tutorial", 'google-analytics-plus-wp')));?>
-													</td>
-												</tr>
-												  <?php if (! $options['token'] || ($options['user_api']  && ! $options['network_mode'])) : ?>
-												<tr>
-													<td colspan="2" class="gapwp-settings-info">
-														<input name="options[user_api]" type="checkbox" id="user_api" value="1" <?php checked( $options['user_api'], 1 ); ?> onchange="this.form.submit()" <?php echo ($options['network_mode'])?'disabled="disabled"':''; ?> /><?php echo " ".__("developer mode (requires advanced API knowledge)", 'google-analytics-plus-wp' );?>
-													</td>
-												</tr>
-												  <?php endif; ?>
-												  <?php if ($options['user_api']  && ! $options['network_mode']) : ?>
-												<tr>
-													<td class="gapwp-settings-title">
-														<label for="options[client_id]"><?php _e("Client ID:", 'google-analytics-plus-wp'); ?></label>
-													</td>
-													<td>
-														<input type="text" name="options[client_id]" value="<?php echo esc_attr($options['client_id']); ?>" size="40" required="required">
-													</td>
-												</tr>
-												<tr>
-													<td class="gapwp-settings-title">
-														<label for="options[client_secret]"><?php _e("Client Secret:", 'google-analytics-plus-wp'); ?></label>
-													</td>
-													<td>
-														<input type="text" name="options[client_secret]" value="<?php echo esc_attr($options['client_secret']); ?>" size="40" required="required">
-														<input type="hidden" name="options[gapwp_hidden]" value="Y">
-														<?php wp_nonce_field('gapwp_form','gapwp_security'); ?>
-													</td>
-												</tr>
-												  <?php endif; ?>
-												  <?php if ( $options['token'] ) : ?>
-												<tr>
-													<td colspan="2">
-														<input type="submit" name="Reset" class="button button-secondary" value="<?php _e( "Clear Authorization", 'google-analytics-plus-wp' ); ?>" <?php echo $options['network_mode']?'disabled="disabled"':''; ?> />
-														<input type="submit" name="Clear" class="button button-secondary" value="<?php _e( "Clear Cache", 'google-analytics-plus-wp' ); ?>" />
-														<input type="submit" name="Reset_Err" class="button button-secondary" value="<?php _e( "Report & Reset Errors", 'google-analytics-plus-wp' ); ?>" />
-													</td>
-												</tr>
-												<tr>
-													<td colspan="2">
-														<hr>
-													</td>
-												</tr>
-												<tr>
-													<td colspan="2"><?php echo "<h2>" . __( "General Settings", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
-												</tr>
-												<tr>
-													<td class="gapwp-settings-title">
-														<label for="tableid_jail"><?php _e("Select View:", 'google-analytics-plus-wp' ); ?></label>
-													</td>
-													<td>
-														<select id="tableid_jail" <?php disabled(empty($options['ga_profiles_list']) || 1 == count($options['ga_profiles_list']), true); ?> name="options[tableid_jail]">
-															<?php if ( ! empty( $options['ga_profiles_list'] ) ) : ?>
-																	<?php foreach ( $options['ga_profiles_list'] as $items ) : ?>
-																		<?php if ( $items[3] ) : ?>
-																			<option value="<?php echo esc_attr( $items[1] ); ?>" <?php selected( $items[1], $options['tableid_jail'] ); ?> title="<?php _e( "View Name:", 'google-analytics-plus-wp' ); ?> <?php echo esc_attr( $items[0] ); ?>">
-																				<?php echo esc_html( GAPWP_Tools::strip_protocol( $items[3] ) )?> &#8658; <?php echo esc_attr( $items[0] ); ?>
-																			</option>
-																		<?php endif; ?>
-																	<?php endforeach; ?>
-															<?php else : ?>
-																	<option value=""><?php _e( "Property not found", 'google-analytics-plus-wp' ); ?></option>
-															<?php endif; ?>
-														</select>
-														<?php if ( count( $options['ga_profiles_list'] ) > 1 ) : ?>
-														&nbsp;<input type="submit" name="Hide" class="button button-secondary" value="<?php _e( "Lock Selection", 'google-analytics-plus-wp' ); ?>" />
-														<?php endif; ?>
-													 </td>
-												</tr>
-												<?php if ( $options['tableid_jail'] ) :	?>
-												<tr>
-													<td class="gapwp-settings-title"></td>
-													<td>
-													<?php $profile_info = GAPWP_Tools::get_selected_profile( $gapwp->config->options['ga_profiles_list'], $gapwp->config->options['tableid_jail'] ); ?>
-														<pre><?php echo __( "View Name:", 'google-analytics-plus-wp' ) . "\t" . esc_html( $profile_info[0] ) . "<br />" . __( "Tracking ID:", 'google-analytics-plus-wp' ) . "\t" . esc_html( $profile_info[2] ) . "<br />" . __( "Default URL:", 'google-analytics-plus-wp' ) . "\t" . esc_html( $profile_info[3] ) . "<br />" . __( "Time Zone:", 'google-analytics-plus-wp' ) . "\t" . esc_html( $profile_info[5] );?></pre>
-													</td>
-												</tr>
-												<?php endif; ?>
-												 <tr>
-													<td class="gapwp-settings-title">
-														<label for="theme_color"><?php _e("Theme Color:", 'google-analytics-plus-wp' ); ?></label>
-													</td>
-													<td>
-														<input type="text" id="theme_color" class="theme_color" name="options[theme_color]" value="<?php echo esc_attr($options['theme_color']); ?>" size="10">
-													</td>
-												</tr>
-												<tr>
-													<td colspan="2">
-														<hr>
-													</td>
-												</tr>
-												<?php if ( !is_multisite()) :?>
-												<tr>
-													<td colspan="2"><?php echo "<h2>" . __( "Automatic Updates", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
-												</tr>
-												<tr>
-													<td colspan="2" class="gapwp-settings-title">
-														<div class="button-primary gapwp-settings-switchoo">
-															<input type="checkbox" name="options[automatic_updates_minorversion]" value="1" class="gapwp-settings-switchoo-checkbox" id="automatic_updates_minorversion" <?php checked( $options['automatic_updates_minorversion'], 1 ); ?>>
-															<label class="gapwp-settings-switchoo-label" for="automatic_updates_minorversion">
-																<div class="gapwp-settings-switchoo-inner"></div>
-																<div class="gapwp-settings-switchoo-switch"></div>
-															</label>
-														</div>
-														<div class="switch-desc"><?php echo " ".__( "automatic updates for minor versions (security and maintenance releases only)", 'google-analytics-plus-wp' );?></div>
-													</td>
-												</tr>
-												<tr>
-													<td colspan="2">
-														<hr>
-													</td>
-												</tr>
-												<?php endif; ?>
-												<tr>
-													<td colspan="2" class="submit">
-														<input type="submit" name="Submit" class="button button-primary" value="<?php _e('Save Changes', 'google-analytics-plus-wp' ) ?>" />
-													</td>
-												</tr>
-												<?php else : ?>
-												<tr>
-													<td colspan="2">
-														<hr>
-													</td>
-												</tr>
-												<tr>
-													<td colspan="2">
-														<input type="submit" name="Authorize" class="button button-secondary" id="authorize" value="<?php _e( "Authorize Plugin", 'google-analytics-plus-wp' ); ?>" <?php echo $options['network_mode']?'disabled="disabled"':''; ?> />
-														<input type="submit" name="Clear" class="button button-secondary" value="<?php _e( "Clear Cache", 'google-analytics-plus-wp' ); ?>" />
-													</td>
-												</tr>
-												<tr>
-													<td colspan="2">
-														<hr>
-													</td>
-												</tr>
+                          <td class="gapwp-settings-title">
+                            <label for="setup_mode"><?php _e("Setup Mode:", 'google-analytics-plus-wp' ); ?>
+                            </label>
+                          </td>
+                          <td>
+                            <select id="setup_mode" name="setup_mode" onchange="this.form.submit()"<?php if ($options['token']) { echo ' disabled="disabled"'; } ?>>
+                              <option value="" <?php selected( $_POST['setup_mode'], '' ); ?>><?php _e("Tracking only", 'google-analytics-plus-wp');?></option>
+                              <option value="gapi" <?php selected( $_POST['setup_mode'], 'gapi' ); ?>><?php _e("Tracking & Reporting API", 'google-analytics-plus-wp');?></option>
+                            </select>
+                          </td>
+                        </tr>
+                        <?php if ($_POST['setup_mode'] == '') : ?>
+                          <tr>
+                            <td class="gapwp-settings-title">
+                              <label for="tracking_id"><?php _e("Tracking ID:", 'google-analytics-plus-wp' ); ?>
+                              </label>
+                            </td>
+                            <td>
+                              <input type="text" name="options[tracking_id]" value="<?php echo esc_attr($options['tracking_id']); ?>" size="15">
+                            </td>
+                          </tr>
+                        <?php else : ?>
+                          <?php if ( $options['token'] ) : ?>
+                            <tr>
+                              <td class="gapwp-settings-title">
+                                <label for="tableid_jail"><?php _e("Tracking ID / View:", 'google-analytics-plus-wp' ); ?></label>
+                              </td>
+                              <td>
+                                <select id="tableid_jail" <?php disabled(empty($options['ga_profiles_list']) || 1 == count($options['ga_profiles_list']), true); ?> name="options[tableid_jail]">
+                                  <?php if ( ! empty( $options['ga_profiles_list'] ) ) : ?>
+                                    <?php foreach ( $options['ga_profiles_list'] as $items ) : ?>
+                                      <?php if ( $items[3] ) : ?>
+                                        <option value="<?php echo esc_attr( $items[1] ); ?>" <?php selected( $items[1], $options['tableid_jail'] ); ?> title="<?php _e( "View Name:", 'google-analytics-plus-wp' ); ?> <?php echo esc_attr( $items[0] ); ?>">
+                                          <?php echo esc_html( $items[2] ); ?> &gt; <?php echo esc_attr( $items[0] ); ?>
+                                        </option>
+                                      <?php endif; ?>
+                                    <?php endforeach; ?>
+                                  <?php else : ?>
+                                    <option value=""><?php _e( "Property not found", 'google-analytics-plus-wp' ); ?></option>
+                                  <?php endif; ?>
+                                </select>
+                                <?php if ( count( $options['ga_profiles_list'] ) > 1 ) : ?>
+                                  &nbsp;<input type="submit" name="Hide" class="button button-secondary" value="<?php _e( "Lock Selection", 'google-analytics-plus-wp' ); ?>" />
+                                <?php endif; ?>
+                               </td>
+                            </tr>
+                          <?php endif; // END if ( $options['token'] ) ?>
+                          <?php if ( $options['tableid_jail'] ) :	?>
+                            <tr>
+                              <td class="gapwp-settings-title"></td>
+                              <td>
+                              <?php $profile_info = GAPWP_Tools::get_selected_profile( $gapwp->config->options['ga_profiles_list'], $gapwp->config->options['tableid_jail'] ); ?>
+                                <pre><?php echo __( "View Name:", 'google-analytics-plus-wp' ) . "\t" . esc_html( $profile_info[0] ) . "<br />" . __( "Tracking ID:", 'google-analytics-plus-wp' ) . "\t" . esc_html( $profile_info[2] ) . "<br />" . __( "Default URL:", 'google-analytics-plus-wp' ) . "\t" . esc_html( $profile_info[3] ) . "<br />" . __( "Time Zone:", 'google-analytics-plus-wp' ) . "\t" . esc_html( $profile_info[5] );?></pre>
+                              </td>
+                            </tr>
+                          <?php endif; // END if $options['tableid_jail'] ?>
+                          <tr>
+                            <td colspan="2">
+                              <?php echo "<h3>" . __( "Google Analytics API Authorization", 'google-analytics-plus-wp' ) . "</h3>";?>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colspan="2" class="gapwp-settings-info">
+                              <?php printf(__('You need to create a %1$s and watch this %2$s before proceeding to authorization.', 'google-analytics-plus-wp'), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/creating-a-google-analytics-account/?utm_source=gapwp_config&utm_medium=link&utm_content=top_tutorial&utm_campaign=gapwp', __("free analytics account", 'google-analytics-plus-wp')), sprintf('<a href="%1$s" target="_blank">%2$s</a>', 'https://deconf.com/google-analytics-dashboard-wordpress/?utm_source=gapwp_config&utm_medium=link&utm_content=top_video&utm_campaign=gapwp', __("video tutorial", 'google-analytics-plus-wp')));?>
+                            </td>
+                          </tr>
+                          <?php if (! $options['token'] || ($options['user_api']  && ! $options['network_mode'])) : ?>
+                            <tr>
+                              <td colspan="2" class="gapwp-settings-info">
+                                <input name="options[user_api]" type="checkbox" id="user_api" value="1" <?php checked( $options['user_api'], 1 ); ?> onchange="this.form.submit()" <?php echo ($options['network_mode'])?'disabled="disabled"':''; ?> /><?php echo " ".__("developer mode (requires advanced API knowledge)", 'google-analytics-plus-wp' );?>
+                              </td>
+                            </tr>
+                          <?php endif; ?>
+                          <?php if ($options['user_api']  && ! $options['network_mode']) : ?>
+                            <tr>
+                              <td class="gapwp-settings-title">
+                                <label for="options[client_id]"><?php _e("Client ID:", 'google-analytics-plus-wp'); ?></label>
+                              </td>
+                              <td>
+                                <input type="text" name="options[client_id]" value="<?php echo esc_attr($options['client_id']); ?>" size="40" required="required">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td class="gapwp-settings-title">
+                                <label for="options[client_secret]"><?php _e("Client Secret:", 'google-analytics-plus-wp'); ?></label>
+                              </td>
+                              <td>
+                                <input type="text" name="options[client_secret]" value="<?php echo esc_attr($options['client_secret']); ?>" size="40" required="required">
+                                <input type="hidden" name="options[gapwp_hidden]" value="Y">
+                                <?php wp_nonce_field('gapwp_form','gapwp_security'); ?>
+                              </td>
+                            </tr>
+                          <?php endif; ?>
+                          <?php if ( $options['token'] ) : ?>
+                            <tr>
+                              <td colspan="2">
+                                <input type="submit" name="Reset" class="button button-secondary" value="<?php _e( "Clear Authorization", 'google-analytics-plus-wp' ); ?>" <?php echo $options['network_mode']?'disabled="disabled"':''; ?> />
+                                <input type="submit" name="Clear" class="button button-secondary" value="<?php _e( "Clear Cache", 'google-analytics-plus-wp' ); ?>" />
+                                <input type="submit" name="Reset_Err" class="button button-secondary" value="<?php _e( "Report & Reset Errors", 'google-analytics-plus-wp' ); ?>" />
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">
+                                <hr>
+                              </td>
+                            </tr>
+                          <?php else : // end if $options['token'] ?>
+                            <tr>
+                              <td colspan="2">
+                                <hr>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">
+                                <input type="submit" name="Authorize" class="button button-secondary" id="authorize" value="<?php _e( "Authorize Plugin", 'google-analytics-plus-wp' ); ?>" <?php echo $options['network_mode']?'disabled="disabled"':''; ?> />
+                                <input type="submit" name="Clear" class="button button-secondary" value="<?php _e( "Clear Cache", 'google-analytics-plus-wp' ); ?>" />
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">
+                                <hr>
+                              </td>
+                            </tr>
+                          <?php endif; // END $options['token'] ?>
+                        <?php endif; // END if $_POST['setup_mode] == '' ?>
+                        <?php if ($options['token'] || ($_POST['setup_mode'] == '' && $options['tracking_id'])) : ?>
+                          <tr>
+                            <td colspan="2"><?php echo "<h2>" . __( "Theme", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
+                          </tr>
+                          <tr>
+                            <td class="gapwp-settings-title">
+                              <label for="theme_color"><?php _e("Theme Color:", 'google-analytics-plus-wp' ); ?></label>
+                            </td>
+                            <td>
+                              <input type="text" id="theme_color" class="theme_color" name="options[theme_color]" value="<?php echo esc_attr($options['theme_color']); ?>" size="10">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colspan="2">
+                              <hr>
+                            </td>
+                          </tr>
+                          <?php if ( !is_multisite()) :?>
+                            <tr>
+                              <td colspan="2"><?php echo "<h2>" . __( "Automatic Updates", 'google-analytics-plus-wp' ) . "</h2>"; ?></td>
+                            </tr>
+                            <tr>
+                              <td colspan="2" class="gapwp-settings-title">
+                                <div class="button-primary gapwp-settings-switchoo">
+                                  <input type="checkbox" name="options[automatic_updates_minorversion]" value="1" class="gapwp-settings-switchoo-checkbox" id="automatic_updates_minorversion" <?php checked( $options['automatic_updates_minorversion'], 1 ); ?>>
+                                  <label class="gapwp-settings-switchoo-label" for="automatic_updates_minorversion">
+                                    <div class="gapwp-settings-switchoo-inner"></div>
+                                    <div class="gapwp-settings-switchoo-switch"></div>
+                                  </label>
+                                </div>
+                                <div class="switch-desc"><?php echo " ".__( "automatic updates for minor versions (security and maintenance releases only)", 'google-analytics-plus-wp' );?></div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">
+                                <hr>
+                              </td>
+                            </tr>
+                          <?php endif; // END if is_multisite ?>
+                        <?php endif; // END if ($options['token'] || $options['tracking_id]) ?>
+                        <?php if ($options['token'] || ( '' == $_POST['setup_mode'])) : ?>
+                          <tr>
+                            <td colspan="2" class="submit">
+                              <input type="submit" name="Submit" class="button button-primary" value="<?php _e('Save Changes', 'google-analytics-plus-wp' ) ?>" />
+                            </td>
+                          </tr>
+                        <?php endif; // END if ($options['token'] || ( '' == $_POST['setup_mode'])) ?>
 											</table>
 										</form>
 				<?php self::output_sidebar(); ?>
 				<?php return; ?>
-			<?php endif; ?>
+
 											</table>
 										</form>
 			<?php endif; ?>
